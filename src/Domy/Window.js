@@ -10,6 +10,12 @@ export function location(window) {
     }
 }
 
+export function navigator(window) {
+    return function () {
+        return window.navigator
+    }
+}
+
 export function innerWidth(window) {
     return function () {
         return window.innerWidth

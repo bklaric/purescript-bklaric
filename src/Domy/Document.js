@@ -47,3 +47,15 @@ export function getElementByIdImpl(id) {
         }
     }
 }
+
+export function contentType(document) {
+    return function () {
+        return document.contentType
+    }
+}
+
+export function referrer(document) {
+    return function () {
+        return document.referrer
+    }
+}
