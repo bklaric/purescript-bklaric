@@ -5,6 +5,7 @@ import Prelude
 import Domy.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
 import Domy.Document (Document)
 import Domy.Location (Location)
+import Domy.Navigator (Navigator)
 import Effect (Effect)
 import Undefined (undefined)
 
@@ -18,6 +19,8 @@ instance eventTargetWindow :: EventTarget Window where
 foreign import document :: Window -> Effect Document
 
 foreign import location :: Window -> Effect Location
+
+foreign import navigator :: Window -> Effect Navigator
 
 foreign import innerWidth :: Window -> Effect Int
 foreign import innerHeight :: Window -> Effect Int

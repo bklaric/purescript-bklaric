@@ -48,3 +48,7 @@ foreign import getElementByIdImpl :: String -> Document -> Effect (Nullable Elem
 
 getElementById :: String -> Document -> Effect (Maybe Element)
 getElementById id document = getElementByIdImpl id document <#> toMaybe
+
+foreign import contentType :: Document -> Effect String
+
+foreign import referrer :: Document -> Effect String
