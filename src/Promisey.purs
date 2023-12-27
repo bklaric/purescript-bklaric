@@ -38,3 +38,6 @@ foreign import reject :: forall left right. left -> Effect (Promise left right)
 foreign import all :: forall left right. Array (Promise left right) -> Effect (Promise left (Array right))
 
 foreign import race :: forall left right. Array (Promise left right) -> Effect (Promise left right)
+
+ignore :: forall left right. Promise left right -> Effect Unit
+ignore promise = promise # thenOrCatch (const $ resolve unit) (const $ resolve unit) # void
