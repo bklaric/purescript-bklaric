@@ -49,6 +49,7 @@ package:
     - unicode
     - unsafe-coerce
     - unsafe-reference
+    - untagged-union
     - uri
     - variant
     - web-dom

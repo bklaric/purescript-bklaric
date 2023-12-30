@@ -39,5 +39,8 @@ foreign import all :: forall left right. Array (Promise left right) -> Effect (P
 
 foreign import race :: forall left right. Array (Promise left right) -> Effect (Promise left right)
 
+thenIgnore :: forall left right. (right -> Effect Unit) -> Promise left right -> Effect Unit
+thenIgnore handler promise = promise # then_ (\value -> handler value >>= resolve) >>= ignore
+
 ignore :: forall left right. Promise left right -> Effect Unit
 ignore promise = promise # thenOrCatch (const $ resolve unit) (const $ resolve unit) # void
