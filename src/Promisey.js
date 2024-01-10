@@ -1,3 +1,22 @@
+export function fromEffect(effect) {
+    return function () {
+        return Promise.resolve(effect())
+    }
+}
+
+export function runPromise(onRejected) {
+    return function (onFulfilled) {
+        return function (promise) {
+            return function () {
+                promise().then(
+                    fulfilled => onFulfilled(fulfilled)(),
+                    rejected => onRejected(rejected)()
+                )
+            }
+        }
+    }
+}
+
 function newImpl(resolveReject) {
     return function () {
         return new Promise((resolve, reject) => resolveReject(resolve)(reject)())
@@ -8,7 +27,7 @@ export { newImpl as new }
 export function then_(onFulfilled) {
     return function (promise) {
         return function () {
-            return promise.then(result => onFulfilled(result)())
+            return promise().then(result => onFulfilled(result)())
         }
     }
 }
@@ -16,7 +35,7 @@ export function then_(onFulfilled) {
 function catchImpl(onRejected) {
     return function (promise) {
         return function () {
-            return promise.catch(result => onRejected(result)())
+            return promise().catch(result => onRejected(result)())
         }
     }
 }
@@ -26,9 +45,22 @@ export function thenOrCatch(onFulfilled) {
     return function (onRejected) {
         return function (promise) {
             return function () {
-                return promise.then(
+                return promise().then(
                     fulfilled => onFulfilled(fulfilled)(),
                     rejected => onRejected(rejected)()
+                )
+            }
+        }
+    }
+}
+
+export function bimapImpl(onRejected) {
+    return function (onFulfilled) {
+        return function (promise) {
+            return function () {
+                return promise().then(
+                    fulfilled => onFulfilled(fulfilled),
+                    rejected => onRejected(rejected)
                 )
             }
         }
@@ -38,7 +70,7 @@ export function thenOrCatch(onFulfilled) {
 function finallyImpl(onFinally) {
     return function (promise) {
         return function () {
-            return promise.finally(onFinally)
+            return promise().finally(onFinally)
         }
     }
 }
@@ -58,12 +90,12 @@ export function reject(left) {
 
 export function all(promises) {
     return function () {
-        return Promise.all(promises)
+        return Promise.all(promises.map(promise => promise()))
     }
 }
 
 export function race(promises) {
     return function () {
-        return Promise.race(promises)
+        return Promise.race(promises.map(promise => promise()))
     }
 }

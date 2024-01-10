@@ -2,45 +2,83 @@ module Promisey where
 
 import Prelude
 
+import Data.Bifunctor (class Bifunctor, rmap)
 import Effect (Effect)
+import Effect.Class (class MonadEffect)
 
 foreign import data Promise :: Type -> Type -> Type
 
+instance Functor (Promise left) where
+    map = rmap
+
+instance Apply (Promise left) where
+    apply = ap
+
+instance Applicative (Promise left) where
+    pure = resolve
+
+instance Bind (Promise left) where
+    bind = flip then_
+
+instance Monad (Promise left)
+
+instance MonadEffect (Promise left) where
+    liftEffect = fromEffect
+
+instance Bifunctor Promise where
+    bimap = bimapImpl
+
+foreign import fromEffect :: forall left right
+    .  Effect right
+    -> Promise left right
+
+foreign import runPromise :: forall left right
+    .  (left -> Effect Unit)
+    -> (right -> Effect Unit)
+    -> Promise left right
+    -> Effect Unit
+
 foreign import new :: forall left right
     .  ((right -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
-    -> Effect (Promise left right)
+    -> Promise left right
 
 foreign import then_ :: forall left right rightNext
-    .  (right -> Effect (Promise left rightNext))
+    .  (right -> Promise left rightNext)
     -> Promise left right
-    -> Effect (Promise left rightNext)
+    -> Promise left rightNext
 
 foreign import catch :: forall left leftNext right
-    . (left -> Effect (Promise leftNext right))
+    .  (left -> Promise leftNext right)
     -> Promise left right
-    -> Effect (Promise leftNext right)
+    -> Promise leftNext right
 
 foreign import thenOrCatch :: forall left right leftNext rightNext
-    .  (right -> Effect (Promise leftNext rightNext))
-    -> (left -> Effect (Promise leftNext rightNext))
+    .  (right -> Promise leftNext rightNext)
+    -> (left -> Promise leftNext rightNext)
     -> Promise left right
-    -> Effect (Promise leftNext rightNext)
+    -> Promise leftNext rightNext
+
+foreign import bimapImpl :: forall left right leftNext rightNext
+    .  (left -> leftNext)
+    -> (right -> rightNext)
+    -> Promise left right
+    -> Promise leftNext rightNext
 
 foreign import finally :: forall left leftNext right
-    .  (Effect (Promise leftNext Unit))
+    .  Promise leftNext Unit
     -> Promise left right
-    -> Effect (Promise leftNext right)
+    -> Promise leftNext right
 
-foreign import resolve :: forall left right. right -> Effect (Promise left right)
+foreign import resolve :: forall left right. right -> Promise left right
 
-foreign import reject :: forall left right. left -> Effect (Promise left right)
+foreign import reject :: forall left right. left -> Promise left right
 
-foreign import all :: forall left right. Array (Promise left right) -> Effect (Promise left (Array right))
+foreign import all :: forall left right. Array (Promise left right) -> Promise left (Array right)
 
-foreign import race :: forall left right. Array (Promise left right) -> Effect (Promise left right)
+foreign import race :: forall left right. Array (Promise left right) -> Promise left right
 
 thenIgnore :: forall left right. (right -> Effect Unit) -> Promise left right -> Effect Unit
-thenIgnore handler promise = promise # then_ (\value -> handler value >>= resolve) >>= ignore
+thenIgnore handler promise = promise # runPromise (const $ pure unit) (\value -> handler value)
 
 ignore :: forall left right. Promise left right -> Effect Unit
-ignore promise = promise # thenOrCatch (const $ resolve unit) (const $ resolve unit) # void
+ignore promise = promise # runPromise (const $ pure unit) (const $ pure unit)
