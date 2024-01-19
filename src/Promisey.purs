@@ -78,7 +78,7 @@ foreign import all :: forall left right. Array (Promise left right) -> Promise l
 foreign import race :: forall left right. Array (Promise left right) -> Promise left right
 
 thenIgnore :: forall left right. (right -> Effect Unit) -> Promise left right -> Effect Unit
-thenIgnore handler promise = promise # runPromise (const $ pure unit) (\value -> handler value)
+thenIgnore handler promise = promise # runPromise mempty (\value -> handler value)
 
 ignore :: forall left right. Promise left right -> Effect Unit
-ignore promise = promise # runPromise (const $ pure unit) (const $ pure unit)
+ignore promise = promise # runPromise mempty mempty
