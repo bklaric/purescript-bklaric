@@ -60,7 +60,7 @@ export function bimapImpl(onRejected) {
             return function () {
                 return promise().then(
                     fulfilled => onFulfilled(fulfilled),
-                    rejected => onRejected(rejected)
+                    rejected => Promise.reject(onRejected(rejected))
                 )
             }
         }
