@@ -20,3 +20,19 @@ export function fetchImpl(url) {
         }
     }
 }
+
+export function fetchPromiseImpl(url) {
+    return function (options) {
+        return function (optionTransforms) {
+            return function () {
+                const transformedOptions = {
+                    method: options.method && optionTransforms.methodToString(options.method),
+                    headers: options.headers,
+                    body: options.body,
+                    credentials: options.credentials && optionTransforms.credentialsToString(options.credentials)
+                }
+                return fetch(url, transformedOptions)
+            }
+        }
+    }
+}

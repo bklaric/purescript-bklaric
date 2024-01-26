@@ -13,18 +13,18 @@ import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
-import Error.Class (class Error, defaultMessage, defaultName)
-import Node.Errors.Class (class NodeError, defaultCode, defaultStack)
+import Error.Class (class Error, defaultMessage, defaultName, defaultStack)
+import Node.Errors.Class (class NodeError, defaultCode)
 
 foreign import data Error :: Type
 
 instance Error Error where
     name = defaultName
     message = defaultMessage
+    stack = defaultStack
 
 instance NodeError Error where
     code = defaultCode
-    stack = defaultStack
 
 foreign import length :: Error -> Int
 
