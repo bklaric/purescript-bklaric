@@ -3,6 +3,7 @@ module Promisey where
 import Prelude
 
 import Data.Bifunctor (class Bifunctor, rmap)
+import Data.Either (Either, either)
 import Effect (Effect)
 import Effect.Class (class MonadEffect)
 
@@ -82,3 +83,6 @@ thenIgnore handler promise = promise # runPromise mempty (\value -> handler valu
 
 ignore :: forall left right. Promise left right -> Effect Unit
 ignore promise = promise # runPromise mempty mempty
+
+fromEither :: forall left right. Either left right -> Promise left right
+fromEither = either reject resolve
