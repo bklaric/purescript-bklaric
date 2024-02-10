@@ -59,3 +59,9 @@ export function referrer(document) {
         return document.referrer
     }
 }
+
+export function hasFocus(document) {
+    return function () {
+        return document.hasFocus()
+    }
+}

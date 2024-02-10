@@ -52,3 +52,5 @@ getElementById id document = getElementByIdImpl id document <#> toMaybe
 foreign import contentType :: Document -> Effect String
 
 foreign import referrer :: Document -> Effect String
+
+foreign import hasFocus :: Document -> Effect String
