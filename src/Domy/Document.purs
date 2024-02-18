@@ -32,6 +32,7 @@ querySelector selector document = querySelectorImpl selector document <#> toMayb
 
 foreign import querySelectorAll :: String -> Document -> Effect NodeList
 
+-- Body returns null for svg images, so it should be nullable.
 foreign import body :: Document -> Effect HtmlBodyElement
 
 foreign import documentElementImpl :: Document -> Effect (Nullable Element)
