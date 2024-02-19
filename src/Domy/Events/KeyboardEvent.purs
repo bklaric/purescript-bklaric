@@ -1,7 +1,7 @@
 module Domy.Events.KeyboardEvent where
 
 import Domy.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
-import Domy.Class.KeyboardEvent (class KeyboardEvent, codeDefault, keyDefault)
+import Domy.Class.KeyboardEvent (class KeyboardEvent, altKeyDefault, codeDefault, ctrlKeyDefault, keyDefault, metaKeyDefault, shiftKeyDefault)
 import Domy.Class.UiEvent (class UiEvent, detailDefault)
 import Domy.Events.EventType (EventType(..))
 
@@ -18,6 +18,10 @@ instance uiEventKeyboardEvent :: UiEvent KeyboardEvent where
 instance mouseEventKeyboardEvent :: KeyboardEvent KeyboardEvent where
     key = keyDefault
     code = codeDefault
+    altKey = altKeyDefault
+    ctrlKey = ctrlKeyDefault
+    shiftKey = shiftKeyDefault
+    metaKey = metaKeyDefault
 
 keydown :: EventType KeyboardEvent
 keydown = EventType "keydown"

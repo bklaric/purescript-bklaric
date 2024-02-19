@@ -15,3 +15,9 @@ export function languages(navigator) {
         return navigator.languages
     }
 }
+
+export function clipboard(navigator) {
+    return function () {
+        return navigator.clipboard
+    }
+}

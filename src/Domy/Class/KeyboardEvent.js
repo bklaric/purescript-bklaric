@@ -5,3 +5,19 @@ export function keyDefault(keyboardEvent) {
 export function codeDefault(keyboardEvent) {
     return keyboardEvent.code
 }
+
+export function altKeyDefault(keyboardEvent) {
+    return keyboardEvent.altKey
+}
+
+export function ctrlKeyDefault(keyboardEvent) {
+    return keyboardEvent.ctrlKey
+}
+
+export function shiftKeyDefault(keyboardEvent) {
+    return keyboardEvent.shiftKey
+}
+
+export function metaKeyDefault(keyboardEvent) {
+    return keyboardEvent.metaKey
+}
