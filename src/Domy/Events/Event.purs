@@ -18,3 +18,6 @@ load = EventType "load"
 
 change :: EventType Event
 change = EventType "change"
+
+domcontentloaded :: EventType Event
+domcontentloaded = EventType "DOMContentLoaded"
