@@ -65,3 +65,9 @@ export function hasFocus(document) {
         return document.hasFocus()
     }
 }
+
+export function readyState(document) {
+    return function () {
+        return document.readState
+    }
+}

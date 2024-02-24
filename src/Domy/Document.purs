@@ -10,6 +10,8 @@ import Domy.Element (Element)
 import Domy.HtmlElements.HtmlBodyElement (HtmlBodyElement)
 import Domy.NodeList (NodeList)
 import Effect (Effect)
+import Literals (StringLit)
+import Untagged.Union (type (|+|))
 
 foreign import data Document :: Type
 
@@ -54,4 +56,6 @@ foreign import contentType :: Document -> Effect String
 
 foreign import referrer :: Document -> Effect String
 
-foreign import hasFocus :: Document -> Effect String
+foreign import hasFocus :: Document -> Effect Boolean
+
+foreign import readyState :: Document -> Effect (StringLit "loading" |+| StringLit "interactive" |+| StringLit "complete")
