@@ -27,6 +27,16 @@ export function jsonImpl(successCallback) {
     }
 }
 
+export function blob(successCallback) {
+    return function (response) {
+        return function () {
+            response.blob().then(
+                function (body) { successCallback(body)() }
+            )
+        }
+    }
+}
+
 export function clone(response) {
     return function () {
         return response.clone()
