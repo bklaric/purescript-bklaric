@@ -1,12 +1,14 @@
 export function newImpl(left) {
     return function (right) {
         return function (url) {
-            return function () {
-                try {
-                    return right(new URL(url))
-                }
-                catch (error) {
-                    return left(error)
+            return function (base) {
+                return function () {
+                    try {
+                        return right(new URL(url, base))
+                    }
+                    catch (error) {
+                        return left(error)
+                    }
                 }
             }
         }
