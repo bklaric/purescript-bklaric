@@ -13,6 +13,9 @@ import Domy.Node (Node)
 import Domy.NodeList (NodeList)
 import Domy.Utils (toArray)
 import Effect (Effect)
+import Literals (StringLit)
+import Untagged.Castable (cast)
+import Untagged.Union (class InOneOf, type (|+|), OneOf)
 
 class Node element <= Element element where
     getBoundingClientRect :: element -> Effect DomRect
@@ -22,6 +25,13 @@ class Node element <= Element element where
     setInnerHtml :: String -> element -> Effect Unit
     outerHtml :: element -> Effect String
     setOuterHtml :: String -> element -> Effect Unit
+    insertAdjacentHTML :: forall position.
+        InOneOf position
+            (StringLit "beforebegin")
+            (OneOf (StringLit "afterbegin")
+            (OneOf (StringLit "beforeend")
+            (StringLit "afterend"))) =>
+        position -> String -> element -> Effect Unit
     scrollWidth :: element -> Effect Int
     scrollHeight :: element -> Effect Int
     scrollTop :: element -> Effect Int
@@ -46,6 +56,7 @@ instance elementElement :: Element Element where
     setInnerHtml = setInnerHtmlDefault
     outerHtml = outerHtmlDefault
     setOuterHtml = setOuterHtmlDefault
+    insertAdjacentHTML = insertAdjacentHTMLDefault
     scrollWidth = scrollWidthDefault
     scrollHeight = scrollHeightDefault
     scrollTop = scrollTopDefault
@@ -75,6 +86,14 @@ foreign import setInnerHtmlDefault :: forall element. String -> element -> Effec
 
 foreign import outerHtmlDefault :: forall element. element -> Effect String
 foreign import setOuterHtmlDefault :: forall element. String -> element -> Effect Unit
+
+foreign import insertAdjacentHTMLDefaultImpl :: forall element.
+    StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend" -> String -> element -> Effect Unit
+
+insertAdjacentHTMLDefault :: forall element position.
+    InOneOf position (StringLit "beforebegin") (OneOf (StringLit "afterbegin") (OneOf (StringLit "beforeend") (StringLit "afterend"))) =>
+    position -> String -> element -> Effect Unit
+insertAdjacentHTMLDefault position text element = insertAdjacentHTMLDefaultImpl (cast position) text element
 
 foreign import scrollWidthDefault :: forall element. element -> Effect Int
 foreign import scrollHeightDefault :: forall element. element -> Effect Int

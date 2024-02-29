@@ -49,6 +49,16 @@ export function setOuterHtmlDefault(html) {
     }
 }
 
+export function insertAdjacentHTMLDefaultImpl(position) {
+    return function (html) {
+        return function (element) {
+            return function () {
+                element.insertAdjacentHTML(position, html)
+            }
+        }
+    }
+}
+
 export function scrollWidthDefault(element) {
     return function () {
         return element.scrollWidth
