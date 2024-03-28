@@ -4,7 +4,7 @@ import Prelude
 
 import Data.Either (Either(..))
 import Effect (Effect)
-import Error (Error)
+import JavaScript.Error (Error)
 import Literals.Undefined (Undefined, undefined)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|), OneOf)

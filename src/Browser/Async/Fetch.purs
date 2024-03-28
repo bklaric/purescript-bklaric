@@ -6,7 +6,7 @@ import Async (Async, fromEitherCont)
 import Browser.Fetch (Credentials(..), FetchOptions, FetchOptionsRow)
 import Browser.Fetch as F
 import Browser.Fetch.Response (Response)
-import Error (Error)
+import JavaScript.Error (Error)
 import Prim.Row (class Union)
 
 fetch :: forall options options'. Union options options' FetchOptionsRow =>

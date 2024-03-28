@@ -10,7 +10,7 @@ import Prelude
 import Async (Async, fromEffect, fromEffectCont, fromEitherCont)
 import Browser.Fetch.Response (Response, status)
 import Browser.Fetch.Response as FRes
-import Error (Error)
+import JavaScript.Error (Error)
 import Foreign (Foreign)
 
 text :: ∀ left. Response -> Async left String

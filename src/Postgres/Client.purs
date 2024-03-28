@@ -7,7 +7,7 @@ import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Data.Options (Options, options)
 import Effect (Effect)
-import Node.Events.EventEmitter as EventEmitter
+import JavaScript.Node.Events.EventEmitter as EventEmitter
 import Postgres.Client.Config (ClientConfig)
 import Postgres.Error (Error)
 import Postgres.Query (class Querier, defaultQuery, defaultQueryWithConfig)

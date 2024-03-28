@@ -5,7 +5,7 @@ import Prelude
 import Async (Async)
 import Async as Async
 import Bcrypt as Bcrypt
-import Node.Errors (Error)
+import JavaScript.Node.Errors (Error)
 
 genSalt :: Int -> Char -> Async Error String
 genSalt rounds minor = Async.fromEitherCont $ Bcrypt.genSalt rounds minor

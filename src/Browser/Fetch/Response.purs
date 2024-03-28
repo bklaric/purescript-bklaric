@@ -11,7 +11,7 @@ import Prelude
 
 import Data.Either (Either(..))
 import Effect (Effect)
-import Error (Error)
+import JavaScript.Error (Error)
 import Foreign (Foreign)
 import JavaScript.Web.File.Blob (Blob)
 

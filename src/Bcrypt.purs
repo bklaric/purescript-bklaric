@@ -14,7 +14,7 @@ import Prelude
 import Data.Either (Either(..))
 import Effect (Effect)
 import Foreign (Foreign)
-import Node.Errors (Error)
+import JavaScript.Node.Errors (Error)
 import Undefined (undefined)
 import Unsafe.Coerce (unsafeCoerce)
 

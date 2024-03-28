@@ -13,7 +13,7 @@ import Data.Either (Either(..))
 import Foreign (Foreign)
 import Data.Options (Options, options)
 import Effect (Effect)
-import Node.Events.EventEmitter as EventEmitter
+import JavaScript.Node.Events.EventEmitter as EventEmitter
 import Postgres.Client (Client)
 import Postgres.Client.Config (ClientConfig)
 import Postgres.Error (Error)

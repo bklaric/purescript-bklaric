@@ -3,7 +3,7 @@ module Postgres.Pool.Events where
 import Prelude
 
 import Effect (Effect)
-import Node.Events.Event (Event(..))
+import JavaScript.Node.Events.Event (Event(..))
 import Postgres.Client (Client)
 import Postgres.Error (Error)
 import Postgres.Pool (Pool)

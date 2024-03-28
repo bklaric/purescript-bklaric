@@ -13,8 +13,8 @@ import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
-import Error.Class (class Error, defaultMessage, defaultName, defaultStack)
-import Node.Errors.Class (class NodeError, defaultCode)
+import JavaScript.Error.Class (class Error, defaultMessage, defaultName, defaultStack)
+import JavaScript.Node.Errors.Class (class NodeError, defaultCode)
 
 foreign import data Error :: Type
 

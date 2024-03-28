@@ -4,7 +4,7 @@ import Prelude
 
 import Data.Nullable (Nullable)
 import Effect (Effect)
-import Node.Events.Event (Event(..))
+import JavaScript.Node.Events.Event (Event(..))
 import Postgres.Client (Client)
 
 type Notification =

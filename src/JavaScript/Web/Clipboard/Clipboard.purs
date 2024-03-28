@@ -2,7 +2,7 @@ module JavaScript.Web.Clipboard.Clipboard where
 
 import Prelude
 
-import Error (Error)
+import JavaScript.Error (Error)
 import JavaScript.Web.Clipboard.ClipboardItem (ClipboardItem)
 import Promisey (Promise)
 
