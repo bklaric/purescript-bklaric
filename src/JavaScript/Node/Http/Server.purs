@@ -1,45 +1,64 @@
 module JavaScript.Node.Http.Server
-    ( HttpServer
-    , create
-    , create_
+    ( Server
+    , createServerOC
+    , createServerOC'
+    , createServerO_
+    , createServer_C
+    , createServer_C'
+    , createServer__
     ) where
 
 import Prelude
 
 import Effect (Effect)
-import JavaScript.Node.Errors (Error)
-import JavaScript.Node.Events.EventEmitter (class EventEmitter, on)
+import JavaScript.Node.Events.EventEmitter (class EventEmitter)
 import JavaScript.Node.Events.EventEmitter as EventEmitter
-import JavaScript.Node.Events.EventListener (toEventListener)
-import JavaScript.Node.Http.IncomingMessage as IncomingMessage
-import JavaScript.Node.Http.Server.Request (Request)
-import JavaScript.Node.Http.Server.Response (Response)
-import JavaScript.Node.Http.Server.Response as Response
-import JavaScript.Node.Server (class Server, defaultListen)
+import JavaScript.Node.Events.EventListener (EventListener, toEventListener)
+import JavaScript.Node.Http.IncomingMessage (IncomingMessage)
+import JavaScript.Node.Http.ServerResponse (ServerResponse)
+import JavaScript.Node.Net.Server (class Server)
+import Undefined (undefined)
+import Untagged.Castable (class Castable, cast)
+import Untagged.Union (UndefinedOr)
 
-foreign import data HttpServer :: Type
+-- https://nodejs.org/api/http.html
 
-foreign import createImpl ::
-    (Request -> Response -> Effect Unit) -> Effect HttpServer
+foreign import data Server :: Type
 
-create
-    :: (Error -> Effect Unit)
-    -> (Error -> Effect Unit)
-    -> (Request -> Response -> Effect Unit)
-    -> Effect HttpServer
-create requestErrorListener responseErrorListener callback =
-    createImpl \request response -> let
-        requestErrorListener' = toEventListener requestErrorListener
-        responseErrorListener' = toEventListener responseErrorListener
-        in do
-        request # on IncomingMessage.error requestErrorListener' # void
-        response # on Response.error responseErrorListener' # void
-        callback request response
+-- createServer
 
-create_ :: (Request -> Response -> Effect Unit) -> Effect HttpServer
-create_ callback = create mempty mempty callback
+type CreateServerOptions =
+    { connectionsCheckingInterval :: UndefinedOr Int
+    , keepAlive :: UndefinedOr Boolean
+    -- Many more.
+    }
 
-instance EventEmitter HttpServer where
+foreign import createServerImpl ::
+    CreateServerOptions -> EventListener (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
+
+createServerOC :: forall options. Castable options CreateServerOptions =>
+    options -> EventListener (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
+createServerOC options callback =
+    createServerImpl (cast options) callback
+
+createServerOC' :: forall options. Castable options CreateServerOptions =>
+    options -> (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
+createServerOC' options callback = createServerOC options (toEventListener callback)
+
+createServerO_ :: forall options. Castable options CreateServerOptions =>
+    options -> Effect Server
+createServerO_ options = createServerImpl (cast options) undefined
+
+createServer_C :: EventListener (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
+createServer_C callback = createServerImpl undefined callback
+
+createServer_C' :: (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
+createServer_C' callback = createServer_C (toEventListener callback)
+
+createServer__ :: Effect Server
+createServer__ = createServerImpl undefined undefined
+
+instance EventEmitter Server where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
     prependListener     = EventEmitter.defaultPrependListener
@@ -53,5 +72,4 @@ instance EventEmitter HttpServer where
     setMaxListeners     = EventEmitter.defaultSetMaxListeners
     eventNames          = EventEmitter.defaultEventNames
 
-instance Server HttpServer where
-    listen = defaultListen
+instance Server Server

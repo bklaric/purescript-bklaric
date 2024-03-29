@@ -2,9 +2,8 @@ module Debug where
 
 import Prelude
 
-import Effect.Console (log)
+import Effect.Console.Unsafe (unsafeLog)
 import Effect.Unsafe (unsafePerformEffect)
-import Unsafe.Coerce (unsafeCoerce)
 
 pipeLog :: ∀ a. a -> a
-pipeLog a = unsafePerformEffect (log (unsafeCoerce a) $> a)
+pipeLog a = unsafePerformEffect (unsafeLog a $> a)

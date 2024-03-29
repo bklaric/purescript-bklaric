@@ -1,20 +1,20 @@
-export const defaultHttpVersion = function (message) {
+export const httpVersion = function (message) {
     return message.httpVersion
 }
 
-export const defaultRawHeaders = function (message) {
+export const rawHeaders = function (message) {
     return message.rawHeaders
 }
 
-export const defaultHeaders = function (message) {
+export const headers = function (message) {
     return message.headers
 }
 
-export const defaultTrailers = function (message) {
+export const trailers = function (message) {
     return message.trailers
 }
 
-export const defaultSetTimeout = function (milliseconds) {
+export const setTimeout = function (milliseconds) {
     return function (callback) {
         return function (message) {
             return function () {
@@ -24,10 +24,18 @@ export const defaultSetTimeout = function (milliseconds) {
     }
 }
 
-export const defaultDestroy = function (error) {
+export const destroy = function (error) {
     return function (message) {
         return function () {
             message.destroy(error)
         }
     }
+}
+
+export const methodImpl = function (request) {
+    return request.method
+}
+
+export const urlImpl = function (request) {
+    return request.url
 }

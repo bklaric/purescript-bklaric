@@ -2,57 +2,78 @@ module JavaScript.Node.Http.IncomingMessage where
 
 import Prelude
 
+import Data.Maybe (Maybe)
+import Data.Nullable (Nullable, toMaybe)
+import Effect (Effect)
 import Foreign (Foreign)
 import Foreign.Object (Object)
-import Effect (Effect)
 import JavaScript.Node.Errors (Error)
 import JavaScript.Node.Events.Event (Event(..))
+import JavaScript.Node.Events.EventEmitter (class EventEmitter)
+import JavaScript.Node.Events.EventEmitter as EventEmitter
 import JavaScript.Node.Stream.Readable (class Readable)
+import JavaScript.Node.Stream.Readable as Readable
 import Undefined (undefined)
 
-class Readable message <= IncomingMessage message where
-    httpVersion :: message -> String
-    rawHeaders  :: message -> Array String
-    headers     :: message -> Object Foreign
-    trailers    :: message -> Effect Foreign
-    setTimeout  :: Int -> Effect Unit -> message -> Effect message
-    destroy     :: Error -> message -> Effect Unit
+foreign import data IncomingMessage :: Type
 
-foreign import defaultHttpVersion
-    :: forall message
-    .  message -> String
+instance EventEmitter IncomingMessage where
+    on                  = EventEmitter.defaultOn
+    once                = EventEmitter.defaultOnce
+    prependListener     = EventEmitter.defaultPrependListener
+    prependOnceListener = EventEmitter.defaultPrependOnceListener
+    removeListener      = EventEmitter.defaultRemoveListener
+    removeAllListeners  = EventEmitter.defaultRemoveAllListeners
+    emit                = EventEmitter.defaultEmit
+    listeners           = EventEmitter.defaultListeners
+    listenerCount       = EventEmitter.defaultListenerCount
+    getMaxListeners     = EventEmitter.defaultGetMaxListeners
+    setMaxListeners     = EventEmitter.defaultSetMaxListeners
+    eventNames          = EventEmitter.defaultEventNames
 
-foreign import defaultRawHeaders
-    :: forall message
-    .  message -> Array String
+instance Readable IncomingMessage where
+    readableHighWaterMark = Readable.defaultReadableHighWaterMark
+    readableLength        = Readable.defaultReadableLength
+    isPaused              = Readable.defaultIsPaused
+    pause                 = Readable.defaultPause
+    read                  = Readable.defaultRead
+    resume                = Readable.defaultResume
+    pipe                  = Readable.defaultPipe
+    unpipe                = Readable.defaultUnpipe
+    setEncoding           = Readable.defaultSetEncoding
+    unshift               = Readable.defaultUnshift
+    destroy               = Readable.defaultDestroy
 
-foreign import defaultHeaders
-    :: forall message
-    .  message -> Object Foreign
+foreign import httpVersion :: IncomingMessage -> String
 
-foreign import defaultTrailers
-    :: forall message
-    .  message -> Effect Foreign
+foreign import rawHeaders :: IncomingMessage -> Array String
 
-foreign import defaultSetTimeout
-    :: forall message
-    .  Int -> Effect Unit -> message -> Effect message
+foreign import headers :: IncomingMessage -> Object Foreign
 
-foreign import defaultDestroy
-    :: forall message
-    .  Error -> message -> Effect Unit
+foreign import trailers :: IncomingMessage -> Effect Foreign
 
-destroy_ :: forall message. IncomingMessage message => message -> Effect Unit
+foreign import setTimeout :: Int -> Effect Unit -> IncomingMessage -> Effect IncomingMessage
+
+foreign import destroy :: Error -> IncomingMessage -> Effect Unit
+
+destroy_ :: IncomingMessage -> Effect Unit
 destroy_ = destroy undefined
 
-error :: forall message. IncomingMessage message =>
-    Event message (Error -> Effect Unit)
+foreign import methodImpl :: IncomingMessage -> Nullable String
+
+method :: IncomingMessage -> Maybe String
+method message = methodImpl message # toMaybe
+
+foreign import urlImpl :: IncomingMessage -> Nullable String
+
+url :: IncomingMessage -> Maybe String
+url message = urlImpl message # toMaybe
+
+error :: Event IncomingMessage (Error -> Effect Unit)
 error = Event "error"
 
-aborted :: forall message. IncomingMessage message =>
-    Event message (Effect Unit)
+aborted :: Event IncomingMessage (Effect Unit)
 aborted = Event "aborted"
 
-close :: forall message. IncomingMessage message =>
-    Event message (Effect Unit)
+close :: Event IncomingMessage (Effect Unit)
 close = Event "close"
