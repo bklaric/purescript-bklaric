@@ -10,6 +10,10 @@ export const headers = function (message) {
     return message.headers
 }
 
+export const headersDistinct = function (message) {
+    return message.headersDistinct
+}
+
 export const trailers = function (message) {
     return message.trailers
 }

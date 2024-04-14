@@ -50,6 +50,8 @@ foreign import rawHeaders :: IncomingMessage -> Array String
 
 foreign import headers :: IncomingMessage -> Object Foreign
 
+foreign import headersDistinct :: IncomingMessage -> Object (Array String)
+
 foreign import trailers :: IncomingMessage -> Effect Foreign
 
 foreign import setTimeout :: Int -> Effect Unit -> IncomingMessage -> Effect IncomingMessage
