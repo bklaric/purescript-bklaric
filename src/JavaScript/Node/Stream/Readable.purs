@@ -32,7 +32,7 @@ import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import Foreign (Foreign)
-import JavaScript.Node.Encoding (Encoding, toNodeString)
+import JavaScript.Node.Buffer (Encoding)
 import JavaScript.Node.Errors (Error)
 import JavaScript.Node.Events.EventEmitter (class EventEmitter)
 import JavaScript.Node.Events.EventEmitter as EE
@@ -75,11 +75,10 @@ foreign import defaultPipe :: forall readable writable. writable -> Boolean -> r
 foreign import defaultUnpipe :: forall readable writable. writable -> readable -> Effect Unit
 
 foreign import defaultSetEncodingImpl :: forall readable.
-    String -> readable -> Effect readable
+    Encoding -> readable -> Effect readable
 
 defaultSetEncoding :: forall readable. Encoding -> readable -> Effect readable
-defaultSetEncoding encoding readable =
-    defaultSetEncodingImpl (toNodeString encoding) readable
+defaultSetEncoding encoding readable = defaultSetEncodingImpl encoding readable
 
 foreign import defaultUnshift :: forall readable. Foreign -> readable -> Effect Unit
 

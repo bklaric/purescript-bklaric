@@ -4,11 +4,12 @@ import Prelude
 
 import Effect (Effect)
 import Foreign (Foreign, unsafeToForeign)
-import JavaScript.Node.Buffer (Buffer, fromString)
-import JavaScript.Node.Encoding (Encoding(..))
+import JavaScript.Node.Buffer (Buffer, Encoding, fromString)
 import JavaScript.Node.Errors (Error)
 import JavaScript.Node.Events.EventEmitter (class EventEmitter)
+import Literals (StringLit, stringLit)
 import Undefined (undefined)
+import Untagged.Castable (cast)
 
 class EventEmitter writable <= Writable writable where
     writableHighWaterMark :: writable -> Effect Int
@@ -63,11 +64,11 @@ writeString_ string encoding writable =
 writeString_' :: forall writable. Writable writable =>
     String -> Effect Unit -> writable -> Effect Boolean
 writeString_' string callback writable =
-    writeString string UTF8 callback writable
+    writeString string (cast (stringLit :: StringLit "utf8")) callback writable
 
 writeString__ :: forall writable. Writable writable =>
     String -> writable -> Effect Boolean
-writeString__ string writable = writeString_ string UTF8 writable
+writeString__ string writable = writeString_ string (cast (stringLit :: StringLit "utf8")) writable
 
 end_ :: forall writable. Writable writable =>
     Foreign -> writable -> Effect Boolean
@@ -98,11 +99,11 @@ endString_ string encoding writable =
 
 endString_' :: forall writable. Writable writable =>
     String -> Effect Unit -> writable -> Effect Boolean
-endString_' string callback writable = endString string UTF8 callback writable
+endString_' string callback writable = endString string (cast (stringLit :: StringLit "utf8")) callback writable
 
 endString__ :: forall writable. Writable writable =>
     String -> writable -> Effect Boolean
-endString__ string writable = endString_ string UTF8 writable
+endString__ string writable = endString_ string (cast (stringLit :: StringLit "utf8")) writable
 
 destroy_ :: forall writable. Writable writable =>
     writable -> Effect writable
