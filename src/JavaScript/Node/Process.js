@@ -3,3 +3,7 @@ export const lookupEnvImpl = function (variableName) {
         return process.env[variableName]
     }
 }
+
+export function env() {
+    return process.env
+}
