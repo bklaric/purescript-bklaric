@@ -1,17 +1,17 @@
 module JavaScript.DOM.Class.ErrorEvent where
 
 import JavaScript.DOM.Class.Event (class Event)
-import Foreign (Foreign)
+import JavaScript.Error (Error)
 
 class Event event <= ErrorEvent event where
     message :: event -> String
     filename :: event -> String
     lineno :: event -> Int
     colno :: event -> Int
-    error :: event -> Foreign
+    error :: event -> Error
 
 foreign import messageDefault :: forall event. event -> String
 foreign import filenameDefault :: forall event. event -> String
 foreign import linenoDefault :: forall event. event -> Int
 foreign import colnoDefault :: forall event. event -> Int
-foreign import errorDefault :: forall event. event -> Foreign
+foreign import errorDefault :: forall event. event -> Error
