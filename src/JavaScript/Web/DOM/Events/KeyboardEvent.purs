@@ -1,7 +1,7 @@
 module JavaScript.DOM.Events.KeyboardEvent where
 
 import JavaScript.DOM.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
-import JavaScript.DOM.Class.KeyboardEvent (class KeyboardEvent, altKeyDefault, codeDefault, ctrlKeyDefault, keyDefault, metaKeyDefault, shiftKeyDefault)
+import JavaScript.DOM.Class.KeyboardEvent (class KeyboardEvent, altKeyDefault, codeDefault, ctrlKeyDefault, getModifierStateDefault, keyDefault, metaKeyDefault, shiftKeyDefault)
 import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.DOM.Events.EventType (EventType(..))
 
@@ -22,6 +22,7 @@ instance mouseEventKeyboardEvent :: KeyboardEvent KeyboardEvent where
     ctrlKey = ctrlKeyDefault
     shiftKey = shiftKeyDefault
     metaKey = metaKeyDefault
+    getModifierState = getModifierStateDefault
 
 keydown :: EventType KeyboardEvent
 keydown = EventType "keydown"

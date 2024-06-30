@@ -21,3 +21,9 @@ export function shiftKeyDefault(keyboardEvent) {
 export function metaKeyDefault(keyboardEvent) {
     return keyboardEvent.metaKey
 }
+
+export function getModifierStateDefault(key) {
+    return function (keyboardEvent) {
+        return keyboardEvent.getModifierState(key)
+    }
+}
