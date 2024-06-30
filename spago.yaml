@@ -9,6 +9,7 @@ package:
     - control
     - css
     - datetime
+    - debug
     - effect
     - either
     - enums
@@ -60,6 +61,6 @@ package:
     - yoga-json
   name: bklaric
 workspace:
-  extra_packages: {}
-  package_set:
+  extraPackages: {}
+  packageSet:
     registry: 44.3.0

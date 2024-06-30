@@ -1,9 +1,9 @@
-module Debug where
+module Debug.Extra where
 
 import Prelude
 
 import Effect.Console.Unsafe (unsafeLog)
 import Effect.Unsafe (unsafePerformEffect)
 
-pipeLog :: ∀ a. a -> a
-pipeLog a = unsafePerformEffect (unsafeLog a $> a)
+spy_ :: ∀ a. a -> a
+spy_ a = unsafePerformEffect (unsafeLog a $> a)

@@ -1,10 +1,10 @@
 {
     "volta": {
         "node": "20.10.0",
-        "npm": "10.2.5"
+        "npm": "10.8.1"
     },
     "devDependencies": {
-        "purescript": "^0.15.13",
-        "spago": "^0.93.21"
+        "purescript": "^0.15.15",
+        "spago": "^0.93.34"
     }
 }
