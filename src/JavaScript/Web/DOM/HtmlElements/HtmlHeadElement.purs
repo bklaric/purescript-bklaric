@@ -1,16 +1,11 @@
 module JavaScript.DOM.HtmlElements.HtmlHeadElement where
 
-import Prelude
-
-import Data.Maybe (Maybe, fromJust)
+import Data.Maybe (Maybe)
 import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
 import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
 import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, styleDefault)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
-import JavaScript.DOM.Document (Document, createElement)
 import JavaScript.DOM.Utils (unsafeReadProtoTagged)
-import Effect (Effect)
-import Partial.Unsafe (unsafePartial)
 
 foreign import data HtmlHeadElement :: Type
 
@@ -58,8 +53,3 @@ instance HtmlElement HtmlHeadElement where
 
 readHtmlHeadElement :: forall object. object -> Maybe HtmlHeadElement
 readHtmlHeadElement = unsafeReadProtoTagged "HTMLHeadElement"
-
-createElementHead :: Document -> Effect HtmlHeadElement
-createElementHead document = do
-    element <- document # createElement "head"
-    element >>= readHtmlHeadElement # unsafePartial fromJust # pure

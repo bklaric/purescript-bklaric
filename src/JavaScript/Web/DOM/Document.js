@@ -14,6 +14,12 @@ export function querySelectorAll(selector) {
     }
 }
 
+export function headImpl(document) {
+    return function () {
+        return document.head
+    }
+}
+
 export function body(document) {
     return function () {
         return document.body
