@@ -6,6 +6,8 @@ import Data.Bifunctor (class Bifunctor, rmap)
 import Data.Either (Either, either)
 import Effect (Effect)
 import Effect.Class (class MonadEffect)
+import Untagged.Castable (cast)
+import Untagged.Union (class InOneOf, type (|+|))
 
 foreign import data Promise :: Type -> Type -> Type
 
@@ -39,9 +41,12 @@ foreign import runPromise :: forall left right
     -> Promise left right
     -> Effect Unit
 
-foreign import new :: forall left right
-    .  ((right -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
+foreign import _new :: forall left right
+    .  ((right |+| Promise left right -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
     -> Promise left right
+
+new :: forall left80 right81 b84. InOneOf b84 right81 (Promise left80 right81) => ((b84 -> Effect Unit) -> (left80 -> Effect Unit) -> Effect Unit) -> Promise left80 right81
+new executor = _new \resolve' reject' -> executor (cast >>> resolve') reject'
 
 foreign import then_ :: forall left right rightNext
     .  (right -> Promise left rightNext)
@@ -86,3 +91,10 @@ ignore promise = promise # runPromise mempty mempty
 
 fromEither :: forall left right. Either left right -> Promise left right
 fromEither = either reject resolve
+
+forkPromise :: forall left right
+    .  (left -> Effect Unit)
+    -> (right -> Effect Unit)
+    -> Promise left right
+    -> (forall voidLeft. Promise voidLeft Unit)
+forkPromise resolved rejected promise = fromEffect $ runPromise resolved rejected promise

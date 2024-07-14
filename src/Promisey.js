@@ -17,12 +17,11 @@ export function runPromise(onRejected) {
     }
 }
 
-function newImpl(resolveReject) {
+export function _new(resolveReject) {
     return function () {
         return new Promise((resolve, reject) => resolveReject(resolve)(reject)())
     }
 }
-export { newImpl as new }
 
 export function then_(onFulfilled) {
     return function (promise) {
