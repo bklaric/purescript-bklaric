@@ -45,7 +45,9 @@ foreign import _new :: forall left right
     .  ((right |+| Promise left right -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
     -> Promise left right
 
-new :: forall left80 right81 b84. InOneOf b84 right81 (Promise left80 right81) => ((b84 -> Effect Unit) -> (left80 -> Effect Unit) -> Effect Unit) -> Promise left80 right81
+new :: forall left right right'. InOneOf right' right (Promise left right)
+    => ((right' -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
+    -> Promise left right
 new executor = _new \resolve' reject' -> executor (cast >>> resolve') reject'
 
 foreign import then_ :: forall left right rightNext

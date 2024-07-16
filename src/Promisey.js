@@ -19,7 +19,22 @@ export function runPromise(onRejected) {
 
 export function _new(resolveReject) {
     return function () {
-        return new Promise((resolve, reject) => resolveReject(resolve)(reject)())
+        return new Promise((resolve, reject) => resolveReject(
+            valueOrPromise => function () {
+                // We can receive either a regular value or a Promise.
+                // Since Promise is an effectful monad, we need to call it before passing it to the resolver.
+                if (valueOrPromise && valueOrPromise.__proto__ && valueOrPromise.__proto__.constructor && valueOrPromise.__proto__.constructor.name == "Function") {
+                    resolve(valueOrPromise())
+                }
+                else {
+                    resolve(valueOrPromise)
+                }
+            })
+            (error => function () {
+                reject(error)
+            })
+            ()
+        )
     }
 }
 
