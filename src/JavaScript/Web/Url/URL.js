@@ -57,6 +57,12 @@ export function search(url) {
     }
 }
 
+export function searchParams(url) {
+    return function () {
+        return url.searchParams
+    }
+}
+
 export function hash(url) {
     return function () {
         return url.hash

@@ -1,10 +1,11 @@
-module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, hash, href, setHref) where
+module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref) where
 
 import Prelude
 
 import Data.Either (Either(..))
 import Effect (Effect)
 import JavaScript.Error (Error)
+import JavaScript.Web.URL.URLSearchParams (URLSearchParams)
 import Literals.Undefined (Undefined, undefined)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|), OneOf)
@@ -43,6 +44,8 @@ foreign import origin :: URL -> Effect String
 foreign import pathname :: URL -> Effect String
 
 foreign import search :: URL -> Effect String
+
+foreign import searchParams :: URL -> Effect URLSearchParams
 
 foreign import hash :: URL -> Effect String
 
