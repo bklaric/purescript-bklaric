@@ -4,7 +4,7 @@ import Prelude
 
 import Data.Array (snoc)
 import Effect (Effect)
-import Effect.Ref (modify, new, read)
+import Effect.Ref (modify_, new, read)
 import Foreign (Foreign)
 import JavaScript.Node.Events.Event (Event(..))
 import JavaScript.Node.Events.EventEmitter (on')
@@ -38,5 +38,5 @@ collectDataEvents :: forall readable. Readable readable =>
 collectDataEvents endListener readable' = do
     streamData <- new ([] :: Array Foreign)
     readable' # readDataEvents
-        (\eventData -> streamData # modify (flip snoc eventData) # void)
+        (\eventData -> streamData # modify_ (_ `snoc` eventData))
         (read streamData >>= endListener)
