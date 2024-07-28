@@ -2,8 +2,7 @@ module JavaScript.Web.DOM.Class.Element where
 
 import Prelude
 
-import Data.Maybe (Maybe)
-import Data.Nullable (Nullable, toMaybe)
+import Data.Nullable (Nullable)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.DomRect (DomRect)
@@ -15,119 +14,115 @@ import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray)
 import Literals (StringLit)
 import Untagged.Castable (cast)
-import Untagged.Union (class InOneOf, type (|+|), OneOf)
+import Untagged.Union (class InOneOf, type (|+|))
 
-class Node element <= Element element where
-    getBoundingClientRect :: element -> Effect DomRect
-    getAttribute :: String -> element -> Effect (Maybe String)
-    removeAttribute :: String -> element -> Effect Unit
-    innerHtml :: element -> Effect String
-    setInnerHtml :: String -> element -> Effect Unit
-    outerHtml :: element -> Effect String
-    setOuterHtml :: String -> element -> Effect Unit
-    insertAdjacentHTML :: forall position.
-        InOneOf position
-            (StringLit "beforebegin")
-            (OneOf (StringLit "afterbegin")
-            (OneOf (StringLit "beforeend")
-            (StringLit "afterend"))) =>
-        position -> String -> element -> Effect Unit
-    replaceWith :: forall node. Node node => node -> element -> Effect Unit
-    scrollWidth :: element -> Effect Int
-    scrollHeight :: element -> Effect Int
-    scrollTop :: element -> Effect Int
-    scrollLeft :: element -> Effect Int
-    setScrollTop :: Int -> element -> Effect Unit
-    setScrollLeft :: Int -> element -> Effect Unit
-    querySelector :: String -> element -> Effect (Maybe Element)
-    querySelectorAll :: String -> element -> Effect NodeList
-    id :: element -> Effect String
-    setId :: String -> element -> Effect Unit
-    className :: element -> Effect String
-    setClassName :: String -> element -> Effect Unit
-    classList :: element -> Effect DomTokenList
-    remove :: element -> Effect Unit
-    children :: element -> Effect HtmlCollection
+class Node element <= Element element
 
-instance Element Element where
-    getBoundingClientRect = getBoundingClientRectDefault
-    getAttribute = getAttributeDefault
-    removeAttribute = removeAttributeDefault
-    innerHtml = innerHtmlDefault
-    setInnerHtml = setInnerHtmlDefault
-    outerHtml = outerHtmlDefault
-    setOuterHtml = setOuterHtmlDefault
-    insertAdjacentHTML = insertAdjacentHTMLDefault
-    replaceWith = replaceWithDefault
-    scrollWidth = scrollWidthDefault
-    scrollHeight = scrollHeightDefault
-    scrollTop = scrollTopDefault
-    scrollLeft = scrollLeftDefault
-    setScrollTop = setScrollTopDefault
-    setScrollLeft = setScrollLeftDefault
-    querySelector = querySelectorDefault
-    querySelectorAll = querySelectorAllDefault
-    id = idDefault
-    setId = setIdDefault
-    className = classNameDefault
-    setClassName = setClassNameDefault
-    classList = classListDefault
-    remove = removeDefault
-    children = childrenDefault
+instance Element Element
 
-foreign import getBoundingClientRectDefault :: forall element. element -> Effect DomRect
+foreign import _getBoundingClientRect :: forall element. element -> Effect DomRect
+foreign import _getAttribute :: forall element. String -> element -> Effect (Nullable String)
+foreign import _removeAttribute :: forall element. String -> element -> Effect Unit
+foreign import _innerHtml :: forall element. element -> Effect String
+foreign import _setInnerHtml :: forall element. String -> element -> Effect Unit
+foreign import _outerHtml :: forall element. element -> Effect String
+foreign import _setOuterHtml :: forall element. String -> element -> Effect Unit
+foreign import _insertAdjacentHTML :: forall element. StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend" -> String -> element -> Effect Unit
+foreign import _replaceWith :: forall node element. node -> element -> Effect Unit
+foreign import _scrollWidth :: forall element. element -> Effect Int
+foreign import _scrollHeight :: forall element. element -> Effect Int
+foreign import _scrollTop :: forall element. element -> Effect Int
+foreign import _scrollLeft :: forall element. element -> Effect Int
+foreign import _setScrollTop :: forall element. Int -> element -> Effect Unit
+foreign import _setScrollLeft :: forall element. Int -> element -> Effect Unit
+foreign import _querySelector :: forall element. String -> element -> Effect (Nullable Element)
+foreign import _querySelectorAll :: forall element. String -> element -> Effect NodeList
+foreign import _id :: forall element. element -> Effect String
+foreign import _setId :: forall element. String -> element -> Effect Unit
+foreign import _className :: forall element. element -> Effect String
+foreign import _setClassName :: forall element. String -> element -> Effect Unit
+foreign import _classList :: forall element. element -> Effect DomTokenList
+foreign import _remove :: forall element. element -> Effect Unit
+foreign import _children :: forall element. element -> Effect HtmlCollection
 
-foreign import getAttributeDefaultImpl :: forall element. String -> element -> Effect (Nullable String)
-getAttributeDefault :: forall element. String -> element -> Effect (Maybe String)
-getAttributeDefault name element = getAttributeDefaultImpl name element <#> toMaybe
+getBoundingClientRect :: forall element. Element element => element -> Effect DomRect
+getBoundingClientRect = _getBoundingClientRect
 
-foreign import removeAttributeDefault :: forall element. String -> element -> Effect Unit
+getAttribute :: forall element. Element element => String -> element -> Effect (Nullable String)
+getAttribute = _getAttribute
 
-foreign import innerHtmlDefault :: forall element. element -> Effect String
-foreign import setInnerHtmlDefault :: forall element. String -> element -> Effect Unit
+removeAttribute :: forall element. Element element => String -> element -> Effect Unit
+removeAttribute = _removeAttribute
 
-foreign import outerHtmlDefault :: forall element. element -> Effect String
-foreign import setOuterHtmlDefault :: forall element. String -> element -> Effect Unit
+innerHtml :: forall element. Element element => element -> Effect String
+innerHtml = _innerHtml
 
-foreign import insertAdjacentHTMLDefaultImpl :: forall element.
-    StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend" -> String -> element -> Effect Unit
+setInnerHtml :: forall element. Element element => String -> element -> Effect Unit
+setInnerHtml = _setInnerHtml
 
-insertAdjacentHTMLDefault :: forall element position.
-    InOneOf position (StringLit "beforebegin") (OneOf (StringLit "afterbegin") (OneOf (StringLit "beforeend") (StringLit "afterend"))) =>
+outerHtml :: forall element. Element element => element -> Effect String
+outerHtml = _outerHtml
+
+setOuterHtml :: forall element. Element element => String -> element -> Effect Unit
+setOuterHtml = _setOuterHtml
+
+insertAdjacentHTML :: forall element position. InOneOf position (StringLit "beforebegin") (StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend") =>
     position -> String -> element -> Effect Unit
-insertAdjacentHTMLDefault position text element = insertAdjacentHTMLDefaultImpl (cast position) text element
+insertAdjacentHTML position text element = _insertAdjacentHTML (cast position) text element
 
-foreign import replaceWithDefault :: forall node element. node -> element -> Effect Unit
+replaceWith :: forall node element. Node node => Element element => node -> element -> Effect Unit
+replaceWith = _replaceWith
 
-foreign import scrollWidthDefault :: forall element. element -> Effect Int
-foreign import scrollHeightDefault :: forall element. element -> Effect Int
+scrollWidth :: forall element. Element element => element -> Effect Int
+scrollWidth = _scrollWidth
 
-foreign import scrollTopDefault :: forall element. element -> Effect Int
-foreign import scrollLeftDefault :: forall element. element -> Effect Int
-foreign import setScrollTopDefault :: forall element. Int -> element -> Effect Unit
-foreign import setScrollLeftDefault :: forall element. Int -> element -> Effect Unit
+scrollHeight :: forall element. Element element => element -> Effect Int
+scrollHeight = _scrollHeight
 
-foreign import querySelectorImpl :: forall element. String -> element -> Effect (Nullable Element)
+scrollTop :: forall element. Element element => element -> Effect Int
+scrollTop = _scrollTop
 
-querySelectorDefault :: forall element. String -> element -> Effect (Maybe Element)
-querySelectorDefault selector element = querySelectorImpl selector element <#> toMaybe
+scrollLeft :: forall element. Element element => element -> Effect Int
+scrollLeft = _scrollLeft
 
-foreign import querySelectorAllDefault :: forall element. String -> element -> Effect NodeList
+setScrollTop :: forall element. Element element => Int -> element -> Effect Unit
+setScrollTop = _setScrollTop
+
+setScrollLeft :: forall element. Element element => Int -> element -> Effect Unit
+setScrollLeft = _setScrollLeft
+
+querySelector :: forall element. Element element => String -> element -> Effect (Nullable Element)
+querySelector = _querySelector
+
+querySelectorAll :: forall element. Element element => String -> element -> Effect NodeList
+querySelectorAll = _querySelectorAll
 
 querySelectorAll' :: forall element. Element element => String -> element -> Effect (Array Node)
 querySelectorAll' selector element = querySelectorAll selector element >>= toArray
 
-foreign import idDefault :: forall element. element -> Effect String
-foreign import setIdDefault :: forall element. String -> element -> Effect Unit
+id :: forall element. Element element => element -> Effect String
+id = _id
 
-foreign import classNameDefault :: forall element. element -> Effect String
-foreign import setClassNameDefault :: forall element. String -> element -> Effect Unit
-foreign import classListDefault :: forall element. element -> Effect DomTokenList
+setId :: forall element. Element element => String -> element -> Effect Unit
+setId = _setId
+
+className :: forall element. Element element => element -> Effect String
+className = _className
+
+setClassName :: forall element. Element element => String -> element -> Effect Unit
+setClassName = _setClassName
+
+classList :: forall element. Element element => element -> Effect DomTokenList
+classList = _classList
+
 classList' :: forall element. Element element => element -> Effect (Array String)
 classList' element = element # classList >>= toArray
 
-foreign import removeDefault :: forall element. element -> Effect Unit
+remove :: forall element. Element element => element -> Effect Unit
+remove = _remove
 
-foreign import childrenDefault :: forall element. element -> Effect HtmlCollection
+children :: forall element. Element element => element -> Effect HtmlCollection
+children = _children
+
 children' :: forall element. Element element => element -> Effect (Array Element)
 children' element = element # children >>= toArray

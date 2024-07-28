@@ -1,11 +1,11 @@
-export function getBoundingClientRectDefault(element) {
+export function _getBoundingClientRect(element) {
     return function () {
         const rect = element.getBoundingClientRect()
         return rect
     }
 }
 
-export function getAttributeDefaultImpl(attribute) {
+export function _getAttribute(attribute) {
     return function (element) {
         return function () {
             return element.getAttribute(attribute)
@@ -13,7 +13,7 @@ export function getAttributeDefaultImpl(attribute) {
     }
 }
 
-export function removeAttributeDefault(attribute) {
+export function _removeAttribute(attribute) {
     return function (element) {
         return function () {
             return element.removeAttribute(attribute)
@@ -21,13 +21,13 @@ export function removeAttributeDefault(attribute) {
     }
 }
 
-export function innerHtmlDefault(element) {
+export function _innerHtml(element) {
     return function () {
         return element.innerHTML
     }
 }
 
-export function setInnerHtmlDefault(html) {
+export function _setInnerHtml(html) {
     return function (element) {
         return function () {
             element.innerHTML = html
@@ -35,13 +35,13 @@ export function setInnerHtmlDefault(html) {
     }
 }
 
-export function outerHtmlDefault(element) {
+export function _outerHtml(element) {
     return function () {
         return element.outerHTML
     }
 }
 
-export function setOuterHtmlDefault(html) {
+export function _setOuterHtml(html) {
     return function (element) {
         return function () {
             element.outerHTML = html
@@ -49,7 +49,7 @@ export function setOuterHtmlDefault(html) {
     }
 }
 
-export function insertAdjacentHTMLDefaultImpl(position) {
+export function _insertAdjacentHTML(position) {
     return function (html) {
         return function (element) {
             return function () {
@@ -59,7 +59,7 @@ export function insertAdjacentHTMLDefaultImpl(position) {
     }
 }
 
-export function replaceWithDefault(node) {
+export function _replaceWith(node) {
     return function (element) {
         return function () {
             element.replaceWith(node)
@@ -67,31 +67,31 @@ export function replaceWithDefault(node) {
     }
 }
 
-export function scrollWidthDefault(element) {
+export function _scrollWidth(element) {
     return function () {
         return element.scrollWidth
     }
 }
 
-export function scrollHeightDefault(element) {
+export function _scrollHeight(element) {
     return function () {
         return element.scrollHeight
     }
 }
 
-export function scrollTopDefault(element) {
+export function _scrollTop(element) {
     return function () {
         return element.scrollTop
     }
 }
 
-export function scrollLeftDefault(element) {
+export function _scrollLeft(element) {
     return function () {
         return element.scrollLeft
     }
 }
 
-export function setScrollTopDefault(scroll) {
+export function _setScrollTop(scroll) {
     return function (element) {
         return function () {
             element.scrollTop = scroll
@@ -99,7 +99,7 @@ export function setScrollTopDefault(scroll) {
     }
 }
 
-export function setScrollLeftDefault(scroll) {
+export function _setScrollLeft(scroll) {
     return function (element) {
         return function () {
             element.scrollLeft = scroll
@@ -107,7 +107,7 @@ export function setScrollLeftDefault(scroll) {
     }
 }
 
-export function querySelectorImpl(selector) {
+export function _querySelector(selector) {
     return function (element) {
         return function () {
             return element.querySelector(selector)
@@ -115,7 +115,7 @@ export function querySelectorImpl(selector) {
     }
 }
 
-export function querySelectorAllDefault(selector) {
+export function _querySelectorAll(selector) {
     return function (element) {
         return function () {
             return element.querySelectorAll(selector)
@@ -123,13 +123,13 @@ export function querySelectorAllDefault(selector) {
     }
 }
 
-export function idDefault(element) {
+export function _id(element) {
     return function () {
         return element.id
     }
 }
 
-export function setIdDefault(id) {
+export function _setId(id) {
     return function (element) {
         return function () {
             element.id = id
@@ -137,7 +137,7 @@ export function setIdDefault(id) {
     }
 }
 
-export function setClassNameDefault(className) {
+export function _setClassName(className) {
     return function (element) {
         return function () {
             return element.className = className
@@ -145,25 +145,25 @@ export function setClassNameDefault(className) {
     }
 }
 
-export function classNameDefault(element) {
+export function _className(element) {
     return function () {
         return element.className
     }
 }
 
-export function classListDefault(element) {
+export function _classList(element) {
     return function () {
         return element.classList
     }
 }
 
-export function removeDefault(element) {
+export function _remove(element) {
     return function () {
         return element.remove()
     }
 }
 
-export function childrenDefault(element) {
+export function _children(element) {
     return function () {
         return element.children
     }
