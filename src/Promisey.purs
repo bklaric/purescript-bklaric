@@ -3,7 +3,9 @@ module Promisey where
 import Prelude
 
 import Data.Bifunctor (class Bifunctor, rmap)
-import Data.Either (Either, either)
+import Data.Either (Either(..), either)
+import Data.Either as Either
+import Data.Maybe (Maybe)
 import Effect (Effect)
 import Effect.Class (class MonadEffect)
 import Untagged.Castable (cast)
@@ -31,9 +33,9 @@ instance MonadEffect (Promise left) where
 instance Bifunctor Promise where
     bimap = bimapImpl
 
-foreign import fromEffect :: forall left right
+foreign import fromEffect :: forall right
     .  Effect right
-    -> Promise left right
+    -> (forall voidLeft. Promise voidLeft right)
 
 foreign import runPromise :: forall left right
     .  (left -> Effect Unit)
@@ -93,6 +95,18 @@ ignore promise = promise # runPromise mempty mempty
 
 fromEither :: forall left right. Either left right -> Promise left right
 fromEither = either reject resolve
+
+fromEitherEffect :: ∀ left right.
+    Effect (Either left right) -> Promise left right
+fromEitherEffect eitherEffect = new \resolve' reject' -> eitherEffect >>= case _ of
+    Left error -> reject' error
+    Right result -> resolve' result
+
+fromMaybe :: forall left right. left -> Maybe right -> Promise left right
+fromMaybe left' maybe' = maybe' # Either.note left' # fromEither
+
+fromMaybeEffect :: forall left right. left -> Effect (Maybe right) -> Promise left right
+fromMaybeEffect left' maybeEffect = maybeEffect <#> Either.note left' # fromEitherEffect
 
 forkPromise :: forall left right
     .  (left -> Effect Unit)
