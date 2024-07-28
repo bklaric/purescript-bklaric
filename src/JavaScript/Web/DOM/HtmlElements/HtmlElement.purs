@@ -8,6 +8,7 @@ import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
 import JavaScript.Web.DOM.Class.HtmlElement (class HtmlElement)
 import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.CssStyleDeclaration (CssStyleDeclaration)
+import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data HtmlElement :: Type
 
@@ -15,6 +16,9 @@ instance EventTarget HtmlElement
 instance Node HtmlElement
 instance Element HtmlElement
 instance HtmlElement HtmlElement
+
+toHtmlElement :: forall htmlElement. HtmlElement htmlElement => htmlElement -> HtmlElement
+toHtmlElement = unsafeCoerce
 
 foreign import _offsetWidth :: forall htmlElement. htmlElement -> Effect Int
 foreign import _offsetHeight :: forall htmlElement. htmlElement -> Effect Int
