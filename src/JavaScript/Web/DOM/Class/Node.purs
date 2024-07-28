@@ -15,7 +15,7 @@ class EventTarget node <= Node node where
     setTextContent :: String -> node -> Effect Unit
     insertBefore :: forall new reference. Node new => Node reference => new -> reference -> node -> Effect Unit
 
-instance nodeElement :: Node Element where
+instance Node Element where
     parentElement = parentElementDefault
     appendChild = appendChildDefault
     textContent = textContentDefault

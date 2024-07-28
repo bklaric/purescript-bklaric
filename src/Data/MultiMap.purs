@@ -34,12 +34,12 @@ newtype MultiMap key value = MultiMap (Map key (NonEmptyList value))
 
 derive newtype instance (Eq key, Eq value) => Eq (MultiMap key value)
 
-instance eq1MultiMap :: (Eq key) => Eq1 (MultiMap key) where
+instance (Eq key) => Eq1 (MultiMap key) where
     eq1 = eq
 
 derive newtype instance (Ord key, Ord value) => Ord (MultiMap key value)
 
-instance ord1MultiMap :: (Ord key) => Ord1 (MultiMap key) where
+instance (Ord key) => Ord1 (MultiMap key) where
     compare1 = compare
 
 derive newtype instance (Ord key) => Semigroup (MultiMap key value)

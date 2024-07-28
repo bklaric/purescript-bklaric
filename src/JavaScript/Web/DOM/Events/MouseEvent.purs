@@ -9,10 +9,10 @@ foreign import data MouseEvent :: Type
 
 instance Event MouseEvent
 
-instance uiEventMouseEvent :: UiEvent MouseEvent where
+instance UiEvent MouseEvent where
     detail = detailDefault
 
-instance mouseEventMouseEvent :: MouseEvent MouseEvent where
+instance MouseEvent MouseEvent where
     button = buttonDefault
     buttons = buttonsDefault
     pageX = pageXDefault

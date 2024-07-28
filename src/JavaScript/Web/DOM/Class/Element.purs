@@ -49,7 +49,7 @@ class Node element <= Element element where
     remove :: element -> Effect Unit
     children :: element -> Effect HtmlCollection
 
-instance elementElement :: Element Element where
+instance Element Element where
     getBoundingClientRect = getBoundingClientRectDefault
     getAttribute = getAttributeDefault
     removeAttribute = removeAttributeDefault

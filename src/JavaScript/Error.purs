@@ -4,7 +4,7 @@ import JavaScript.Error.Class (class Error, defaultMessage, defaultName, default
 
 foreign import data Error :: Type
 
-instance errorError :: Error Error where
+instance Error Error where
     name = defaultName
     message = defaultMessage
     stack = defaultStack

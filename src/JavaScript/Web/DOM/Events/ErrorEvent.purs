@@ -8,7 +8,7 @@ foreign import data ErrorEvent :: Type
 
 instance Event ErrorEvent
 
-instance mouseEventErrorEvent :: ErrorEvent ErrorEvent where
+instance ErrorEvent ErrorEvent where
     message = messageDefault
     filename = filenameDefault
     lineno = linenoDefault

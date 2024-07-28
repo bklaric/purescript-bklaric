@@ -10,10 +10,10 @@ foreign import data WheelEvent :: Type
 
 instance Event WheelEvent
 
-instance uiEventWheelEvent :: UiEvent WheelEvent where
+instance UiEvent WheelEvent where
     detail = detailDefault
 
-instance mouseEventWheelEvent :: MouseEvent WheelEvent where
+instance MouseEvent WheelEvent where
     button = buttonDefault
     buttons = buttonsDefault
     pageX = pageXDefault
@@ -27,7 +27,7 @@ instance mouseEventWheelEvent :: MouseEvent WheelEvent where
     shiftKey = shiftKeyDefault
     metaKey = metaKeyDefault
 
-instance wheelEventWheelEvent :: WheelEvent WheelEvent where
+instance WheelEvent WheelEvent where
     deltaX = deltaXDefault
     deltaY = deltaYDefault
     deltaZ = deltaZDefault

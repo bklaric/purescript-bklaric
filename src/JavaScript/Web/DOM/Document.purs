@@ -27,7 +27,7 @@ foreign import data Document :: Type
 
 instance EventTarget Document
 
-instance nodeDocument :: Node Document where
+instance Node Document where
     parentElement = parentElementDefault
     appendChild = appendChildDefault
     textContent = textContentDefault

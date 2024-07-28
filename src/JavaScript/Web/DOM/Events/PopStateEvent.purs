@@ -8,7 +8,7 @@ foreign import data PopStateEvent :: Type
 
 instance Event PopStateEvent
 
-instance mouseEventMouseEvent :: PopStateEvent PopStateEvent where
+instance PopStateEvent PopStateEvent where
     state = stateDefault
 
 popstate :: EventType PopStateEvent

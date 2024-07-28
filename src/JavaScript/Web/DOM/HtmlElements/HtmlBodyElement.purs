@@ -9,14 +9,14 @@ foreign import data HtmlBodyElement :: Type
 
 instance EventTarget HtmlBodyElement
 
-instance nodeHtmlBodyElement :: Node HtmlBodyElement where
+instance Node HtmlBodyElement where
     parentElement = parentElementDefault
     appendChild = appendChildDefault
     textContent = textContentDefault
     setTextContent = setTextContentDefault
     insertBefore = insertBeforeDefault
 
-instance elementHtmlBodyElement :: Element HtmlBodyElement where
+instance Element HtmlBodyElement where
     getBoundingClientRect = getBoundingClientRectDefault
     getAttribute = getAttributeDefault
     removeAttribute = removeAttributeDefault
@@ -42,7 +42,7 @@ instance elementHtmlBodyElement :: Element HtmlBodyElement where
     remove = removeDefault
     children = childrenDefault
 
-instance htmlElementHtmlBodyElement :: HtmlElement HtmlBodyElement where
+instance HtmlElement HtmlBodyElement where
     offsetWidth = offsetWidthDefault
     offsetHeight = offsetHeightDefault
     style = styleDefault

@@ -9,10 +9,10 @@ foreign import data KeyboardEvent :: Type
 
 instance Event KeyboardEvent
 
-instance uiEventKeyboardEvent :: UiEvent KeyboardEvent where
+instance UiEvent KeyboardEvent where
     detail = detailDefault
 
-instance mouseEventKeyboardEvent :: KeyboardEvent KeyboardEvent where
+instance KeyboardEvent KeyboardEvent where
     key = keyDefault
     code = codeDefault
     altKey = altKeyDefault
