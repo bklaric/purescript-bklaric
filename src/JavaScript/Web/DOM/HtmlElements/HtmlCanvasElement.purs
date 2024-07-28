@@ -1,4 +1,4 @@
-module JavaScript.DOM.HtmlElements.HtmlCanvasElement where
+module JavaScript.Web.DOM.HtmlElements.HtmlCanvasElement where
 
 import Prelude
 
@@ -9,7 +9,7 @@ import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDe
 import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
 import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
-import JavaScript.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.DOM.Utils (unsafeReadProtoTagged)
 import JavaScript.Web.File.Blob (Blob)
 

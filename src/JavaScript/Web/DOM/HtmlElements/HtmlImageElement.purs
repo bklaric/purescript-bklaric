@@ -1,4 +1,4 @@
-module JavaScript.DOM.HtmlElements.HtmlImageElement where
+module JavaScript.Web.DOM.HtmlElements.HtmlImageElement where
 
 import Prelude
 
