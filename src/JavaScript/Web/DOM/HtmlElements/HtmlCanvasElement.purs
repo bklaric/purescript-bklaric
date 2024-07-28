@@ -7,7 +7,7 @@ import Data.Nullable (Nullable)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class.Element (class Element)
 import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.Web.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
+import JavaScript.Web.DOM.Class.HtmlElement (class HtmlElement)
 import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.Utils (unsafeReadProtoTagged)
@@ -21,11 +21,7 @@ instance Node HtmlCanvasElement
 
 instance Element HtmlCanvasElement
 
-instance HtmlElement HtmlCanvasElement where
-    offsetWidth = offsetWidthDefault
-    offsetHeight = offsetHeightDefault
-    style = styleDefault
-    setStyle = setStyleDefault
+instance HtmlElement HtmlCanvasElement
 
 readHtmlCanvasElement :: forall object. object -> Maybe HtmlCanvasElement
 readHtmlCanvasElement = unsafeReadProtoTagged "HTMLCanvasElement"

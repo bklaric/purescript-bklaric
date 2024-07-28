@@ -6,7 +6,7 @@ import Data.Maybe (Maybe)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class.Element (class Element)
 import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.Web.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
+import JavaScript.Web.DOM.Class.HtmlElement (class HtmlElement)
 import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.Utils (unsafeReadProtoTagged)
 
@@ -18,11 +18,7 @@ instance Node HtmlIframeElement
 
 instance Element HtmlIframeElement
 
-instance HtmlElement HtmlIframeElement where
-    offsetWidth = offsetWidthDefault
-    offsetHeight = offsetHeightDefault
-    style = styleDefault
-    setStyle = setStyleDefault
+instance HtmlElement HtmlIframeElement
 
 readHtmlIframeElement :: forall object. object -> Maybe HtmlIframeElement
 readHtmlIframeElement = unsafeReadProtoTagged "HTMLIframeElement"

@@ -1,22 +1,22 @@
-export function offsetWidthDefault(element) {
+export function _offsetWidth(element) {
     return function () {
         return element.offsetWidth
     }
 }
 
-export function offsetHeightDefault(element) {
+export function _offsetHeight(element) {
     return function () {
         return element.offsetHeight
     }
 }
 
-export function styleDefault(element) {
+export function _style(element) {
     return function () {
         return element.style
     }
 }
 
-export function setStyleDefault(inlineStyle) {
+export function _setStyle(inlineStyle) {
     return function (element) {
         return function () {
             element.style = inlineStyle
