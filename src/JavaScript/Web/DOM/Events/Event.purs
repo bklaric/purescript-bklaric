@@ -16,14 +16,14 @@ foreign import _stopPropagation :: forall event. event -> Effect Unit
 foreign import _stopImmediatePropagation :: forall event. event -> Effect Unit
 foreign import _target :: forall event. event -> EventTarget
 
-preventDefaultDefault :: forall event. Event event => event -> Effect Unit
-preventDefaultDefault = _preventDefault
+preventDefault :: forall event. Event event => event -> Effect Unit
+preventDefault = _preventDefault
 
-stopPropagationDefault :: forall event. Event event => event -> Effect Unit
-stopPropagationDefault = _stopPropagation
+stopPropagation :: forall event. Event event => event -> Effect Unit
+stopPropagation = _stopPropagation
 
-stopImmediatePropagationDefault :: forall event. Event event => event -> Effect Unit
-stopImmediatePropagationDefault = _stopImmediatePropagation
+stopImmediatePropagation :: forall event. Event event => event -> Effect Unit
+stopImmediatePropagation = _stopImmediatePropagation
 
 target :: forall event. Event event => event -> EventTarget
 target = _target

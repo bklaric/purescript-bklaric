@@ -2,7 +2,8 @@ module JavaScript.Web.DOM.Element where
 
 import Prelude
 
-import Data.Nullable (Nullable)
+import Data.Maybe (Maybe)
+import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class.Element (class Element)
 import JavaScript.Web.DOM.Class.Node (class Node)
@@ -88,8 +89,8 @@ setScrollTop = _setScrollTop
 setScrollLeft :: forall element. Element element => Int -> element -> Effect Unit
 setScrollLeft = _setScrollLeft
 
-querySelector :: forall element. Element element => String -> element -> Effect (Nullable Element)
-querySelector = _querySelector
+querySelector :: forall element. Element element => String -> element -> Effect (Maybe Element)
+querySelector selector element = _querySelector selector element <#> toMaybe
 
 querySelectorAll :: forall element. Element element => String -> element -> Effect NodeList
 querySelectorAll = _querySelectorAll
