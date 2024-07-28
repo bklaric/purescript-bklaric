@@ -39,6 +39,7 @@ export function setSrc(src) {
         }
     }
 }
+
 export function naturalWidth(image) {
     return function () {
         return image.naturalWidth

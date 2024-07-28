@@ -59,6 +59,14 @@ export function insertAdjacentHTMLDefaultImpl(position) {
     }
 }
 
+export function replaceWithDefault(node) {
+    return function (element) {
+        return function () {
+            element.replaceWith(node)
+        }
+    }
+}
+
 export function scrollWidthDefault(element) {
     return function () {
         return element.scrollWidth

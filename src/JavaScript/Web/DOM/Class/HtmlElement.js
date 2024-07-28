@@ -15,3 +15,11 @@ export function styleDefault(element) {
         return element.style
     }
 }
+
+export function setStyleDefault(inlineStyle) {
+    return function (element) {
+        return function () {
+            element.style = inlineStyle
+        }
+    }
+}

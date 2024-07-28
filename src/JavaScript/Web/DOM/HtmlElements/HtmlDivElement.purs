@@ -1,16 +1,11 @@
 module JavaScript.DOM.HtmlElements.HtmlDivElement where
 
-import Prelude
-
-import Data.Maybe (Maybe, fromJust)
-import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
+import Data.Maybe (Maybe)
+import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, replaceWithDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
 import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
-import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, styleDefault)
+import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
-import JavaScript.DOM.Document (Document, createElement)
 import JavaScript.DOM.Utils (unsafeReadProtoTagged)
-import Effect (Effect)
-import Partial.Unsafe (unsafePartial)
 
 foreign import data HtmlDivElement :: Type
 
@@ -35,6 +30,7 @@ instance Element HtmlDivElement where
     outerHtml = outerHtmlDefault
     setOuterHtml = setOuterHtmlDefault
     insertAdjacentHTML = insertAdjacentHTMLDefault
+    replaceWith = replaceWithDefault
     scrollWidth = scrollWidthDefault
     scrollHeight = scrollHeightDefault
     scrollTop = scrollTopDefault
@@ -55,11 +51,7 @@ instance HtmlElement HtmlDivElement where
     offsetWidth = offsetWidthDefault
     offsetHeight = offsetHeightDefault
     style = styleDefault
+    setStyle = setStyleDefault
 
 readHtmlDivElement :: forall object. object -> Maybe HtmlDivElement
 readHtmlDivElement = unsafeReadProtoTagged "HTMLDivElement"
-
-createElementDiv :: Document -> Effect HtmlDivElement
-createElementDiv document = do
-    element <- document # createElement "div"
-    element >>= readHtmlDivElement # unsafePartial fromJust # pure

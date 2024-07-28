@@ -3,13 +3,13 @@ module JavaScript.DOM.HtmlElements.HtmlSpanElement where
 import Prelude
 
 import Data.Maybe (Maybe, fromJust)
-import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
+import Effect (Effect)
+import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, replaceWithDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
 import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
-import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, styleDefault)
+import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
 import JavaScript.DOM.Document (Document, createElement)
 import JavaScript.DOM.Utils (unsafeReadProtoTagged)
-import Effect (Effect)
 import Partial.Unsafe (unsafePartial)
 
 foreign import data HtmlSpanElement :: Type
@@ -35,6 +35,7 @@ instance Element HtmlSpanElement where
     outerHtml = outerHtmlDefault
     setOuterHtml = setOuterHtmlDefault
     insertAdjacentHTML = insertAdjacentHTMLDefault
+    replaceWith = replaceWithDefault
     scrollWidth = scrollWidthDefault
     scrollHeight = scrollHeightDefault
     scrollTop = scrollTopDefault
@@ -55,6 +56,7 @@ instance HtmlElement HtmlSpanElement where
     offsetWidth = offsetWidthDefault
     offsetHeight = offsetHeightDefault
     style = styleDefault
+    setStyle = setStyleDefault
 
 readHtmlSpanElement :: forall object. object -> Maybe HtmlSpanElement
 readHtmlSpanElement = unsafeReadProtoTagged "HTMLSpanElement"

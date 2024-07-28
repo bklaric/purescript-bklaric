@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
+import Effect (Effect)
 import JavaScript.DOM.Class.Node (class Node)
 import JavaScript.DOM.DomRect (DomRect)
 import JavaScript.DOM.DomTokenList (DomTokenList)
@@ -12,7 +13,6 @@ import JavaScript.DOM.HtmlCollection (HtmlCollection)
 import JavaScript.DOM.Node (Node)
 import JavaScript.DOM.NodeList (NodeList)
 import JavaScript.DOM.Utils (toArray)
-import Effect (Effect)
 import Literals (StringLit)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|), OneOf)
@@ -32,6 +32,7 @@ class Node element <= Element element where
             (OneOf (StringLit "beforeend")
             (StringLit "afterend"))) =>
         position -> String -> element -> Effect Unit
+    replaceWith :: forall node. Node node => node -> element -> Effect Unit
     scrollWidth :: element -> Effect Int
     scrollHeight :: element -> Effect Int
     scrollTop :: element -> Effect Int
@@ -57,6 +58,7 @@ instance elementElement :: Element Element where
     outerHtml = outerHtmlDefault
     setOuterHtml = setOuterHtmlDefault
     insertAdjacentHTML = insertAdjacentHTMLDefault
+    replaceWith = replaceWithDefault
     scrollWidth = scrollWidthDefault
     scrollHeight = scrollHeightDefault
     scrollTop = scrollTopDefault
@@ -94,6 +96,8 @@ insertAdjacentHTMLDefault :: forall element position.
     InOneOf position (StringLit "beforebegin") (OneOf (StringLit "afterbegin") (OneOf (StringLit "beforeend") (StringLit "afterend"))) =>
     position -> String -> element -> Effect Unit
 insertAdjacentHTMLDefault position text element = insertAdjacentHTMLDefaultImpl (cast position) text element
+
+foreign import replaceWithDefault :: forall node element. node -> element -> Effect Unit
 
 foreign import scrollWidthDefault :: forall element. element -> Effect Int
 foreign import scrollHeightDefault :: forall element. element -> Effect Int
