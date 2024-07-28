@@ -1,33 +1,4 @@
-module JavaScript.Web.DOM.Element
-    ( module Export
-    , getBoundingClientRect
-    , getAttribute
-    , removeAttribute
-    , innerHtml
-    , setInnerHtml
-    , outerHtml
-    , setOuterHtml
-    , insertAdjacentHTML
-    , replaceWith
-    , scrollWidth
-    , scrollHeight
-    , scrollTop
-    , scrollLeft
-    , setScrollTop
-    , setScrollLeft
-    , querySelector
-    , querySelectorAll
-    , querySelectorAll'
-    , id
-    , setId
-    , className
-    , setClassName
-    , classList
-    , classList'
-    , remove
-    , children
-    , children'
-    ) where
+module JavaScript.Web.DOM.Element where
 
 import Prelude
 
@@ -38,14 +9,13 @@ import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.DomRect (DomRect)
 import JavaScript.Web.DOM.DomTokenList (DomTokenList)
 import JavaScript.Web.DOM.ElementType (Element)
-import JavaScript.Web.DOM.ElementType (Element) as Export
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
 import JavaScript.Web.DOM.Node (Node)
 import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray)
 import Literals (StringLit)
-import Untagged.Castable (cast)
-import Untagged.Union (class InOneOf, type (|+|))
+import Untagged.Castable (class Castable, cast)
+import Untagged.Union (type (|+|))
 
 foreign import _getBoundingClientRect :: forall element. element -> Effect DomRect
 foreign import _getAttribute :: forall element. String -> element -> Effect (Nullable String)
@@ -93,7 +63,7 @@ outerHtml = _outerHtml
 setOuterHtml :: forall element. Element element => String -> element -> Effect Unit
 setOuterHtml = _setOuterHtml
 
-insertAdjacentHTML :: forall element position. InOneOf position (StringLit "beforebegin") (StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend") =>
+insertAdjacentHTML :: forall element position. Castable position (StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend") =>
     position -> String -> element -> Effect Unit
 insertAdjacentHTML position text element = _insertAdjacentHTML (cast position) text element
 
