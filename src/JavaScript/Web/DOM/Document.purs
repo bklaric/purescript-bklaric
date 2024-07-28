@@ -6,7 +6,7 @@ import Data.Maybe (Maybe, fromJust)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.Web.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
+import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.Element (Element)
 import JavaScript.Web.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlButtonElement (HtmlButtonElement)
@@ -27,12 +27,7 @@ foreign import data Document :: Type
 
 instance EventTarget Document
 
-instance Node Document where
-    parentElement = parentElementDefault
-    appendChild = appendChildDefault
-    textContent = textContentDefault
-    setTextContent = setTextContentDefault
-    insertBefore = insertBeforeDefault
+instance Node Document
 
 foreign import querySelectorImpl :: String -> Document -> Effect (Nullable Element)
 
