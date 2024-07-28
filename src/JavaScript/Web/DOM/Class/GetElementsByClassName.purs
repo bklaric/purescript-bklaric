@@ -4,7 +4,7 @@ import Prelude
 
 import JavaScript.Web.DOM.Class.Element (class Element)
 import JavaScript.Web.DOM.Document (Document)
-import JavaScript.Web.DOM.Element (Element)
+import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
 import JavaScript.Web.DOM.Utils (toArray)
 import Effect (Effect)
