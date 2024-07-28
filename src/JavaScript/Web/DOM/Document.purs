@@ -9,10 +9,18 @@ import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefa
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
 import JavaScript.DOM.Element (Element)
 import JavaScript.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
+import JavaScript.DOM.HtmlElements.HtmlButtonElement (HtmlButtonElement)
+import JavaScript.DOM.HtmlElements.HtmlCanvasElement (HtmlCanvasElement)
+import JavaScript.DOM.HtmlElements.HtmlDivElement (HtmlDivElement)
 import JavaScript.DOM.HtmlElements.HtmlHeadElement (HtmlHeadElement, readHtmlHeadElement)
+import JavaScript.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
+import JavaScript.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
 import JavaScript.DOM.NodeList (NodeList)
+import JavaScript.Web.DOM.HtmlElements.HTMLIFrameElement (HtmlIframeElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
 import Literals (StringLit)
 import Partial.Unsafe (unsafePartial)
+import Unsafe.Coerce (unsafeCoerce)
 import Untagged.Union (type (|+|))
 
 foreign import data Document :: Type
@@ -71,3 +79,24 @@ createElementHead :: Document -> Effect HtmlHeadElement
 createElementHead document = do
     element <- document # createElement "head"
     element >>= readHtmlHeadElement # unsafePartial fromJust # pure
+
+createElementIframe :: Document -> Effect HtmlIframeElement
+createElementIframe document = document # createElementImpl "iframe" <#> unsafeCoerce
+
+createElementImage :: Document -> Effect HtmlImageElement
+createElementImage document = document # createElementImpl "img" <#> unsafeCoerce
+
+createElementDiv :: Document -> Effect HtmlDivElement
+createElementDiv document = document # createElementImpl "div" <#> unsafeCoerce
+
+createElementButton :: Document -> Effect HtmlButtonElement
+createElementButton document = document # createElementImpl "button" <#> unsafeCoerce
+
+createElementCanvas :: Document -> Effect HtmlCanvasElement
+createElementCanvas document = document # createElementImpl "canvas" <#> unsafeCoerce
+
+createElementInput :: Document -> Effect HtmlInputElement
+createElementInput document = document # createElementImpl "input" <#> unsafeCoerce
+
+createElementSpan :: Document -> Effect HtmlSpanElement
+createElementSpan document = document # createElementImpl "span" <#> unsafeCoerce

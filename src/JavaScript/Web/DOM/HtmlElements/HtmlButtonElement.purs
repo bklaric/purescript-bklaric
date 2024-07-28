@@ -1,16 +1,11 @@
 module JavaScript.DOM.HtmlElements.HtmlButtonElement where
 
-import Prelude
-
-import Data.Maybe (Maybe, fromJust)
-import Effect (Effect)
+import Data.Maybe (Maybe)
 import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, replaceWithDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
 import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
 import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
-import JavaScript.DOM.Document (Document, createElement)
 import JavaScript.DOM.Utils (unsafeReadProtoTagged)
-import Partial.Unsafe (unsafePartial)
 
 foreign import data HtmlButtonElement :: Type
 
@@ -60,8 +55,3 @@ instance HtmlElement HtmlButtonElement where
 
 readHtmlButtonElement :: forall object. object -> Maybe HtmlButtonElement
 readHtmlButtonElement = unsafeReadProtoTagged "HTMLButtonElement"
-
-createElementButton :: Document -> Effect HtmlButtonElement
-createElementButton document = do
-    element <- document # createElement "button"
-    element >>= readHtmlButtonElement # unsafePartial fromJust # pure
