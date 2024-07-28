@@ -1,4 +1,4 @@
-module JavaScript.DOM.Navigator where
+module JavaScript.Web.DOM.Navigator where
 
 import Effect (Effect)
 import JavaScript.Web.Clipboard.Clipboard (Clipboard)

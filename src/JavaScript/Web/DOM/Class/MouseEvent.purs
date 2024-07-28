@@ -1,6 +1,6 @@
-module JavaScript.DOM.Class.MouseEvent where
+module JavaScript.Web.DOM.Class.MouseEvent where
 
-import JavaScript.DOM.Class.UiEvent (class UiEvent)
+import JavaScript.Web.DOM.Class.UiEvent (class UiEvent)
 
 class UiEvent mouseEvent <= MouseEvent mouseEvent where
     button :: mouseEvent -> Int

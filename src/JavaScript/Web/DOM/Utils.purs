@@ -1,4 +1,4 @@
-module JavaScript.DOM.Utils where
+module JavaScript.Web.DOM.Utils where
 
 import Prelude
 

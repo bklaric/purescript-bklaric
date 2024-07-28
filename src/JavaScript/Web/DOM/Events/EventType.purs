@@ -1,3 +1,3 @@
-module JavaScript.DOM.Events.EventType where
+module JavaScript.Web.DOM.Events.EventType where
 
 newtype EventType (event :: Type) = EventType String

@@ -1,11 +1,11 @@
-module JavaScript.DOM.Window where
+module JavaScript.Web.DOM.Window where
 
 import Prelude
 
-import JavaScript.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.DOM.Document (Document)
-import JavaScript.DOM.Location (Location)
-import JavaScript.DOM.Navigator (Navigator)
+import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
+import JavaScript.Web.DOM.Document (Document)
+import JavaScript.Web.DOM.Location (Location)
+import JavaScript.Web.DOM.Navigator (Navigator)
 import Effect (Effect)
 import Undefined (undefined)
 

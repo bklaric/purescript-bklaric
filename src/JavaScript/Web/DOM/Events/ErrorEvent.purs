@@ -1,8 +1,8 @@
-module JavaScript.DOM.Events.ErrorEvent where
+module JavaScript.Web.DOM.Events.ErrorEvent where
 
-import JavaScript.DOM.Class.ErrorEvent (class ErrorEvent, colnoDefault, errorDefault, filenameDefault, linenoDefault, messageDefault)
-import JavaScript.DOM.Class.Event (class Event)
-import JavaScript.DOM.Events.EventType (EventType(..))
+import JavaScript.Web.DOM.Class.ErrorEvent (class ErrorEvent, colnoDefault, errorDefault, filenameDefault, linenoDefault, messageDefault)
+import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data ErrorEvent :: Type
 

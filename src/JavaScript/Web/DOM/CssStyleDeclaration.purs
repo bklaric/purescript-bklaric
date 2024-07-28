@@ -1,4 +1,4 @@
-module JavaScript.DOM.CssStyleDeclaration where
+module JavaScript.Web.DOM.CssStyleDeclaration where
 
 import Effect (Effect)
 import Prelude (Unit)

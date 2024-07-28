@@ -3,9 +3,9 @@ module JavaScript.Web.DOM.EventTarget where
 import Prelude
 
 import Effect (Effect)
-import JavaScript.DOM.Class.Event (class Event)
-import JavaScript.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.DOM.Events.EventType (EventType)
+import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
+import JavaScript.Web.DOM.Events.EventType (EventType)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (UndefinedOr)
 

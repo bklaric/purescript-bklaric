@@ -1,13 +1,13 @@
-module JavaScript.DOM.Document where
+module JavaScript.Web.DOM.Document where
 
 import Prelude
 
 import Data.Maybe (Maybe, fromJust)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
-import JavaScript.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
-import JavaScript.DOM.Element (Element)
+import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
+import JavaScript.Web.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
+import JavaScript.Web.DOM.Element (Element)
 import JavaScript.Web.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlButtonElement (HtmlButtonElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlCanvasElement (HtmlCanvasElement)
@@ -15,7 +15,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlDivElement (HtmlDivElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlHeadElement (HtmlHeadElement, readHtmlHeadElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
-import JavaScript.DOM.NodeList (NodeList)
+import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.HtmlElements.HTMLIFrameElement (HtmlIframeElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
 import Literals (StringLit)

@@ -1,10 +1,10 @@
-module JavaScript.DOM.Events.WheelEvent where
+module JavaScript.Web.DOM.Events.WheelEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
-import JavaScript.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
-import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
-import JavaScript.DOM.Class.WheelEvent (class WheelEvent, deltaXDefault, deltaYDefault, deltaZDefault)
-import JavaScript.DOM.Events.EventType (EventType(..))
+import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
+import JavaScript.Web.DOM.Class.UiEvent (class UiEvent, detailDefault)
+import JavaScript.Web.DOM.Class.WheelEvent (class WheelEvent, deltaXDefault, deltaYDefault, deltaZDefault)
+import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data WheelEvent :: Type
 

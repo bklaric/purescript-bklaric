@@ -1,10 +1,10 @@
-module JavaScript.DOM.Globals (window, document) where
+module JavaScript.Web.DOM.Globals (window, document) where
 
 import Prelude
 
-import JavaScript.DOM.Document (Document)
-import JavaScript.DOM.Window (Window)
-import JavaScript.DOM.Window as Window
+import JavaScript.Web.DOM.Document (Document)
+import JavaScript.Web.DOM.Window (Window)
+import JavaScript.Web.DOM.Window as Window
 import Effect (Effect)
 
 foreign import windowImpl :: Effect Window

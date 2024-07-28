@@ -1,7 +1,7 @@
-module JavaScript.DOM.HtmlCollection where
+module JavaScript.Web.DOM.HtmlCollection where
 
-import JavaScript.DOM.Element (Element)
-import JavaScript.DOM.Utils (class ToArray, toArrayDefault)
+import JavaScript.Web.DOM.Element (Element)
+import JavaScript.Web.DOM.Utils (class ToArray, toArrayDefault)
 
 foreign import data HtmlCollection :: Type
 

@@ -1,11 +1,11 @@
-module JavaScript.DOM.Class.Node where
+module JavaScript.Web.DOM.Class.Node where
 
 import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
-import JavaScript.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.DOM.Element (Element)
+import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
+import JavaScript.Web.DOM.Element (Element)
 import Effect (Effect)
 
 class EventTarget node <= Node node where

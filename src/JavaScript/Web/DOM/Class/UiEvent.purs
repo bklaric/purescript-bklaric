@@ -1,6 +1,6 @@
-module JavaScript.DOM.Class.UiEvent where
+module JavaScript.Web.DOM.Class.UiEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.Event (class Event)
 
 class Event event <= UiEvent event where
     detail :: event -> Number

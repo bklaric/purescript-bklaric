@@ -1,10 +1,10 @@
-module JavaScript.DOM.Class.HtmlElement where
+module JavaScript.Web.DOM.Class.HtmlElement where
 
 import Prelude
 
 import Effect (Effect)
-import JavaScript.DOM.Class.Element (class Element)
-import JavaScript.DOM.CssStyleDeclaration (CssStyleDeclaration)
+import JavaScript.Web.DOM.Class.Element (class Element)
+import JavaScript.Web.DOM.CssStyleDeclaration (CssStyleDeclaration)
 
 class Element htmlElement <= HtmlElement htmlElement where
     offsetWidth :: htmlElement -> Effect Int

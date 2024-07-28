@@ -1,6 +1,6 @@
-module JavaScript.DOM.Class.EventTarget where
+module JavaScript.Web.DOM.Class.EventTarget where
 
-import JavaScript.DOM.Element (Element)
+import JavaScript.Web.DOM.Element (Element)
 
 class EventTarget (eventTarget :: Type)
 

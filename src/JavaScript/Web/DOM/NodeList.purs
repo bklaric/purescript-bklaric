@@ -1,7 +1,7 @@
-module JavaScript.DOM.NodeList where
+module JavaScript.Web.DOM.NodeList where
 
-import JavaScript.DOM.Node (Node)
-import JavaScript.DOM.Utils (class ToArray, toArrayDefault)
+import JavaScript.Web.DOM.Node (Node)
+import JavaScript.Web.DOM.Utils (class ToArray, toArrayDefault)
 
 foreign import data NodeList :: Type
 

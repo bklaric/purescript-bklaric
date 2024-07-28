@@ -1,9 +1,9 @@
-module JavaScript.DOM.Events.MouseEvent where
+module JavaScript.Web.DOM.Events.MouseEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
-import JavaScript.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
-import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
-import JavaScript.DOM.Events.EventType (EventType(..))
+import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
+import JavaScript.Web.DOM.Class.UiEvent (class UiEvent, detailDefault)
+import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data MouseEvent :: Type
 

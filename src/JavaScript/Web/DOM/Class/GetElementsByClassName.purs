@@ -1,12 +1,12 @@
-module JavaScript.DOM.Class.GetElementsByClassName where
+module JavaScript.Web.DOM.Class.GetElementsByClassName where
 
 import Prelude
 
-import JavaScript.DOM.Class.Element (class Element)
-import JavaScript.DOM.Document (Document)
-import JavaScript.DOM.Element (Element)
-import JavaScript.DOM.HtmlCollection (HtmlCollection)
-import JavaScript.DOM.Utils (toArray)
+import JavaScript.Web.DOM.Class.Element (class Element)
+import JavaScript.Web.DOM.Document (Document)
+import JavaScript.Web.DOM.Element (Element)
+import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
+import JavaScript.Web.DOM.Utils (toArray)
 import Effect (Effect)
 
 class GetElementsByClassName element where

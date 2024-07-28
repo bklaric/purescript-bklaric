@@ -1,4 +1,4 @@
-module JavaScript.DOM.DomRect where
+module JavaScript.Web.DOM.DomRect where
 
 import Effect (Effect)
 

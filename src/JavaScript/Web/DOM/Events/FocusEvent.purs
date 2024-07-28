@@ -1,9 +1,9 @@
-module JavaScript.DOM.Events.FocusEvent where
+module JavaScript.Web.DOM.Events.FocusEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
-import JavaScript.DOM.Class.FocusEvent (class FocusEvent, relatedTargetDefault)
-import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
-import JavaScript.DOM.Events.EventType (EventType(..))
+import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.FocusEvent (class FocusEvent, relatedTargetDefault)
+import JavaScript.Web.DOM.Class.UiEvent (class UiEvent, detailDefault)
+import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data FocusEvent :: Type
 

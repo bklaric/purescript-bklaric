@@ -1,9 +1,9 @@
-module JavaScript.DOM.Events.KeyboardEvent where
+module JavaScript.Web.DOM.Events.KeyboardEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
-import JavaScript.DOM.Class.KeyboardEvent (class KeyboardEvent, altKeyDefault, codeDefault, ctrlKeyDefault, getModifierStateDefault, keyDefault, metaKeyDefault, shiftKeyDefault)
-import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
-import JavaScript.DOM.Events.EventType (EventType(..))
+import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.KeyboardEvent (class KeyboardEvent, altKeyDefault, codeDefault, ctrlKeyDefault, getModifierStateDefault, keyDefault, metaKeyDefault, shiftKeyDefault)
+import JavaScript.Web.DOM.Class.UiEvent (class UiEvent, detailDefault)
+import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data KeyboardEvent :: Type
 

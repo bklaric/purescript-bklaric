@@ -1,4 +1,4 @@
-module JavaScript.DOM.MutationObserver
+module JavaScript.Web.DOM.MutationObserver
   ( MutationObserver
   , MutationObserverOptions
   , mutationObserver
@@ -11,8 +11,8 @@ import Prelude
 
 import Effect (Effect)
 import Prim.Row (class Union)
-import JavaScript.DOM.MutationRecord (MutationRecord)
-import JavaScript.DOM.Class.Node (class Node)
+import JavaScript.Web.DOM.MutationRecord (MutationRecord)
+import JavaScript.Web.DOM.Class.Node (class Node)
 
 foreign import data MutationObserver :: Type
 

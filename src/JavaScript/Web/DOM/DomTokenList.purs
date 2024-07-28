@@ -1,8 +1,8 @@
-module JavaScript.DOM.DomTokenList where
+module JavaScript.Web.DOM.DomTokenList where
 
 import Prelude
 
-import JavaScript.DOM.Utils (class ToArray, toArrayDefault)
+import JavaScript.Web.DOM.Utils (class ToArray, toArrayDefault)
 import Effect (Effect)
 
 foreign import data DomTokenList :: Type

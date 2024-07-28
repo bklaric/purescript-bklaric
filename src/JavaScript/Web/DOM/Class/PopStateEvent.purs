@@ -1,6 +1,6 @@
-module JavaScript.DOM.Class.PopStateEvent where
+module JavaScript.Web.DOM.Class.PopStateEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.Event (class Event)
 import Foreign (Foreign)
 
 class Event popStateEvent <= PopStateEvent popStateEvent where

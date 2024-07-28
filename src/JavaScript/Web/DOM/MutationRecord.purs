@@ -1,10 +1,10 @@
-module JavaScript.DOM.MutationRecord where
+module JavaScript.Web.DOM.MutationRecord where
 
 import Prelude
 
 import Effect (Effect)
-import JavaScript.DOM.Node (Node)
-import JavaScript.DOM.NodeList (NodeList)
+import JavaScript.Web.DOM.Node (Node)
+import JavaScript.Web.DOM.NodeList (NodeList)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 

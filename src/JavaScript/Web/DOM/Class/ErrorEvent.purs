@@ -1,6 +1,6 @@
-module JavaScript.DOM.Class.ErrorEvent where
+module JavaScript.Web.DOM.Class.ErrorEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.Event (class Event)
 import JavaScript.Error (Error)
 
 class Event event <= ErrorEvent event where

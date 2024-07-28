@@ -1,6 +1,6 @@
-module JavaScript.DOM.Events.UiEvent where
+module JavaScript.Web.DOM.Events.UiEvent where
 
-import JavaScript.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class.Event (class Event)
 
 foreign import data MouseEvent :: Type
 

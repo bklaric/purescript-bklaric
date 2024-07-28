@@ -1,18 +1,18 @@
-module JavaScript.DOM.Class.Element where
+module JavaScript.Web.DOM.Class.Element where
 
 import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
-import JavaScript.DOM.Class.Node (class Node)
-import JavaScript.DOM.DomRect (DomRect)
-import JavaScript.DOM.DomTokenList (DomTokenList)
-import JavaScript.DOM.Element (Element)
-import JavaScript.DOM.HtmlCollection (HtmlCollection)
-import JavaScript.DOM.Node (Node)
-import JavaScript.DOM.NodeList (NodeList)
-import JavaScript.DOM.Utils (toArray)
+import JavaScript.Web.DOM.Class.Node (class Node)
+import JavaScript.Web.DOM.DomRect (DomRect)
+import JavaScript.Web.DOM.DomTokenList (DomTokenList)
+import JavaScript.Web.DOM.Element (Element)
+import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
+import JavaScript.Web.DOM.Node (Node)
+import JavaScript.Web.DOM.NodeList (NodeList)
+import JavaScript.Web.DOM.Utils (toArray)
 import Literals (StringLit)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|), OneOf)
