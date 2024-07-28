@@ -5,17 +5,14 @@ import Prelude
 import Data.Maybe (Maybe)
 import Effect (Effect)
 import JavaScript.DOM.Class.Element (class Element, childrenDefault, classListDefault, classNameDefault, getAttributeDefault, getBoundingClientRectDefault, idDefault, innerHtmlDefault, insertAdjacentHTMLDefault, outerHtmlDefault, querySelectorAllDefault, querySelectorDefault, removeAttributeDefault, removeDefault, replaceWithDefault, scrollHeightDefault, scrollLeftDefault, scrollTopDefault, scrollWidthDefault, setClassNameDefault, setIdDefault, setInnerHtmlDefault, setOuterHtmlDefault, setScrollLeftDefault, setScrollTopDefault)
-import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
+import JavaScript.DOM.Class.EventTarget (class EventTarget)
 import JavaScript.DOM.Class.HtmlElement (class HtmlElement, offsetHeightDefault, offsetWidthDefault, setStyleDefault, styleDefault)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
 import JavaScript.DOM.Utils (unsafeReadProtoTagged)
 
 foreign import data HtmlImageElement :: Type
 
-instance eventTargetHtmlImageElement :: EventTarget HtmlImageElement where
-    addEventListener = addEventListenerDefault
-    removeEventListener = removeEventListenerDefault
-    dispatchEvent = dispatchEventDefault
+instance EventTarget HtmlImageElement
 
 instance nodeHtmlImageElement :: Node HtmlImageElement where
     parentElement = parentElementDefault

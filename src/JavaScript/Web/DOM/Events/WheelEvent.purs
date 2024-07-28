@@ -1,6 +1,6 @@
 module JavaScript.DOM.Events.WheelEvent where
 
-import JavaScript.DOM.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
+import JavaScript.DOM.Class.Event (class Event)
 import JavaScript.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
 import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.DOM.Class.WheelEvent (class WheelEvent, deltaXDefault, deltaYDefault, deltaZDefault)
@@ -8,10 +8,7 @@ import JavaScript.DOM.Events.EventType (EventType(..))
 
 foreign import data WheelEvent :: Type
 
-instance eventWheelEvent :: Event WheelEvent where
-    preventDefault = preventDefaultDefault
-    stopPropagation = stopPropagationDefault
-    stopImmediatePropagation = stopImmediatePropagationDefault
+instance Event WheelEvent
 
 instance uiEventWheelEvent :: UiEvent WheelEvent where
     detail = detailDefault

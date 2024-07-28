@@ -6,7 +6,7 @@ export function toEventListener(listener) {
     }
 }
 
-export function addEventListenerImpl(eventType) {
+export function _addEventListener(eventType) {
     return function (listener) {
         return function (options) {
             return function (target) {
@@ -19,7 +19,7 @@ export function addEventListenerImpl(eventType) {
 }
 
 
-export function removeEventListenerImpl(eventType) {
+export function _removeEventListener(eventType) {
     return function (listener) {
         return function (target) {
             return function () {
@@ -29,7 +29,7 @@ export function removeEventListenerImpl(eventType) {
     }
 }
 
-export function dispatchEventImpl(event) {
+export function _dispatchEvent(event) {
     return function (target) {
         return function () {
             return target.dispatchEvent(event)

@@ -1,16 +1,13 @@
 module JavaScript.DOM.Events.FocusEvent where
 
-import JavaScript.DOM.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
+import JavaScript.DOM.Class.Event (class Event)
 import JavaScript.DOM.Class.FocusEvent (class FocusEvent, relatedTargetDefault)
 import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.DOM.Events.EventType (EventType(..))
 
 foreign import data FocusEvent :: Type
 
-instance Event FocusEvent where
-    preventDefault = preventDefaultDefault
-    stopPropagation = stopPropagationDefault
-    stopImmediatePropagation = stopImmediatePropagationDefault
+instance Event FocusEvent
 
 instance UiEvent FocusEvent where
     detail = detailDefault

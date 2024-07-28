@@ -1,16 +1,13 @@
 module JavaScript.DOM.Events.KeyboardEvent where
 
-import JavaScript.DOM.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
+import JavaScript.DOM.Class.Event (class Event)
 import JavaScript.DOM.Class.KeyboardEvent (class KeyboardEvent, altKeyDefault, codeDefault, ctrlKeyDefault, getModifierStateDefault, keyDefault, metaKeyDefault, shiftKeyDefault)
 import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.DOM.Events.EventType (EventType(..))
 
 foreign import data KeyboardEvent :: Type
 
-instance eventKeyboardEvent :: Event KeyboardEvent where
-    preventDefault = preventDefaultDefault
-    stopPropagation = stopPropagationDefault
-    stopImmediatePropagation = stopImmediatePropagationDefault
+instance Event KeyboardEvent
 
 instance uiEventKeyboardEvent :: UiEvent KeyboardEvent where
     detail = detailDefault

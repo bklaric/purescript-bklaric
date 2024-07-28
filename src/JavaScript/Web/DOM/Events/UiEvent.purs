@@ -1,10 +1,7 @@
 module JavaScript.DOM.Events.UiEvent where
 
-import JavaScript.DOM.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
+import JavaScript.DOM.Class.Event (class Event)
 
 foreign import data MouseEvent :: Type
 
-instance eventMouseEvent :: Event MouseEvent where
-    preventDefault = preventDefaultDefault
-    stopPropagation = stopPropagationDefault
-    stopImmediatePropagation = stopImmediatePropagationDefault
+instance Event MouseEvent

@@ -5,7 +5,7 @@ import Prelude
 import Data.Maybe (Maybe, fromJust)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
-import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
+import JavaScript.DOM.Class.EventTarget (class EventTarget)
 import JavaScript.DOM.Class.Node (class Node, appendChildDefault, insertBeforeDefault, parentElementDefault, setTextContentDefault, textContentDefault)
 import JavaScript.DOM.Element (Element)
 import JavaScript.Web.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
@@ -25,10 +25,7 @@ import Untagged.Union (type (|+|))
 
 foreign import data Document :: Type
 
-instance eventTargetDocument :: EventTarget Document where
-    addEventListener = addEventListenerDefault
-    removeEventListener = removeEventListenerDefault
-    dispatchEvent = dispatchEventDefault
+instance EventTarget Document
 
 instance nodeDocument :: Node Document where
     parentElement = parentElementDefault

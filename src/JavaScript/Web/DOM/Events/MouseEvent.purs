@@ -1,16 +1,13 @@
 module JavaScript.DOM.Events.MouseEvent where
 
-import JavaScript.DOM.Class.Event (class Event, preventDefaultDefault, stopImmediatePropagationDefault, stopPropagationDefault)
+import JavaScript.DOM.Class.Event (class Event)
 import JavaScript.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
 import JavaScript.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.DOM.Events.EventType (EventType(..))
 
 foreign import data MouseEvent :: Type
 
-instance eventMouseEvent :: Event MouseEvent where
-    preventDefault = preventDefaultDefault
-    stopPropagation = stopPropagationDefault
-    stopImmediatePropagation = stopImmediatePropagationDefault
+instance Event MouseEvent
 
 instance uiEventMouseEvent :: UiEvent MouseEvent where
     detail = detailDefault

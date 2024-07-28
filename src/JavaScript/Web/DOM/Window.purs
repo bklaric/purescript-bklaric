@@ -2,7 +2,7 @@ module JavaScript.DOM.Window where
 
 import Prelude
 
-import JavaScript.DOM.Class.EventTarget (class EventTarget, addEventListenerDefault, dispatchEventDefault, removeEventListenerDefault)
+import JavaScript.DOM.Class.EventTarget (class EventTarget)
 import JavaScript.DOM.Document (Document)
 import JavaScript.DOM.Location (Location)
 import JavaScript.DOM.Navigator (Navigator)
@@ -11,10 +11,7 @@ import Undefined (undefined)
 
 foreign import data Window :: Type
 
-instance eventTargetWindow :: EventTarget Window where
-    addEventListener = addEventListenerDefault
-    removeEventListener = removeEventListenerDefault
-    dispatchEvent = dispatchEventDefault
+instance EventTarget Window
 
 foreign import document :: Window -> Effect Document
 

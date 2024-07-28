@@ -1,17 +1,21 @@
-export function preventDefaultImpl(event) {
+export function _preventDefault(event) {
     return function () {
         event.preventDefault()
     }
 }
 
-export function stopPropagationImpl(event) {
+export function _stopPropagation(event) {
     return function () {
         event.stopPropagation()
     }
 }
 
-export function stopImmediatePropagationImpl(event) {
+export function _stopImmediatePropagation(event) {
     return function () {
         event.stopImmediatePropagation()
     }
+}
+
+export function _target(event) {
+    return event.target
 }
