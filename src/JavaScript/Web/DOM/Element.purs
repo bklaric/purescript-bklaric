@@ -15,8 +15,12 @@ import JavaScript.Web.DOM.Node (Node)
 import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray)
 import Literals (StringLit)
+import Unsafe.Coerce (unsafeCoerce)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|))
+
+toElement :: forall element. Element element => element -> Element
+toElement = unsafeCoerce
 
 foreign import _getBoundingClientRect :: forall element. element -> Effect DomRect
 foreign import _getAttribute :: forall element. String -> element -> Effect (Nullable String)
@@ -33,6 +37,7 @@ foreign import _scrollTop :: forall element. element -> Effect Int
 foreign import _scrollLeft :: forall element. element -> Effect Int
 foreign import _setScrollTop :: forall element. Int -> element -> Effect Unit
 foreign import _setScrollLeft :: forall element. Int -> element -> Effect Unit
+foreign import _scrollBy :: forall element. Int -> Int -> element -> Effect Unit
 foreign import _querySelector :: forall element. String -> element -> Effect (Nullable Element)
 foreign import _querySelectorAll :: forall element. String -> element -> Effect NodeList
 foreign import _id :: forall element. element -> Effect String
@@ -88,6 +93,9 @@ setScrollTop = _setScrollTop
 
 setScrollLeft :: forall element. Element element => Int -> element -> Effect Unit
 setScrollLeft = _setScrollLeft
+
+scrollBy :: forall element. Element element => Int -> Int -> element -> Effect Unit
+scrollBy = _scrollBy
 
 querySelector :: forall element. Element element => String -> element -> Effect (Maybe Element)
 querySelector selector element = _querySelector selector element <#> toMaybe

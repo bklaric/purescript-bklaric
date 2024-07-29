@@ -107,6 +107,16 @@ export function _setScrollLeft(scroll) {
     }
 }
 
+export function _scrollBy(scrollX) {
+    return function (scrollY) {
+        return function (element) {
+            return function () {
+                element.scrollBy(scrollX, scrollY)
+            }
+        }
+    }
+}
+
 export function _querySelector(selector) {
     return function (element) {
         return function () {
