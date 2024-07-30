@@ -51,8 +51,8 @@ foreign import _children :: forall element. element -> Effect HtmlCollection
 getBoundingClientRect :: forall element. Element element => element -> Effect DomRect
 getBoundingClientRect = _getBoundingClientRect
 
-getAttribute :: forall element. Element element => String -> element -> Effect (Nullable String)
-getAttribute = _getAttribute
+getAttribute :: forall element. Element element => String -> element -> Effect (Maybe String)
+getAttribute attribute element = _getAttribute attribute element <#> toMaybe
 
 removeAttribute :: forall element. Element element => String -> element -> Effect Unit
 removeAttribute = _removeAttribute
