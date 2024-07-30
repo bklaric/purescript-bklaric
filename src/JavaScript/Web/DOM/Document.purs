@@ -8,16 +8,18 @@ import Effect (Effect)
 import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
 import JavaScript.Web.DOM.Class.Node (class Node)
 import JavaScript.Web.DOM.ElementType (Element)
+import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
+import JavaScript.Web.DOM.HtmlElements.HTMLIFrameElement (HtmlIframeElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlButtonElement (HtmlButtonElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlCanvasElement (HtmlCanvasElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlDivElement (HtmlDivElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlHeadElement (HtmlHeadElement, readHtmlHeadElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
 import JavaScript.Web.DOM.NodeList (NodeList)
-import JavaScript.Web.DOM.HtmlElements.HTMLIFrameElement (HtmlIframeElement)
-import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
+import JavaScript.Web.DOM.Utils (toArray)
 import Literals (StringLit)
 import Partial.Unsafe (unsafePartial)
 import Unsafe.Coerce (unsafeCoerce)
@@ -58,6 +60,11 @@ foreign import getElementByIdImpl :: String -> Document -> Effect (Nullable Elem
 
 getElementById :: String -> Document -> Effect (Maybe Element)
 getElementById id document = getElementByIdImpl id document <#> toMaybe
+
+foreign import getElementsByClassName :: String -> Document -> Effect HtmlCollection
+
+getElementsByClassName' :: String -> Document -> Effect (Array Element)
+getElementsByClassName' className document = getElementsByClassName className document >>= toArray
 
 foreign import contentType :: Document -> Effect String
 

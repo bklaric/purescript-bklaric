@@ -54,6 +54,14 @@ export function getElementByIdImpl(id) {
     }
 }
 
+export function getElementsByClassName(className) {
+    return function (document) {
+        return function () {
+            return document.getElementsByClassName(className)
+        }
+    }
+}
+
 export function contentType(document) {
     return function () {
         return document.contentType
