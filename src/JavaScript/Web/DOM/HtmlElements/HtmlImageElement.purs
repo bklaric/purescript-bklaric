@@ -35,4 +35,7 @@ foreign import naturalHeight :: HtmlImageElement -> Effect Int
 foreign import src :: HtmlImageElement -> Effect String
 foreign import setSrc :: String -> HtmlImageElement -> Effect Unit
 
+foreign import srcset :: HtmlImageElement -> Effect String
+foreign import setSrcset :: String -> HtmlImageElement -> Effect Unit
+
 foreign import complete :: HtmlImageElement -> Effect Boolean

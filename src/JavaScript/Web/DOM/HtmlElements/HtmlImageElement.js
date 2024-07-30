@@ -40,6 +40,20 @@ export function setSrc(src) {
     }
 }
 
+export function srcset(image) {
+    return function () {
+        return image.srcset
+    }
+}
+
+export function setSrcset(srcset) {
+    return function (image) {
+        return function () {
+            image.srcset = srcset
+        }
+    }
+}
+
 export function naturalWidth(image) {
     return function () {
         return image.naturalWidth
