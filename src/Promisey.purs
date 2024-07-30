@@ -2,10 +2,12 @@ module Promisey where
 
 import Prelude
 
+import Control.Apply (lift2)
 import Data.Bifunctor (class Bifunctor, rmap)
 import Data.Either (Either(..), either)
 import Data.Either as Either
 import Data.Maybe (Maybe)
+import Data.Traversable (class Traversable, traverse)
 import Effect (Effect)
 import Effect.Class (class MonadEffect)
 import Untagged.Castable (cast)
@@ -32,6 +34,12 @@ instance MonadEffect (Promise left) where
 
 instance Bifunctor Promise where
     bimap = bimapImpl
+
+instance Semigroup right => Semigroup (Promise left right) where
+    append = lift2 append
+
+instance Monoid right => Monoid (Promise left right) where
+    mempty = pure mempty
 
 foreign import fromEffect :: forall right
     .  Effect right
@@ -114,3 +122,11 @@ forkPromise :: forall left right
     -> Promise left right
     -> (forall voidLeft. Promise voidLeft Unit)
 forkPromise resolved rejected promise = fromEffect $ runPromise resolved rejected promise
+
+foreach :: ∀ left right traversable. Traversable traversable =>
+    traversable right -> (right -> Promise left Unit) -> Promise left Unit
+foreach traversable function = void $ traverse function traversable
+
+safeForeach :: ∀ right traversable. Traversable traversable =>
+    traversable right -> (∀ left. right -> Promise left Unit) -> (∀ left. Promise left Unit)
+safeForeach traversable function = void $ traverse function traversable
