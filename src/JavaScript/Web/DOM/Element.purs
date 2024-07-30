@@ -30,6 +30,7 @@ foreign import _setInnerHtml :: forall element. String -> element -> Effect Unit
 foreign import _outerHtml :: forall element. element -> Effect String
 foreign import _setOuterHtml :: forall element. String -> element -> Effect Unit
 foreign import _insertAdjacentHTML :: forall element. StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend" -> String -> element -> Effect Unit
+foreign import _insertAdjacentElement :: forall adjacentElement element. StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend" -> adjacentElement -> element -> Effect Unit
 foreign import _replaceWith :: forall node element. node -> element -> Effect Unit
 foreign import _scrollWidth :: forall element. element -> Effect Int
 foreign import _scrollHeight :: forall element. element -> Effect Int
@@ -72,6 +73,10 @@ setOuterHtml = _setOuterHtml
 insertAdjacentHTML :: forall element position. Castable position (StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend") =>
     position -> String -> element -> Effect Unit
 insertAdjacentHTML position text element = _insertAdjacentHTML (cast position) text element
+
+insertAdjacentElement :: forall adjacentElement element position. Castable position (StringLit "beforebegin" |+| StringLit "afterbegin" |+| StringLit "beforeend" |+| StringLit "afterend") => Element adjacentElement =>
+    position -> adjacentElement -> element -> Effect Unit
+insertAdjacentElement position adjacentElement element = _insertAdjacentElement (cast position) adjacentElement element
 
 replaceWith :: forall node element. Node node => Element element => node -> element -> Effect Unit
 replaceWith = _replaceWith

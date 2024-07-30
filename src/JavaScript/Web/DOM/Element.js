@@ -59,6 +59,16 @@ export function _insertAdjacentHTML(position) {
     }
 }
 
+export function _insertAdjacentElement(position) {
+    return function (adjacentElement) {
+        return function (element) {
+            return function () {
+                element.insertAdjacentElement(position, adjacentElement)
+            }
+        }
+    }
+}
+
 export function _replaceWith(node) {
     return function (element) {
         return function () {
