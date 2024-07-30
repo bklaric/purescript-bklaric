@@ -4,6 +4,7 @@ import Prelude
 
 import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
+import Control.Apply (lift2)
 import Control.Monad.Cont (ContT(..), lift)
 import Control.Monad.Except (ExceptT(..), withExceptT)
 import Control.Parallel (class Parallel, parallel, sequential)
@@ -187,6 +188,12 @@ instance Apply (ParAsync left) where
 
 instance Applicative (ParAsync left) where
     pure = parallel <<< pure
+
+instance Semigroup right => Semigroup (Async left right) where
+    append = lift2 append
+
+instance Monoid right => Monoid (Async left right) where
+    mempty = pure mempty
 
 instance Alt (ParAsync left) where
     alt (ParAsync leftAsync) (ParAsync rightAsync) =
