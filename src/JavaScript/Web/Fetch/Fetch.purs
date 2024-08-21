@@ -7,17 +7,19 @@ import JavaScript.Web.Fetch.Response (Response)
 import JavaScript.Web.URL.URL (URL)
 import Literals.Undefined (undefined)
 import Promisey (Promise)
-import Untagged.Castable (cast)
-import Untagged.Union (class InOneOf, type (|+|), OneOf, UndefinedOr)
+import Untagged.Castable (class Castable, cast)
+import Untagged.Union (type (|+|), UndefinedOr)
 
 -- https://developer.mozilla.org/en-US/docs/Web/API/fetch
 
 foreign import _fetch :: String |+| URL |+| Request -> UndefinedOr RequestInit -> Promise Error Response
 
-fetch :: forall resource. InOneOf resource String (URL |+| Request) =>
-    resource -> RequestInit -> Promise Error Response
+fetch :: forall resource options.
+    Castable resource (String |+| URL |+| Request) =>
+    Castable options (UndefinedOr RequestInit) =>
+    resource -> options -> Promise Error Response
 fetch resource options = _fetch (cast resource) (cast options)
 
-fetch_ :: forall resource. InOneOf resource String (OneOf URL Request) =>
+fetch_ :: forall resource. Castable resource (String |+| URL |+| Request) =>
     resource -> Promise Error Response
 fetch_ resource = _fetch (cast resource) (cast undefined)
