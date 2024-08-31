@@ -130,3 +130,11 @@ foreach traversable function = void $ traverse function traversable
 safeForeach :: ∀ right traversable. Traversable traversable =>
     traversable right -> (∀ left. right -> Promise left Unit) -> (∀ left. Promise left Unit)
 safeForeach traversable function = void $ traverse function traversable
+
+alwaysRight :: forall inLeft inRight outRight
+    .  (inLeft -> outRight)
+    -> (inRight -> outRight)
+    -> Promise inLeft inRight
+    -> (forall voidLeft. Promise voidLeft outRight)
+alwaysRight leftFunction rightFunction promise =
+    promise # thenOrCatch (rightFunction >>> pure) (leftFunction >>> pure)
