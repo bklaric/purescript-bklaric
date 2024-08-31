@@ -17,6 +17,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlDivElement (HtmlDivElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlHeadElement (HtmlHeadElement, readHtmlHeadElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlParagraphElement (HtmlParagraphElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
 import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray)
@@ -99,3 +100,6 @@ createElementInput document = document # createElementImpl "input" <#> unsafeCoe
 
 createElementSpan :: Document -> Effect HtmlSpanElement
 createElementSpan document = document # createElementImpl "span" <#> unsafeCoerce
+
+createElementParagraph :: Document -> Effect HtmlParagraphElement
+createElementParagraph document = document # createElementImpl "p" <#> unsafeCoerce
