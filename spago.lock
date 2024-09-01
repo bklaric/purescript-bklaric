@@ -30,6 +30,7 @@ workspace:
         - js-timers
         - js-uri
         - lists
+        - literals
         - maybe
         - media-types
         - newtype
@@ -53,7 +54,6 @@ workspace:
         - unicode
         - unsafe-coerce
         - unsafe-reference
-        - untagged-union
         - uri
         - variant
         - web-dom
@@ -66,7 +66,6 @@ workspace:
       build_plan:
         - aff
         - arrays
-        - assert
         - avar
         - bifunctors
         - catenable-lists
@@ -131,7 +130,6 @@ workspace:
         - prelude
         - profunctor
         - profunctor-lenses
-        - psci-support
         - quickcheck
         - quickcheck-laws
         - random
@@ -151,7 +149,6 @@ workspace:
         - unicode
         - unsafe-coerce
         - unsafe-reference
-        - untagged-union
         - uri
         - variant
         - web-clipboard
@@ -664,14 +661,6 @@ packages:
       - tuples
       - unfoldable
       - unsafe-coerce
-  assert:
-    type: registry
-    version: 6.0.0
-    integrity: sha256-hCSYcCw9kj3qujoDcriWhCdmrpPZoguSPDZhEMnTl3A=
-    dependencies:
-      - console
-      - effect
-      - prelude
   avar:
     type: registry
     version: 5.0.0
@@ -1399,14 +1388,6 @@ packages:
       - record
       - transformers
       - tuples
-  psci-support:
-    type: registry
-    version: 6.0.0
-    integrity: sha256-C6ql4P9TEP06hft/1Z5QumPA4yARR4VIxDdhmL1EO+Y=
-    dependencies:
-      - console
-      - effect
-      - prelude
   quickcheck:
     type: registry
     version: 8.0.1
@@ -1607,22 +1588,6 @@ packages:
     integrity: sha256-zU7BhfJU14nXQRZG9iADsp0mSiKhz07OcKyjRB2YT+Y=
     dependencies:
       - prelude
-  untagged-union:
-    type: registry
-    version: 1.0.0
-    integrity: sha256-XSSsmsOIq+JvPaXUdKCW2nGQZ2D+Ku5J6FbWj812AN0=
-    dependencies:
-      - assert
-      - console
-      - effect
-      - foreign
-      - foreign-object
-      - literals
-      - maybe
-      - newtype
-      - psci-support
-      - tuples
-      - unsafe-coerce
   uri:
     type: registry
     version: 9.0.0

@@ -27,6 +27,7 @@ package:
     - js-timers
     - js-uri
     - lists
+    - literals
     - maybe
     - media-types
     - newtype
@@ -50,7 +51,6 @@ package:
     - unicode
     - unsafe-coerce
     - unsafe-reference
-    - untagged-union
     - uri
     - variant
     - web-dom
