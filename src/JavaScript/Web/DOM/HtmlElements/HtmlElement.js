@@ -23,3 +23,9 @@ export function _setStyle(inlineStyle) {
         }
     }
 }
+
+export function _click(element) {
+    return function () {
+        element.click()
+    }
+}
