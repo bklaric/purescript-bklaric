@@ -24,6 +24,7 @@ toElement = unsafeCoerce
 
 foreign import _getBoundingClientRect :: forall element. element -> Effect DomRect
 foreign import _getAttribute :: forall element. String -> element -> Effect (Nullable String)
+foreign import _setAttribute :: forall element. String -> String -> element -> Effect Unit
 foreign import _removeAttribute :: forall element. String -> element -> Effect Unit
 foreign import _innerHtml :: forall element. element -> Effect String
 foreign import _setInnerHtml :: forall element. String -> element -> Effect Unit
@@ -48,12 +49,17 @@ foreign import _setClassName :: forall element. String -> element -> Effect Unit
 foreign import _classList :: forall element. element -> Effect DomTokenList
 foreign import _remove :: forall element. element -> Effect Unit
 foreign import _children :: forall element. element -> Effect HtmlCollection
+foreign import _previousElementSibling :: forall element. element -> Effect (Nullable Element)
+foreign import _tagName :: forall element. element -> Effect String
 
 getBoundingClientRect :: forall element. Element element => element -> Effect DomRect
 getBoundingClientRect = _getBoundingClientRect
 
 getAttribute :: forall element. Element element => String -> element -> Effect (Maybe String)
 getAttribute attribute element = _getAttribute attribute element <#> toMaybe
+
+setAttribute :: forall element. Element element => String -> String -> element -> Effect Unit
+setAttribute = _setAttribute
 
 removeAttribute :: forall element. Element element => String -> element -> Effect Unit
 removeAttribute = _removeAttribute
@@ -137,3 +143,9 @@ children = _children
 
 children' :: forall element. Element element => element -> Effect (Array Element)
 children' element = element # children >>= toArray
+
+previousElementSibling :: forall element. Element element => element -> Effect (Maybe Element)
+previousElementSibling element = _previousElementSibling element <#> toMaybe
+
+tagName :: forall element. Element element => element -> Effect String
+tagName = _tagName

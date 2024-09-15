@@ -13,10 +13,20 @@ export function _getAttribute(attribute) {
     }
 }
 
+export function _setAttribute(name) {
+    return function (value) {
+        return function (element) {
+            return function () {
+                element.setAttribute(name, value)
+            }
+        }
+    }
+}
+
 export function _removeAttribute(attribute) {
     return function (element) {
         return function () {
-            return element.removeAttribute(attribute)
+            element.removeAttribute(attribute)
         }
     }
 }
@@ -186,5 +196,17 @@ export function _remove(element) {
 export function _children(element) {
     return function () {
         return element.children
+    }
+}
+
+export function _previousElementSibling(element) {
+    return function () {
+        return element.previousElementSibling
+    }
+}
+
+export function _tagName(element) {
+    return function () {
+        return element.tagName
     }
 }
