@@ -1,3 +1,11 @@
+export function getPropertyValue(property) {
+    return function (style) {
+        return function () {
+            return style.getPropertyValue(property)
+        }
+    }
+}
+
 export function setProperty(property) {
     return function (value) {
         return function (style) {

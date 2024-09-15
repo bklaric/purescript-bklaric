@@ -49,3 +49,13 @@ export function open(url) {
         }
     }
 }
+
+export function _getComputedStyle(element) {
+    return function (pseudoElement) {
+        return function (window) {
+            return function () {
+                return window.getComputedStyle(element, pseudoElement)
+            }
+        }
+    }
+}

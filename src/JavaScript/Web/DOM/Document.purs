@@ -19,6 +19,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlParagraphElement (HtmlParagraphElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
+import JavaScript.Web.DOM.Node (Node)
 import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray)
 import Literals (StringLit)
@@ -38,6 +39,9 @@ querySelector :: String -> Document -> Effect (Maybe Element)
 querySelector selector document = querySelectorImpl selector document <#> toMaybe
 
 foreign import querySelectorAll :: String -> Document -> Effect NodeList
+
+querySelectorAll' :: String -> Document -> Effect (Array Node)
+querySelectorAll' selector document = querySelectorAll selector document >>= toArray
 
 foreign import headImpl :: Document -> Effect (Nullable HtmlHeadElement)
 

@@ -13,7 +13,7 @@ import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
 import JavaScript.Web.DOM.Node (Node)
 import JavaScript.Web.DOM.NodeList (NodeList)
-import JavaScript.Web.DOM.Utils (toArray)
+import JavaScript.Web.DOM.Utils (toArray, unsafeReadProtoTagged)
 import Literals (StringLit)
 import Unsafe.Coerce (unsafeCoerce)
 import Untagged.Castable (class Castable, cast)
@@ -21,6 +21,9 @@ import Untagged.Union (type (|+|))
 
 toElement :: forall element. Element element => element -> Element
 toElement = unsafeCoerce
+
+readElement :: forall object. object -> Maybe Element
+readElement = unsafeReadProtoTagged "Element"
 
 foreign import _getBoundingClientRect :: forall element. element -> Effect DomRect
 foreign import _getAttribute :: forall element. String -> element -> Effect (Nullable String)
