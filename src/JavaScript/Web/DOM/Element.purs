@@ -11,9 +11,8 @@ import JavaScript.Web.DOM.DomRect (DomRect)
 import JavaScript.Web.DOM.DomTokenList (DomTokenList)
 import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
-import JavaScript.Web.DOM.Node (Node)
 import JavaScript.Web.DOM.NodeList (NodeList)
-import JavaScript.Web.DOM.Utils (toArray, unsafeReadProtoTagged)
+import JavaScript.Web.DOM.Utils (toArray, toArrayDefault, unsafeReadProtoTagged)
 import Literals (StringLit)
 import Unsafe.Coerce (unsafeCoerce)
 import Untagged.Castable (class Castable, cast)
@@ -117,8 +116,8 @@ querySelector selector element = _querySelector selector element <#> toMaybe
 querySelectorAll :: forall element. Element element => String -> element -> Effect NodeList
 querySelectorAll = _querySelectorAll
 
-querySelectorAll' :: forall element. Element element => String -> element -> Effect (Array Node)
-querySelectorAll' selector element = querySelectorAll selector element >>= toArray
+querySelectorAll' :: forall element. Element element => String -> element -> Effect (Array Element)
+querySelectorAll' selector element = querySelectorAll selector element >>= toArrayDefault
 
 id :: forall element. Element element => element -> Effect String
 id = _id

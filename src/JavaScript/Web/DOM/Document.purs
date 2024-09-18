@@ -19,9 +19,8 @@ import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlParagraphElement (HtmlParagraphElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
-import JavaScript.Web.DOM.Node (Node)
 import JavaScript.Web.DOM.NodeList (NodeList)
-import JavaScript.Web.DOM.Utils (toArray)
+import JavaScript.Web.DOM.Utils (toArray, toArrayDefault)
 import Literals (StringLit)
 import Partial.Unsafe (unsafePartial)
 import Unsafe.Coerce (unsafeCoerce)
@@ -40,8 +39,8 @@ querySelector selector document = querySelectorImpl selector document <#> toMayb
 
 foreign import querySelectorAll :: String -> Document -> Effect NodeList
 
-querySelectorAll' :: String -> Document -> Effect (Array Node)
-querySelectorAll' selector document = querySelectorAll selector document >>= toArray
+querySelectorAll' :: String -> Document -> Effect (Array Element)
+querySelectorAll' selector document = querySelectorAll selector document >>= toArrayDefault
 
 foreign import headImpl :: Document -> Effect (Nullable HtmlHeadElement)
 
