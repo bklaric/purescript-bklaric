@@ -52,6 +52,12 @@ foreign import runPromise :: forall left right
     -> Promise left right
     -> Effect Unit
 
+runSafePromise :: ∀ right. (right -> Effect Unit) -> (∀ left. Promise left right) -> Effect Unit
+runSafePromise = runPromise absurd
+
+runEmptyPromise :: (forall left. Promise left Unit) -> Effect Unit
+runEmptyPromise = runSafePromise pure
+
 foreign import _new :: forall left right
     .  ((right |+| Promise left right -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
     -> Promise left right
@@ -102,6 +108,9 @@ thenIgnore handler promise = promise # runPromise mempty (\value -> handler valu
 ignore :: forall left right. Promise left right -> Effect Unit
 ignore promise = promise # runPromise mempty mempty
 
+disolve :: Promise Unit Unit -> Effect Unit
+disolve = ignore
+
 fromEither :: forall left right. Either left right -> Promise left right
 fromEither = either reject resolve
 
@@ -142,3 +151,27 @@ alwaysRight :: forall inLeft inRight outRight
     -> (forall voidLeft. Promise voidLeft outRight)
 alwaysRight leftFunction rightFunction promise =
     promise # thenOrCatch (rightFunction >>> pure) (leftFunction >>> pure)
+
+alwaysRightWithPromise
+    :: ∀ inLeft inRight outRight
+    .  (inLeft -> ∀ voidLeft. (Promise voidLeft outRight))
+    -> (inRight -> ∀ voidLeft. (Promise voidLeft outRight))
+    -> Promise inLeft inRight
+    -> (∀ voidLeft. Promise voidLeft outRight)
+alwaysRightWithPromise leftFunction rightFunction promise =
+    alwaysRight leftFunction rightFunction promise # join
+
+alwaysRightWithEffect
+    :: ∀ inLeft inRight outRight
+    .  (inLeft -> Effect outRight)
+    -> (inRight -> Effect outRight)
+    -> Promise inLeft inRight
+    -> (∀ voidLeft. Promise voidLeft outRight)
+alwaysRightWithEffect leftFunction rightFunction promise =
+    alwaysRightWithPromise
+        (\inLeft -> fromEffect $ leftFunction inLeft)
+        (\inRight -> fromEffect $ rightFunction inRight)
+        promise
+
+unify :: ∀ right. Promise right right -> (∀ left. Promise left right)
+unify = alwaysRight identity identity
