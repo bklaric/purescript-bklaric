@@ -159,7 +159,7 @@ alwaysRightWithPromise
     -> Promise inLeft inRight
     -> (∀ voidLeft. Promise voidLeft outRight)
 alwaysRightWithPromise leftFunction rightFunction promise =
-    alwaysRight leftFunction rightFunction promise # join
+    promise # thenOrCatch rightFunction leftFunction
 
 alwaysRightWithEffect
     :: ∀ inLeft inRight outRight
@@ -168,10 +168,7 @@ alwaysRightWithEffect
     -> Promise inLeft inRight
     -> (∀ voidLeft. Promise voidLeft outRight)
 alwaysRightWithEffect leftFunction rightFunction promise =
-    alwaysRightWithPromise
-        (\inLeft -> fromEffect $ leftFunction inLeft)
-        (\inRight -> fromEffect $ rightFunction inRight)
-        promise
+    promise # thenOrCatch (rightFunction >>> fromEffect) (leftFunction >>> fromEffect)
 
 unify :: ∀ right. Promise right right -> (∀ left. Promise left right)
 unify = alwaysRight identity identity
