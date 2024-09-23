@@ -16,6 +16,12 @@ export function navigator(window) {
     }
 }
 
+export function localStorage(window) {
+    return function () {
+        return window.localStorage
+    }
+}
+
 export function innerWidth(window) {
     return function () {
         return window.innerWidth
@@ -47,6 +53,12 @@ export function open(url) {
                 }
             }
         }
+    }
+}
+
+export function close(window) {
+    return function () {
+        window.close()
     }
 }
 

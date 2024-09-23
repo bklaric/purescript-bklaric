@@ -1,23 +1,19 @@
-export function empty() {
-    return new URLSearchParams()
-}
-
-export function fromString(string) {
+export function _new(params) {
     return function () {
-        return new URLSearchParams(string)
+        return new URLSearchParams(params)
     }
 }
 
-export function fromObject(object) {
-    return function () {
-        return new URLSearchParams(object)
-    }
-}
-
-export function getImpl(key) {
+export function _get(key) {
     return function (params) {
         return function () {
             return params.get(key)
         }
+    }
+}
+
+export function toString(params) {
+    return function () {
+        return params.toString()
     }
 }

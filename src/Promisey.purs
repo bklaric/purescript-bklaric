@@ -3,6 +3,7 @@ module Promisey where
 import Prelude
 
 import Control.Apply (lift2)
+import Control.Monad.Except (ExceptT, runExceptT)
 import Data.Bifunctor (class Bifunctor, rmap)
 import Data.Either (Either(..), either)
 import Data.Either as Either
@@ -115,6 +116,9 @@ fromMaybe left' maybe' = maybe' # Either.note left' # fromEither
 
 fromMaybeEffect :: forall left right. left -> Effect (Maybe right) -> Promise left right
 fromMaybeEffect left' maybeEffect = maybeEffect <#> Either.note left' # fromEitherEffect
+
+fromExceptT :: forall left right. ExceptT left Effect right -> Promise left right
+fromExceptT = runExceptT >>> fromEitherEffect
 
 forkPromise :: forall left right
     .  (left -> Effect Unit)
