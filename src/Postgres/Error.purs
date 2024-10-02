@@ -13,15 +13,12 @@ import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
-import JavaScript.Error.Class (class Error, defaultMessage, defaultName, defaultStack)
+import JavaScript.Class (class Error)
 import JavaScript.Node.Errors.Class (class NodeError, defaultCode)
 
 foreign import data Error :: Type
 
-instance Error Error where
-    name = defaultName
-    message = defaultMessage
-    stack = defaultStack
+instance Error Error
 
 instance NodeError Error where
     code = defaultCode

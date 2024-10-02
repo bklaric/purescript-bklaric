@@ -1,6 +1,6 @@
 module JavaScript.Node.Errors.Class where
 
-import JavaScript.Error.Class (class Error)
+import JavaScript.Class (class Error)
 
 class Error error <= NodeError error where
     code :: error -> String
