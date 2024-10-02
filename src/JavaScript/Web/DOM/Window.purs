@@ -18,6 +18,9 @@ foreign import data Window :: Type
 
 instance EventTarget Window
 
+foreign import parent :: Window -> Effect Window
+foreign import top :: Window -> Effect Window
+
 foreign import document :: Window -> Effect Document
 foreign import location :: Window -> Effect Location
 foreign import navigator :: Window -> Effect Navigator

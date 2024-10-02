@@ -1,3 +1,15 @@
+export function parent(window) {
+    return function () {
+        return window.parent
+    }
+}
+
+export function top(window) {
+    return function () {
+        return window.top
+    }
+}
+
 export function document(window) {
     return function () {
         return window.document
