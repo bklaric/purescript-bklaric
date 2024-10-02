@@ -1,6 +1,6 @@
 module JavaScript.Web.DOM.Events.WheelEvent where
 
-import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class (class Event)
 import JavaScript.Web.DOM.Class.MouseEvent (class MouseEvent, altKeyDefault, buttonDefault, buttonsDefault, clientXDefault, clientYDefault, ctrlKeyDefault, metaKeyDefault, offsetXDefault, offsetYDefault, pageXDefault, pageYDefault, shiftKeyDefault)
 import JavaScript.Web.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.Web.DOM.Class.WheelEvent (class WheelEvent, deltaXDefault, deltaYDefault, deltaZDefault)

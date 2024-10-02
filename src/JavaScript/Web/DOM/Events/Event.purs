@@ -3,7 +3,7 @@ module JavaScript.Web.DOM.Events.Event where
 import Prelude
 
 import Effect (Effect)
-import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class (class Event)
 import JavaScript.Web.DOM.Events.EventType (EventType(..))
 import JavaScript.Web.DOM.EventTarget (EventTarget)
 

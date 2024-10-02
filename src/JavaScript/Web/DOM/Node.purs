@@ -5,8 +5,7 @@ import Prelude
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
-import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
-import JavaScript.Web.DOM.Class.Node (class Node)
+import JavaScript.Web.DOM.Class (class EventTarget, class Node)
 import JavaScript.Web.DOM.ElementType (Element)
 
 foreign import data Node :: Type

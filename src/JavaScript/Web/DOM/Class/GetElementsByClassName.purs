@@ -2,7 +2,7 @@ module JavaScript.Web.DOM.Class.GetElementsByClassName where
 
 import Prelude
 
-import JavaScript.Web.DOM.Class.Element (class Element)
+import JavaScript.Web.DOM.Class (class Element)
 import JavaScript.Web.DOM.Document (Document)
 import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)

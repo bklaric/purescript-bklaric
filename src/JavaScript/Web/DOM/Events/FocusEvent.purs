@@ -1,6 +1,6 @@
 module JavaScript.Web.DOM.Events.FocusEvent where
 
-import JavaScript.Web.DOM.Class.Event (class Event)
+import JavaScript.Web.DOM.Class (class Event)
 import JavaScript.Web.DOM.Class.FocusEvent (class FocusEvent, relatedTargetDefault)
 import JavaScript.Web.DOM.Class.UiEvent (class UiEvent, detailDefault)
 import JavaScript.Web.DOM.Events.EventType (EventType(..))

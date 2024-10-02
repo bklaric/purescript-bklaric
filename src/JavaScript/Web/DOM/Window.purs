@@ -3,8 +3,7 @@ module JavaScript.Web.DOM.Window where
 import Prelude
 
 import Effect (Effect)
-import JavaScript.Web.DOM.Class.Element (class Element)
-import JavaScript.Web.DOM.Class.EventTarget (class EventTarget)
+import JavaScript.Web.DOM.Class (class Element, class EventTarget)
 import JavaScript.Web.DOM.CssStyleDeclaration (CssStyleDeclaration)
 import JavaScript.Web.DOM.Document (Document)
 import JavaScript.Web.DOM.Location (Location)

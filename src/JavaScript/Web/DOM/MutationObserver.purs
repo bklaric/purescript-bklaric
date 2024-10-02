@@ -12,7 +12,7 @@ import Prelude
 import Effect (Effect)
 import Prim.Row (class Union)
 import JavaScript.Web.DOM.MutationRecord (MutationRecord)
-import JavaScript.Web.DOM.Class.Node (class Node)
+import JavaScript.Web.DOM.Class (class Node)
 
 foreign import data MutationObserver :: Type
 
