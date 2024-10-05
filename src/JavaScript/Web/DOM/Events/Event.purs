@@ -4,8 +4,8 @@ import Prelude
 
 import Effect (Effect)
 import JavaScript.Web.DOM.Class (class Event)
-import JavaScript.Web.DOM.Events.EventType (EventType(..))
 import JavaScript.Web.DOM.EventTarget (EventTarget)
+import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data Event :: Type
 

@@ -1,6 +1,6 @@
 module JavaScript.Web.DOM.Class.WheelEvent where
 
-import JavaScript.Web.DOM.Class.MouseEvent (class MouseEvent)
+import JavaScript.Web.DOM.Class (class MouseEvent)
 
 class MouseEvent event <= WheelEvent event where
     deltaX :: event -> Number

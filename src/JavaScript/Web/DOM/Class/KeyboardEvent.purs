@@ -1,6 +1,6 @@
 module JavaScript.Web.DOM.Class.KeyboardEvent where
 
-import JavaScript.Web.DOM.Class.UiEvent (class UiEvent)
+import JavaScript.Web.DOM.Class (class UiEvent)
 
 class UiEvent keyboardEvent <= KeyboardEvent keyboardEvent where
     key :: keyboardEvent -> String
