@@ -18,7 +18,7 @@ import JavaScript.Error (Error)
 import Foreign (Foreign, unsafeToForeign)
 import Foreign.Object (Object)
 import Prim.Row (class Union)
-import Promisey (Promise)
+import JavaScript.Promise (Promise)
 
 type FetchOptionsRow =
     ( method :: Method

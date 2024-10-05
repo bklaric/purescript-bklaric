@@ -3,7 +3,7 @@ module JavaScript.Web.Fetch.Response where
 import Foreign (Foreign)
 import JavaScript.Error (Error)
 import JavaScript.Web.File.Blob (Blob)
-import Promisey (Promise)
+import JavaScript.Promise (Promise)
 
 -- https://developer.mozilla.org/en-US/docs/Web/API/Response
 

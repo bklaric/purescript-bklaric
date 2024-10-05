@@ -4,7 +4,7 @@ import Prelude
 
 import JavaScript.Error (Error)
 import Literals (StringLit)
-import Promisey (Promise)
+import JavaScript.Promise (Promise)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr)
 

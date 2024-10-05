@@ -4,7 +4,7 @@ import Prelude
 
 import JavaScript.Error (Error)
 import JavaScript.Web.Clipboard.ClipboardItem (ClipboardItem)
-import Promisey (Promise)
+import JavaScript.Promise (Promise)
 
 -- https://developer.mozilla.org/en-US/docs/Web/API/Clipboard
 

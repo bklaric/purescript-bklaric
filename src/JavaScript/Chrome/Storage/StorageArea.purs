@@ -4,7 +4,7 @@ import Prelude
 
 import JavaScript.Error (Error)
 import Foreign (Foreign)
-import Promisey (Promise)
+import JavaScript.Promise (Promise)
 import Undefined (undefined)
 import ValidJson (class ValidJson)
 

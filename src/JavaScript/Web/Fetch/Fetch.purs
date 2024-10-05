@@ -6,7 +6,7 @@ import JavaScript.Web.Fetch.RequestInit (RequestInit)
 import JavaScript.Web.Fetch.Response (Response)
 import JavaScript.Web.URL.URL (URL)
 import Literals.Undefined (undefined)
-import Promisey (Promise)
+import JavaScript.Promise (Promise)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr)
 
