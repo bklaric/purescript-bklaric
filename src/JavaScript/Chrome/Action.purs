@@ -2,14 +2,13 @@ module JavaScript.Chrome.Action where
 
 import Prelude
 
-import JavaScript.Chrome.Tabs.Tab (Tab)
 import Effect (Effect)
 import Foreign (Foreign)
+import JavaScript.Chrome.Shared.Event (Event)
+import JavaScript.Chrome.Tabs.Tab (Tab)
 import Prim.Row (class Union)
 import Undefined (undefined)
 import Yoga.JSON (class WriteForeign, write)
-
-foreign import onClickedAddListener :: (Tab -> Effect Unit) -> Effect Unit
 
 foreign import setBadgeTextImpl :: Foreign -> Effect Unit -> Effect Unit
 
@@ -25,3 +24,5 @@ setBadgeText_ details = setBadgeText details undefined
 
 setBadgeText__ :: String -> Effect Unit
 setBadgeText__ text = setBadgeText_ {text}
+
+foreign import onClicked :: Event "action.onClicked" ((Tab -> Effect Unit) -> Effect Unit)

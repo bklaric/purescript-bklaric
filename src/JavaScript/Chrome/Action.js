@@ -1,10 +1,4 @@
-export function onClickedAddListener(listener) {
-    return function () {
-        chrome.action.onClicked.addListener(function (tab) {
-            listener(tab)()
-        })
-    }
-}
+export const onClicked = chrome.action.onClicked
 
 export function setBadgeTextImpl(details) {
     return function (callback) {
