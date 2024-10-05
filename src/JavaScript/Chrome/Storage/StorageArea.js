@@ -1,4 +1,4 @@
-export function getImpl(keys) {
+export function _get(keys) {
     return function (storageArea) {
         return function () {
             return storageArea.get(keys)
@@ -6,7 +6,7 @@ export function getImpl(keys) {
     }
 }
 
-export function setImpl(record) {
+export function _set(record) {
     return function (storageArea) {
         return function () {
             return storageArea.set(record)

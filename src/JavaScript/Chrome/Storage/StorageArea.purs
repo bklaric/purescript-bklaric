@@ -2,32 +2,36 @@ module JavaScript.Chrome.Storage.StorageArea (StorageArea, getAll, getByKey, get
 
 import Prelude
 
-import JavaScript.Error (Error)
 import Foreign (Foreign)
+import JavaScript.Error (Error)
 import JavaScript.Promise (Promise)
-import Undefined (undefined)
+import JavaScript.Promise as Promise
+import Literals.Undefined (Undefined, undefined)
+import Untagged.Castable (class Castable, cast)
+import Untagged.Union (type (|+|))
 import ValidJson (class ValidJson)
+import Yoga.JSON as JSON
 
 -- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea
 
 foreign import data StorageArea :: Type
 
-foreign import getImpl :: forall query result. query -> StorageArea -> Promise Error result
+foreign import _get :: forall fields. Undefined |+| String |+| Array String |+| Record fields -> StorageArea -> Promise Error Foreign
 
 getAll :: StorageArea -> Promise Error Foreign
-getAll = getImpl undefined
+getAll = _get $ cast undefined
 
 getByKey :: String -> StorageArea -> Promise Error Foreign
-getByKey = getImpl
+getByKey = _get <<< cast
 
 getByKeys :: Array String -> StorageArea -> Promise Error Foreign
-getByKeys = getImpl
+getByKeys = _get <<< cast
 
 getWithDefault :: forall fields. ValidJson (Record fields) =>
-    (Record fields) -> StorageArea -> Promise Error (Record fields)
-getWithDefault = getImpl
+    Record fields -> StorageArea -> Promise Error Foreign
+getWithDefault record area = area # _get (cast record :: Undefined |+| String |+| Array String |+| Record fields)
 
-foreign import setImpl :: forall fields. Record fields -> StorageArea -> Promise Error Unit
+foreign import _set :: forall fields. Record fields -> StorageArea -> Promise Error Unit
 
 set :: forall fields. ValidJson (Record fields) => Record fields -> StorageArea -> Promise Error Unit
-set = setImpl
+set = _set

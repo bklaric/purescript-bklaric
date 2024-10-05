@@ -3,7 +3,7 @@ module ValidJson where
 import Data.Nullable (Nullable)
 import Data.Variant (Variant)
 import Foreign.Object (Object)
-import Literal (Literal)
+import Literals (Literal)
 import Prim.RowList (class RowToList, Cons, Nil)
 import Untagged.Union (OneOf)
 
@@ -33,6 +33,6 @@ instance (ValidJson a, ValidJson b) => ValidJson (OneOf a b)
 
 instance ValidJson a => ValidJson (Nullable a)
 
-instance ValidJson (Literal symbol)
+instance ValidJson (Literal type' symbol)
 
 instance (ValidJson value) => ValidJson (Object value)

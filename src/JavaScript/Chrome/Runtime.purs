@@ -5,7 +5,7 @@ import Prelude
 import JavaScript.Chrome.Runtime.MessageSender (MessageSender)
 import JavaScript.Chrome.Runtime.OnInstalledReason (OnInstalledReason)
 import JavaScript.Chrome.Shared.Event (Event)
-import Data.Maybe (Maybe(..), maybe)
+import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import Foreign (Foreign)
@@ -14,25 +14,24 @@ import Literals.Undefined (undefined)
 import JavaScript.Promise (Promise)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (UndefinedOr)
-import Yoga.JSON (class ReadForeign, class WriteForeign, read_, write)
+import Yoga.JSON (class WriteForeign, write)
 
 -- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime
 
 foreign import _sendMessage ::
     UndefinedOr String -> Foreign -> UndefinedOr {includeTlsChannelId :: UndefinedOr Boolean} -> Promise Error (Nullable Foreign)
 
-sendMessage :: forall extensionId message options response
+sendMessage :: forall extensionId message options
     .  Castable extensionId (UndefinedOr String)
     => WriteForeign message
     => Castable options (UndefinedOr {includeTlsChannelId :: UndefinedOr Boolean})
-    => ReadForeign response
-    => extensionId -> message -> options -> Promise Error (Maybe response)
+    => extensionId -> message -> options -> Promise Error (Maybe Foreign)
 sendMessage extensionId message options =
     _sendMessage (cast extensionId) (write message) (cast options)
-    <#> (toMaybe >>> maybe Nothing read_)
+    <#> toMaybe
 
-sendMessage_ :: forall message response. WriteForeign message => ReadForeign response =>
-    message -> Promise Error (Maybe response)
+sendMessage_ :: forall message. WriteForeign message =>
+    message -> Promise Error (Maybe Foreign)
 sendMessage_ message = sendMessage undefined message undefined
 
 sendMessage__ :: forall message. WriteForeign message =>
