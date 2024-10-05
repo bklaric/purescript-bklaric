@@ -210,3 +210,11 @@ export function _tagName(element) {
         return element.tagName
     }
 }
+
+export function _getElementsByClassName(class_) {
+    return function (element) {
+        return function () {
+            return element.getElementsByClassName(class_)
+        }
+    }
+}

@@ -43,6 +43,7 @@ foreign import _setScrollLeft :: forall element. Int -> element -> Effect Unit
 foreign import _scrollBy :: forall element. Int -> Int -> element -> Effect Unit
 foreign import _querySelector :: forall element. String -> element -> Effect (Nullable Element)
 foreign import _querySelectorAll :: forall element. String -> element -> Effect NodeList
+foreign import _getElementsByClassName :: forall element. String -> element -> Effect HtmlCollection
 foreign import _id :: forall element. element -> Effect String
 foreign import _setId :: forall element. String -> element -> Effect Unit
 foreign import _className :: forall element. element -> Effect String
@@ -117,6 +118,12 @@ querySelectorAll = _querySelectorAll
 
 querySelectorAll' :: forall element. Element element => String -> element -> Effect (Array Element)
 querySelectorAll' selector element = querySelectorAll selector element >>= toArrayDefault
+
+getElementsByClassName :: forall element. Element element => String -> element -> Effect HtmlCollection
+getElementsByClassName = _getElementsByClassName
+
+getElementsByClassName' :: forall element. Element element => String -> element -> Effect (Array Element)
+getElementsByClassName' className' document = getElementsByClassName className' document >>= toArray
 
 id :: forall element. Element element => element -> Effect String
 id = _id
