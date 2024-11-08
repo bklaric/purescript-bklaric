@@ -21,6 +21,12 @@ export function _update(id) {
     }
 }
 
+export function _remove(id) {
+    return function () {
+        return chrome.contextMenus.remove(id)
+    }
+}
+
 export function removeAll() {
     // chrome.contextMenus.removeAll that returns a promise is supported in Chrome 123 and later,
     // which is much too new for a lot of my current users.

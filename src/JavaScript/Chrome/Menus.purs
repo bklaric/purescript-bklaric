@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Menus (ContextType, PropertiesRow, CreateProperties, UpdateProperties, create, update, removeAll) where
+module JavaScript.Chrome.Menus (ContextType, PropertiesRow, CreateProperties, UpdateProperties, create, update, remove, removeAll) where
 
 import Prelude
 
@@ -51,5 +51,10 @@ update :: forall id properties
     => Castable properties UpdateProperties
     => id -> properties -> Promise Error Unit
 update id properties = _update (cast id) (cast properties)
+
+foreign import _remove :: String |+| Int -> Promise Error Unit
+
+remove :: forall id. Castable id (String |+| Int) => id -> Promise Error Unit
+remove id = _remove (cast id)
 
 foreign import removeAll :: Promise Error Unit
