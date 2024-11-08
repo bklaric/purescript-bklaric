@@ -20,3 +20,6 @@ pointerdown = EventType "pointerdown"
 
 pointerup :: EventType PointerEvent
 pointerup = EventType "pointerup"
+
+contextmenu :: EventType PointerEvent
+contextmenu = EventType "contextmenu"
