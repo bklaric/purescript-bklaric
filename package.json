@@ -4,6 +4,7 @@
         "npm": "10.8.1"
     },
     "devDependencies": {
+        "alwan": "^2.1.1",
         "purescript": "^0.15.15",
         "spago": "^0.93.34"
     }
