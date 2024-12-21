@@ -77,6 +77,12 @@ foreign import then_ :: forall left right rightNext
     -> Promise left right
     -> Promise left rightNext
 
+thenEffect :: forall left right rightNext
+    .  (right -> Effect rightNext)
+    -> Promise left right
+    -> Promise left rightNext
+thenEffect handler promise = promise # then_ (handler >>> fromEffect)
+
 foreign import catch :: forall left leftNext right
     .  (left -> Promise leftNext right)
     -> Promise left right
