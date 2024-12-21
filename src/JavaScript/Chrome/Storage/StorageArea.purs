@@ -5,12 +5,10 @@ import Prelude
 import Foreign (Foreign)
 import JavaScript.Error (Error)
 import JavaScript.Promise (Promise)
-import JavaScript.Promise as Promise
 import Literals.Undefined (Undefined, undefined)
-import Untagged.Castable (class Castable, cast)
+import Untagged.Castable (cast)
 import Untagged.Union (type (|+|))
 import ValidJson (class ValidJson)
-import Yoga.JSON as JSON
 
 -- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea
 
