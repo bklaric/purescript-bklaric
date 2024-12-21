@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Storage.StorageArea (StorageArea, getAll, getByKey, getByKeys, getWithDefault, set)  where
+module JavaScript.Chrome.Storage.StorageArea (StorageArea, getAll, getByKey, getByKeys, getWithDefault, set, remove)  where
 
 import Prelude
 
@@ -6,7 +6,7 @@ import Foreign (Foreign)
 import JavaScript.Error (Error)
 import JavaScript.Promise (Promise)
 import Literals.Undefined (Undefined, undefined)
-import Untagged.Castable (cast)
+import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|))
 import ValidJson (class ValidJson)
 
@@ -33,3 +33,8 @@ foreign import _set :: forall fields. Record fields -> StorageArea -> Promise Er
 
 set :: forall fields. ValidJson (Record fields) => Record fields -> StorageArea -> Promise Error Unit
 set = _set
+
+foreign import _remove :: String |+| Array String -> StorageArea -> Promise Error Unit
+
+remove :: forall keys. Castable keys (String |+| Array String) => keys -> StorageArea -> Promise Error Unit
+remove = _remove <<< cast

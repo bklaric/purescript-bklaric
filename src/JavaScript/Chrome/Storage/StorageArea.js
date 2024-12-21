@@ -13,3 +13,11 @@ export function _set(record) {
         }
     }
 }
+
+export function _remove(keys) {
+    return function (storageArea) {
+        return function () {
+            return storageArea.remove(keys)
+        }
+    }
+}
