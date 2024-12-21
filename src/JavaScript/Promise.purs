@@ -58,6 +58,11 @@ runSafePromise = runPromise absurd
 runEmptyPromise :: (forall left. Promise left Unit) -> Effect Unit
 runEmptyPromise = runSafePromise pure
 
+runPromiseEither :: forall left right. (Either left right -> Effect Unit) -> Promise left right -> Effect Unit
+runPromiseEither handler promise = promise # runPromise
+    (\error -> handler $ Left error)
+    (\result -> handler $ Right result)
+
 foreign import _new :: forall left right
     .  ((right |+| Promise left right -> Effect Unit) -> (left -> Effect Unit) -> Effect Unit)
     -> Promise left right
