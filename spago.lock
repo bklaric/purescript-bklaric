@@ -44,6 +44,7 @@ workspace:
         - partial
         - prelude
         - record
+        - record-extra
         - refs
         - strings
         - stringutils
@@ -134,6 +135,7 @@ workspace:
         - quickcheck-laws
         - random
         - record
+        - record-extra
         - refs
         - safe-coerce
         - st
@@ -1442,6 +1444,18 @@ packages:
       - functions
       - prelude
       - unsafe-coerce
+  record-extra:
+    type: registry
+    version: 5.0.1
+    integrity: sha256-7vnREK2fpGJ7exswSeA9UpZFuU+UXRt3SA7AFUldT/Y=
+    dependencies:
+      - arrays
+      - functions
+      - lists
+      - prelude
+      - record
+      - tuples
+      - typelevel-prelude
   refs:
     type: registry
     version: 6.0.0

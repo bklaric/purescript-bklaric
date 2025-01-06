@@ -41,6 +41,7 @@ package:
     - partial
     - prelude
     - record
+    - record-extra
     - refs
     - strings
     - stringutils

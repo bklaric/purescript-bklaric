@@ -1,4 +1,4 @@
-module Record.Extra where
+module Record.ExtraBklaric where
 
 import Prelude
 
