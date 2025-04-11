@@ -82,3 +82,9 @@ export function setHref(href) {
         }
     }
 }
+
+export function createObjectURL(obj) {
+    return function () {
+        return URL.createObjectURL(obj)
+    }
+}

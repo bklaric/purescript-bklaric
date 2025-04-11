@@ -11,6 +11,8 @@ import Literals.Undefined (Undefined, undefined)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|))
 
+-- https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+
 foreign import data URLSearchParams :: Type
 
 foreign import _new :: String |+| Object String |+| Undefined -> Effect URLSearchParams

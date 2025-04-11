@@ -1,14 +1,17 @@
-module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref) where
+module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref, createObjectURL) where
 
 import Prelude
 
 import Data.Either (Either(..))
 import Effect (Effect)
 import JavaScript.Error (Error)
+import JavaScript.Web.File.Blob (Blob)
 import JavaScript.Web.URL.URLSearchParams (URLSearchParams)
 import Literals.Undefined (Undefined, undefined)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|), OneOf)
+
+-- https://developer.mozilla.org/en-US/docs/Web/API/URL
 
 foreign import data URL :: Type
 
@@ -52,3 +55,5 @@ foreign import hash :: URL -> Effect String
 foreign import href :: URL -> Effect String
 
 foreign import setHref :: String -> URL -> Effect Unit
+
+foreign import createObjectURL :: Blob -> Effect String
