@@ -6,7 +6,9 @@ class Event uiEvent <= UiEvent uiEvent
 
 class UiEvent mouseEvent <= MouseEvent mouseEvent
 
-class TouchEvent (touchEvent :: Type)
+class UiEvent touchEvent <= TouchEvent (touchEvent :: Type)
+
+class Event event <= MessageEvent event
 
 class EventTarget (eventTarget :: Type)
 
