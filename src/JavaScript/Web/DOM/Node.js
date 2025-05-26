@@ -1,3 +1,9 @@
+export function _isConnected(node) {
+    return function () {
+        return node.isConnected
+    }
+}
+
 export function _parentElement(node) {
     return function () {
         return node.parentElement

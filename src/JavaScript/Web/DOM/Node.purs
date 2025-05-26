@@ -14,11 +14,15 @@ instance EventTarget Node
 
 instance Node Node
 
+foreign import _isConnected :: forall node. node -> Effect Boolean
 foreign import _parentElement :: forall node. node -> Effect (Nullable Element)
 foreign import _appendChild :: forall node child. child -> node -> Effect Unit
 foreign import _textContent :: forall node. node -> Effect String
 foreign import _setTextContent :: forall node. String -> node -> Effect Unit
 foreign import _insertBefore :: forall node new reference. new -> reference -> node -> Effect Unit
+
+isConnected :: forall node. Node node => node -> Effect Boolean
+isConnected = _isConnected
 
 parentElement :: forall node. Node node => node -> Effect (Maybe Element)
 parentElement node = _parentElement node <#> toMaybe
