@@ -22,3 +22,9 @@ export function _postMessage(message) {
         }
     }
 }
+
+export function terminate(worker) {
+    return function () {
+        worker.terminate()
+    }
+}

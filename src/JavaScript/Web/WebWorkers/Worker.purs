@@ -1,4 +1,4 @@
-module JavaScript.Web.WebWorkers.Worker (Worker, new, new_, postMessage) where
+module JavaScript.Web.WebWorkers.Worker (Worker, new, new_, postMessage, terminate) where
 
 import Prelude
 
@@ -40,3 +40,5 @@ foreign import _postMessage :: forall message. message -> Worker -> Effect Unit
 
 postMessage :: forall message. ValidJson message => message -> Worker -> Effect Unit
 postMessage = _postMessage
+
+foreign import terminate :: Worker -> Effect Unit
