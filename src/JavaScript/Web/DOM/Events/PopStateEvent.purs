@@ -1,15 +1,18 @@
 module JavaScript.Web.DOM.Events.PopStateEvent where
 
-import JavaScript.Web.DOM.Class (class Event)
-import JavaScript.Web.DOM.Class.PopStateEvent (class PopStateEvent, stateDefault)
+import Foreign (Foreign)
+import JavaScript.Web.DOM.Class (class Event, class PopStateEvent)
 import JavaScript.Web.DOM.Events.EventType (EventType(..))
 
 foreign import data PopStateEvent :: Type
 
 instance Event PopStateEvent
+instance PopStateEvent PopStateEvent
 
-instance PopStateEvent PopStateEvent where
-    state = stateDefault
+foreign import _state :: forall popStateEvent. popStateEvent -> Foreign
+
+state :: forall popStateEvent. PopStateEvent popStateEvent => popStateEvent -> Foreign
+state = _state
 
 popstate :: EventType PopStateEvent
 popstate = EventType "popstate"
