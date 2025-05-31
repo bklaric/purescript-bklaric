@@ -7,12 +7,16 @@ import Control.Monad.Except (ExceptT, runExceptT)
 import Data.Bifunctor (class Bifunctor, rmap)
 import Data.Either (Either(..), either)
 import Data.Either as Either
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe, maybe)
 import Data.Traversable (class Traversable, traverse)
 import Effect (Effect)
 import Effect.Class (class MonadEffect)
+import Effect.Exception (throw, throwException)
+import JavaScript.Error (readError)
+import Unsafe.Coerce (unsafeCoerce)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|))
+import Yoga.JSON (unsafeStringify)
 
 foreign import data Promise :: Type -> Type -> Type
 
@@ -46,14 +50,19 @@ foreign import fromEffect :: forall right
     .  Effect right
     -> (forall voidLeft. Promise voidLeft right)
 
+-- Treat the Promise like an Effect and let it go unhandled if rejected.
+unsafeToEffect :: forall left right. Promise left right -> Effect Unit
+unsafeToEffect = unsafeCoerce
+
 foreign import runPromise :: forall left right
     .  (left -> Effect Unit)
     -> (right -> Effect Unit)
     -> Promise left right
     -> Effect Unit
 
+-- If the promise actually ends up being rejected, rethrow the error so the promise goes unhandled.
 runSafePromise :: ∀ right. (right -> Effect Unit) -> (∀ left. Promise left right) -> Effect Unit
-runSafePromise = runPromise absurd
+runSafePromise = runPromise (\left -> left # readError # maybe (unsafeStringify left # throw) (unsafeCoerce >>> throwException))
 
 runEmptyPromise :: (forall left. Promise left Unit) -> Effect Unit
 runEmptyPromise = runSafePromise pure

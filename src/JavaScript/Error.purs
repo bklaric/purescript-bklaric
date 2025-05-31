@@ -1,10 +1,15 @@
-module JavaScript.Error (Error, new, name, message, stack) where
+module JavaScript.Error (Error, new, name, message, stack, readError) where
 
+import Data.Maybe (Maybe)
 import JavaScript.Class (class Error)
+import JavaScript.Web.DOM.Utils (unsafeReadProtoTagged)
 
 foreign import data Error :: Type
 
 instance Error Error
+
+readError :: forall object. object -> Maybe Error
+readError = unsafeReadProtoTagged "Error"
 
 foreign import new :: String -> Error
 
