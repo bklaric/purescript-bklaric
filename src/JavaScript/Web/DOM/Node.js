@@ -41,3 +41,11 @@ export function _insertBefore(new_ ) {
         }
     }
 }
+
+export function _cloneNode(deep) {
+    return function (node) {
+        return function () {
+            return node.cloneNode(deep)
+        }
+    }
+}
