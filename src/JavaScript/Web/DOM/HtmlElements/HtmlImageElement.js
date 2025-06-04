@@ -54,6 +54,20 @@ export function setSrcset(srcset) {
     }
 }
 
+export function crossOrigin(image) {
+    return function () {
+        return image.crossOrigin
+    }
+}
+
+export function setCrossOrigin(crossOrigin) {
+    return function (image) {
+        return function () {
+            image.crossOrigin = crossOrigin
+        }
+    }
+}
+
 export function naturalWidth(image) {
     return function () {
         return image.naturalWidth

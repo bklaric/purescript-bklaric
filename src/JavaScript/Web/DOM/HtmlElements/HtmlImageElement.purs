@@ -35,4 +35,7 @@ foreign import setSrc :: String -> HtmlImageElement -> Effect Unit
 foreign import srcset :: HtmlImageElement -> Effect String
 foreign import setSrcset :: String -> HtmlImageElement -> Effect Unit
 
+foreign import crossOrigin :: HtmlImageElement -> Effect String
+foreign import setCrossOrigin :: String -> HtmlImageElement -> Effect Unit
+
 foreign import complete :: HtmlImageElement -> Effect Boolean
