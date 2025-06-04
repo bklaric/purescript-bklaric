@@ -31,6 +31,9 @@ target = _target
 resize :: EventType Event
 resize = EventType "resize"
 
+scroll :: EventType Event
+scroll = EventType "scroll"
+
 load :: EventType Event
 load = EventType "load"
 
