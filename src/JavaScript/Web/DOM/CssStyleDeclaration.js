@@ -23,3 +23,9 @@ export function removeProperty(property) {
         }
     }
 }
+
+export function cssText(style) {
+    return function () {
+        return style.cssText
+    }
+}

@@ -10,3 +10,5 @@ foreign import getPropertyValue :: String -> CssStyleDeclaration -> Effect Strin
 foreign import setProperty :: String -> String -> CssStyleDeclaration -> Effect Unit
 
 foreign import removeProperty :: String -> CssStyleDeclaration -> Effect Unit
+
+foreign import cssText :: CssStyleDeclaration -> Effect String
