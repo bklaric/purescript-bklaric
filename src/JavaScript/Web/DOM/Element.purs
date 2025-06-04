@@ -2,9 +2,11 @@ module JavaScript.Web.DOM.Element where
 
 import Prelude
 
+import Data.Either (Either(..))
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
+import JavaScript.Error (Error)
 import JavaScript.Web.DOM.Class (class Element, class Node)
 import JavaScript.Web.DOM.DomRect (DomRect)
 import JavaScript.Web.DOM.DomTokenList (DomTokenList)
@@ -51,6 +53,7 @@ foreign import _setClassName :: forall element. String -> element -> Effect Unit
 foreign import _classList :: forall element. element -> Effect DomTokenList
 foreign import _remove :: forall element. element -> Effect Unit
 foreign import _children :: forall element. element -> Effect HtmlCollection
+foreign import _replaceChildren :: forall node element. (Error -> Either Error Unit) -> (Unit -> Either Error Unit) -> Array node -> element -> Effect (Either Error Unit)
 foreign import _previousElementSibling :: forall element. element -> Effect (Nullable Element)
 foreign import _tagName :: forall element. element -> Effect String
 
@@ -151,6 +154,9 @@ children = _children
 
 children' :: forall element. Element element => element -> Effect (Array Element)
 children' element = element # children >>= toArray
+
+replaceChildren :: forall node element. Node node => Element element => Array node -> element -> Effect (Either Error Unit)
+replaceChildren nodes element = _replaceChildren Left Right nodes element
 
 previousElementSibling :: forall element. Element element => element -> Effect (Maybe Element)
 previousElementSibling element = _previousElementSibling element <#> toMaybe

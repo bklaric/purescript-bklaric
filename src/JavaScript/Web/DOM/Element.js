@@ -199,6 +199,23 @@ export function _children(element) {
     }
 }
 
+export function _replaceChildren(left) {
+    return function (right) {
+        return function (nodes) {
+            return function (element) {
+                return function () {
+                    try {
+                        return right(element.replaceChildren(...nodes))
+                    }
+                    catch (ex) {
+                        return left(ex)
+                    }
+                }
+            }
+        }
+    }
+}
+
 export function _previousElementSibling(element) {
     return function () {
         return element.previousElementSibling
