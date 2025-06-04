@@ -3,6 +3,7 @@ module JavaScript.Web.DOM.Window where
 import Prelude
 
 import Effect (Effect)
+import Foreign (Foreign)
 import JavaScript.Web.DOM.Class (class Element, class EventTarget)
 import JavaScript.Web.DOM.CssStyleDeclaration (CssStyleDeclaration)
 import JavaScript.Web.DOM.Document (Document)
@@ -44,3 +45,5 @@ getComputedStyle element pseudoElement window = _getComputedStyle element (cast 
 
 getComputedStyle_ :: forall element. Element element => element -> Window -> Effect CssStyleDeclaration
 getComputedStyle_ element window = _getComputedStyle element (cast undefined) window
+
+foreign import requestAnimationFrame :: (Foreign -> Effect Unit) -> Window -> Effect Unit

@@ -83,3 +83,13 @@ export function _getComputedStyle(element) {
         }
     }
 }
+
+export function requestAnimationFrame(callback) {
+    return function (window) {
+        return function () {
+            window.requestAnimationFrame(function (timestamp) {
+                callback(timestamp)()
+            })
+        }
+    }
+}
