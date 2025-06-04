@@ -1,7 +1,7 @@
 module JavaScript.Web.DOM.MutationObserver
   ( MutationObserver
   , MutationObserverOptions
-  , mutationObserver
+  , new
   , observe
   , disconnect
   , takeRecords
@@ -26,14 +26,14 @@ type MutationObserverOptions =
     , attributeFilter :: Array String
     )
 
-foreign import mutationObserver ::
+foreign import new ::
   ((Array MutationRecord) -> MutationObserver -> Effect Unit) -> Effect MutationObserver
 
-foreign import observeImpl :: forall node options. node -> Record options -> MutationObserver -> Effect Unit
+foreign import _observe :: forall node options. node -> Record options -> MutationObserver -> Effect Unit
 
 observe :: forall node r rx. Node node => Union r rx MutationObserverOptions =>
     node -> Record r -> MutationObserver -> Effect Unit
-observe = observeImpl
+observe = _observe
 
 foreign import disconnect :: MutationObserver -> Effect Unit
 

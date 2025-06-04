@@ -1,4 +1,4 @@
-export function mutationObserver(callback) {
+function _new(callback) {
     return function () {
         return new MutationObserver(function (records, observer) {
             return callback(records)(observer)()
@@ -6,7 +6,9 @@ export function mutationObserver(callback) {
     }
 }
 
-export function observeImpl(node) {
+export { _new as new }
+
+export function _observe(node) {
     return function (options) {
         return function (observer) {
             return function () {
