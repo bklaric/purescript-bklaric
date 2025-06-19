@@ -82,6 +82,12 @@ export function hasFocus(document) {
 
 export function readyState(document) {
     return function () {
-        return document.readState
+        return document.readyState
+    }
+}
+
+export function timeline(document) {
+    return function () {
+        return document.timeline
     }
 }

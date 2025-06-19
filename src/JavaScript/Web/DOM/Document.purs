@@ -20,6 +20,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlParagraphElement (HtmlParagraphElemen
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
 import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray, toArrayDefault)
+import JavaScript.Web.WebAnimations.DocumentTimeline (DocumentTimeline)
 import Literals (StringLit)
 import Partial.Unsafe (unsafePartial)
 import Unsafe.Coerce (unsafeCoerce)
@@ -76,6 +77,8 @@ foreign import referrer :: Document -> Effect String
 foreign import hasFocus :: Document -> Effect Boolean
 
 foreign import readyState :: Document -> Effect (StringLit "loading" |+| StringLit "interactive" |+| StringLit "complete")
+
+foreign import timeline :: Document -> Effect DocumentTimeline
 
 createElementHead :: Document -> Effect HtmlHeadElement
 createElementHead document = do
