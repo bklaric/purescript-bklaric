@@ -15,6 +15,7 @@ import Data.Symbol (class IsSymbol, reflectSymbol)
 import Foreign (Foreign, isNull, typeOf, unsafeToForeign)
 import Foreign.Object (Object)
 import Foreign.Object as Object
+import Literals (Literal)
 import Literals.Null (Null)
 import Literals.Undefined (Undefined)
 import Prim.RowList (class RowToList, Cons, Nil, RowList)
@@ -51,6 +52,9 @@ instance hasRuntimeTypeObject :: HasRuntimeType e => HasRuntimeType (Object e) w
     hasJsType "object" x && (Object.all \_ -> hasRuntimeTypeE) (unsafeCoerce x)
     where
       hasRuntimeTypeE = hasRuntimeType (Proxy :: _ e)
+
+instance hasRuntimeTypeLiteral :: HasRuntimeType t => HasRuntimeType (Literal t s) where
+  hasRuntimeType _ _ = true
 
 instance hasRuntimeTypeRecord ::
   ( RowToList r rl

@@ -8,3 +8,7 @@ else instance (Castable (Record a) (Record t)) => InOneOf (Record a) h (Record t
 
 Added to Castable:
 instance castableArray :: Castable a b => Castable (Array a) (Array b)
+
+Added to TypeCheck:
+instance hasRuntimeTypeLiteral :: HasRuntimeType t => HasRuntimeType (Literal t s) where
+  hasRuntimeType _ _ = true
