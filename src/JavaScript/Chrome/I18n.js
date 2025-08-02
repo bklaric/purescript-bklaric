@@ -7,3 +7,7 @@ export function _getMessage(messageName) {
         }
     }
 }
+
+export function getUILanguage() {
+    return chrome.i18n.getUILanguage()
+}

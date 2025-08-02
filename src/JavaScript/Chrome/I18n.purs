@@ -15,3 +15,5 @@ getMessage_ name substitutions = _getMessage name (cast substitutions) (cast und
 
 getMessage__ :: String -> Effect String
 getMessage__ name = _getMessage name (cast undefined) (cast undefined)
+
+foreign import getUILanguage :: Effect String
