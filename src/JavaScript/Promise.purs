@@ -192,3 +192,6 @@ alwaysRightWithEffect leftFunction rightFunction promise =
 
 unify :: ∀ right. Promise right right -> (∀ left. Promise left right)
 unify = alwaysRight identity identity
+
+note :: ∀ right left. left -> Maybe right -> Promise left right
+note left' maybe = maybe # Either.note left' # fromEither
