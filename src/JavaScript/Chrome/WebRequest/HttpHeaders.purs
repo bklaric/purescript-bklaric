@@ -1,11 +1,11 @@
 module JavaScript.Chrome.WebRequest.HttpHeaders where
 
-import Data.Maybe (Maybe)
+import Data.Nullable (Nullable)
 
 -- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/HttpHeaders
 
 type HttpHeaders = Array
     { name :: String
-    , value :: Maybe String
-    , binaryValue :: Maybe (Array Int)
+    , value :: Nullable String
+    , binaryValue :: Nullable (Array Int)
     }
