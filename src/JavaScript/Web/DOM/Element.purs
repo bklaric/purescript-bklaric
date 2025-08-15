@@ -46,6 +46,7 @@ foreign import _scrollBy :: forall element. Int -> Int -> element -> Effect Unit
 foreign import _querySelector :: forall element. String -> element -> Effect (Nullable Element)
 foreign import _querySelectorAll :: forall element. String -> element -> Effect NodeList
 foreign import _getElementsByClassName :: forall element. String -> element -> Effect HtmlCollection
+foreign import _closest :: forall element. String -> element -> Effect (Nullable Element)
 foreign import _id :: forall element. element -> Effect String
 foreign import _setId :: forall element. String -> element -> Effect Unit
 foreign import _className :: forall element. element -> Effect String
@@ -127,6 +128,9 @@ getElementsByClassName = _getElementsByClassName
 
 getElementsByClassName' :: forall element. Element element => String -> element -> Effect (Array Element)
 getElementsByClassName' className' document = getElementsByClassName className' document >>= toArray
+
+closest :: forall element. Element element => String -> element -> Effect (Maybe Element)
+closest selector element = _closest selector element <#> toMaybe
 
 id :: forall element. Element element => element -> Effect String
 id = _id

@@ -153,6 +153,14 @@ export function _querySelectorAll(selector) {
     }
 }
 
+export function _closest(selector) {
+    return function (element) {
+        return function () {
+            return element.closest(selector)
+        }
+    }
+}
+
 export function _id(element) {
     return function () {
         return element.id
