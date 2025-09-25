@@ -2,9 +2,9 @@ module Effect.Console.Unsafe where
 
 import Prelude
 
-import Effect (Effect)
-import Effect.Console (log)
+import Effect.Class (class MonadEffect)
+import Effect.Class.Console (log)
 import Unsafe.Coerce (unsafeCoerce)
 
-unsafeLog :: forall anything. anything -> Effect Unit
+unsafeLog :: forall anything effect. MonadEffect effect => anything -> effect Unit
 unsafeLog = log <<< unsafeCoerce
