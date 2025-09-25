@@ -1,7 +1,3 @@
-export function getCurrent() {
-    return chrome.tabs.getCurrent()
-}
-
 export function _sendMessage(extensionId) {
     return function (message) {
         return function (options) {
@@ -11,6 +7,19 @@ export function _sendMessage(extensionId) {
         }
     }
 }
+
+export function get(tabId) {
+    return function() {
+        return chrome.tabs.get(tabId)
+    }
+}
+
+export function getCurrent() {
+    return function() {
+        return chrome.tabs.getCurrent()
+    }
+}
+
 
 export function _create(createProperties) {
     return function () {
@@ -31,3 +40,11 @@ export function _query(queryProperties) {
         return chrome.tabs.query(queryProperties)
     }
 }
+
+export const onCreated = chrome.tabs.onCreated
+
+export const onUpdated = chrome.tabs.onUpdated
+
+export const onRemoved = chrome.tabs.onRemoved
+
+export const onMoved = chrome.tabs.onMoved

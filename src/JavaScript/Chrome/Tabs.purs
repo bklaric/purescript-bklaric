@@ -1,21 +1,23 @@
-module JavaScript.Chrome.Tabs (getCurrent, sendMessage, sendMessage_, sendMessage__, CreateProperties, create, UpdateProperties, update, update_, query) where
+module JavaScript.Chrome.Tabs (sendMessage, sendMessage_, sendMessage__, get, getCurrent, CreateProperties, create, UpdateProperties, update, update_, query, onCreated, onUpdated, onRemoved, onMoved) where
 
 import Prelude
 
-import JavaScript.Chrome.Tabs.Tab (Tab)
-import JavaScript.Chrome.Tabs.TabStatus (TabStatus)
-import JavaScript.Chrome.Tabs.WindowType (WindowType)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Nullable (Nullable, toMaybe)
+import Effect (Effect)
 import Foreign (Foreign)
+import JavaScript.Chrome.Shared.Event (Event)
+import JavaScript.Chrome.Tabs.Tab (Tab)
+import JavaScript.Chrome.Tabs.TabStatus (TabStatus)
+import JavaScript.Chrome.Windows.WindowType (WindowType)
 import JavaScript.Error (Error)
-import Literals.Undefined (Undefined, undefined)
 import JavaScript.Promise (Promise)
+import Literals.Undefined (Undefined, undefined)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr)
 import Yoga.JSON (class ReadForeign, class WriteForeign, read_, write)
 
-foreign import getCurrent :: Promise Error Tab
+-- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs
 
 foreign import _sendMessage ::
     Int -> Foreign -> UndefinedOr {frameId :: UndefinedOr Int} -> Promise Error (Nullable Foreign)
@@ -36,6 +38,10 @@ sendMessage_ tabId message = sendMessage tabId message undefined
 sendMessage__ :: forall message. WriteForeign message =>
     Int -> message -> Promise Error Unit
 sendMessage__ tabId message = _sendMessage tabId (write message) (cast undefined) # void
+
+foreign import get :: Int -> Promise Error Tab
+
+foreign import getCurrent :: Promise Error Tab
 
 type CreateProperties =
     { active :: UndefinedOr Boolean
@@ -107,3 +113,11 @@ foreign import _query :: QueryProperties -> Promise Error (Array Tab)
 query :: forall queryProperties. Castable queryProperties QueryProperties =>
     queryProperties -> Promise Error (Array Tab)
 query = _query <<< cast
+
+foreign import onCreated :: Event "tabs.onCreated" (Tab -> Effect Unit)
+
+foreign import onUpdated :: Event "tabs.onUpdated" (Int -> {url :: Nullable String} -> Tab -> Effect Unit)
+
+foreign import onRemoved :: Event "tabs.onRemoved" (Int -> {windowId :: Int, isWindowClosing :: Boolean} -> Effect Unit)
+
+foreign import onMoved :: Event "tabs.onMoved" (Int -> {windowId :: Int, fromIndex :: Int, toIndex :: Int} -> Effect Unit)
