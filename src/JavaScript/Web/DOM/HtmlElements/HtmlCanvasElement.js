@@ -26,15 +26,25 @@ export function setHeight(height) {
     }
 }
 
-export function toBlob(callback) {
-    return function (canvas) {
-        return function () {
-            canvas.toBlob(blob => callback(blob)())
+export function _toBlob(left) {
+    return function (right) {
+        return function (callback) {
+            return function (canvas) {
+                return function () {
+                    try {
+                        canvas.toBlob(blob => {
+                            callback(right(blob))()
+                        })
+                    } catch (error) {
+                        callback(left(error))()
+                    }
+                }
+            }
         }
     }
 }
 
-export function getContext2D(canvas) {
+export function _getContext2D(canvas) {
     return function () {
         return canvas.getContext('2d')
     }
@@ -58,7 +68,7 @@ export function drawImage(image) {
     }
 }
 
-export function createImageBitmapImpl(image) {
+export function _createImageBitmap(image) {
     return function () {
         return createImageBitmap(image)
     }
