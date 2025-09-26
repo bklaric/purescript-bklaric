@@ -1,5 +1,3 @@
-export function tabImpl(messageSender) {
-    return function () {
-        return messageSender.tab
-    }
+export function _tab(messageSender) {
+    return messageSender.tab
 }
