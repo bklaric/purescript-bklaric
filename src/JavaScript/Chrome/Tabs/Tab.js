@@ -14,6 +14,10 @@ export function index(tab) {
     return tab.index
 }
 
+export function _sessionId(tab) {
+    return tab.sessionId
+}
+
 export function windowId(tab) {
     return tab.windowId
 }

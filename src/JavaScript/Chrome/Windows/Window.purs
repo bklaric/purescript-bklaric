@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Windows.Window (Window, incognito, tabs) where
+module JavaScript.Chrome.Windows.Window (Window, incognito, sessionId, tabs) where
 
 import Prelude
 
@@ -14,6 +14,11 @@ foreign import data Window :: Type
 foreign import incognito :: Window -> Boolean
 
 foreign import _tabs :: Window -> Nullable (Array Tab)
+
+foreign import _sessionId :: Window -> Nullable String
+
+sessionId :: Window -> Maybe String
+sessionId = _sessionId >>> toMaybe
 
 tabs :: Window -> Maybe (Array Tab)
 tabs = _tabs >>> toMaybe
