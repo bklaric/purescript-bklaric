@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Windows.Window (Window, incognito, sessionId, tabs) where
+module JavaScript.Chrome.Windows.Window (Window, id, incognito, sessionId, tabs) where
 
 import Prelude
 
@@ -10,6 +10,11 @@ import JavaScript.Chrome.Tabs.Tab (Tab)
 
 -- Window objects are immutable snapshots that represent window state in a particular moment.
 foreign import data Window :: Type
+
+foreign import _id :: Window -> Nullable Int
+
+id :: Window -> Maybe Int
+id = _id >>> toMaybe
 
 foreign import incognito :: Window -> Boolean
 

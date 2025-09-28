@@ -1,3 +1,9 @@
+export function _create(createData) {
+    return function () {
+        return chrome.windows.create(createData)
+    }
+}
+
 export function _get(windowId) {
     return function (getInfo) {
         return function () {
