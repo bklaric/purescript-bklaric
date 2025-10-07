@@ -13,6 +13,7 @@ import JavaScript.Web.DOM.DomTokenList (DomTokenList)
 import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
 import JavaScript.Web.DOM.NodeList (NodeList)
+import JavaScript.Web.DOM.ShadowRoot (ShadowRoot)
 import JavaScript.Web.DOM.Utils (toArray, toArrayDefault, unsafeReadProtoTagged)
 import Literals (StringLit)
 import Unsafe.Coerce (unsafeCoerce)
@@ -57,6 +58,7 @@ foreign import _children :: forall element. element -> Effect HtmlCollection
 foreign import _replaceChildren :: forall node element. (Error -> Either Error Unit) -> (Unit -> Either Error Unit) -> Array node -> element -> Effect (Either Error Unit)
 foreign import _previousElementSibling :: forall element. element -> Effect (Nullable Element)
 foreign import _tagName :: forall element. element -> Effect String
+foreign import _shadowRoot :: forall element. element -> Effect (Nullable ShadowRoot)
 
 getBoundingClientRect :: forall element. Element element => element -> Effect DomRect
 getBoundingClientRect = _getBoundingClientRect
@@ -167,3 +169,6 @@ previousElementSibling element = _previousElementSibling element <#> toMaybe
 
 tagName :: forall element. Element element => element -> Effect String
 tagName = _tagName
+
+shadowRoot :: forall element. Element element => element -> Effect (Maybe ShadowRoot)
+shadowRoot element = _shadowRoot element <#> toMaybe

@@ -29,3 +29,5 @@ class EventTarget node <= Node node
 class Node element <= Element element
 
 class Element htmlElement <= HtmlElement htmlElement
+
+class Node documentFragment <= DocumentFragment documentFragment

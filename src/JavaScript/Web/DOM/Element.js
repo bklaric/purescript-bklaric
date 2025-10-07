@@ -243,3 +243,9 @@ export function _getElementsByClassName(class_) {
         }
     }
 }
+
+export function _shadowRoot(element) {
+    return function () {
+        return element.shadowRoot
+    }
+}
