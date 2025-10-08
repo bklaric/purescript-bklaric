@@ -19,3 +19,7 @@ export function _stopImmediatePropagation(event) {
 export function _target(event) {
     return event.target
 }
+
+export function _isTrusted(event) {
+    return event.isTrusted
+}

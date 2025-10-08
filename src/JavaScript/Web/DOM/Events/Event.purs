@@ -1,4 +1,4 @@
-module JavaScript.Web.DOM.Events.Event where
+module JavaScript.Web.DOM.Events.Event (Event, preventDefault, stopPropagation, stopImmediatePropagation, target, isTrusted, resize, scroll, load, change, domcontentloaded) where
 
 import Prelude
 
@@ -15,6 +15,7 @@ foreign import _preventDefault :: forall event. event -> Effect Unit
 foreign import _stopPropagation :: forall event. event -> Effect Unit
 foreign import _stopImmediatePropagation :: forall event. event -> Effect Unit
 foreign import _target :: forall event. event -> EventTarget
+foreign import _isTrusted :: forall event. event -> Boolean
 
 preventDefault :: forall event. Event event => event -> Effect Unit
 preventDefault = _preventDefault
@@ -27,6 +28,9 @@ stopImmediatePropagation = _stopImmediatePropagation
 
 target :: forall event. Event event => event -> EventTarget
 target = _target
+
+isTrusted :: forall event. Event event => event -> Boolean
+isTrusted = _isTrusted
 
 resize :: EventType Event
 resize = EventType "resize"
