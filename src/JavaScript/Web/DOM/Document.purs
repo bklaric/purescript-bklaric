@@ -48,6 +48,7 @@ head :: Document -> Effect (Maybe HtmlHeadElement)
 head document = headImpl document <#> toMaybe
 
 -- Body returns null for svg images, so it should be nullable.
+-- Also null before document fully loaded.
 foreign import body :: Document -> Effect HtmlBodyElement
 
 foreign import documentElementImpl :: Document -> Effect (Nullable Element)
