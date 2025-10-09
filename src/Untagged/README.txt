@@ -10,5 +10,5 @@ Added to Castable:
 instance castableArray :: Castable a b => Castable (Array a) (Array b)
 
 Added to TypeCheck:
-instance hasRuntimeTypeLiteral :: HasRuntimeType t => HasRuntimeType (Literal t s) where
-  hasRuntimeType _ _ = true
+instance hasRuntimeTypeLiteral :: (HasRuntimeType t, IsSymbol s) => HasRuntimeType (Literal t s) where
+  hasRuntimeType _ value = reflectSymbol (Proxy :: _ s) == unsafeCoerce value
