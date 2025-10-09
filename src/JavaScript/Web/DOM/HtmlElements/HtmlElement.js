@@ -29,3 +29,8 @@ export function _click(element) {
         element.click()
     }
 }
+
+export const _focus = (options) => (element) => () => {
+    console.log("focus", options, element)
+    element.focus(options)
+}
