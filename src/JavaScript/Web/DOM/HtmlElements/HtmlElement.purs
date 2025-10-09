@@ -30,6 +30,7 @@ foreign import _offsetHeight :: forall htmlElement. htmlElement -> Effect Int
 foreign import _style :: forall htmlElement. htmlElement -> Effect CssStyleDeclaration
 foreign import _setStyle :: forall htmlElement. String -> htmlElement -> Effect Unit
 foreign import _click :: forall htmlElement. htmlElement -> Effect Unit
+foreign import _blur :: forall htmlElement. htmlElement -> Effect Unit
 foreign import _focus :: forall htmlElement. UndefinedOr {preventScroll:: UndefinedOr Boolean, focusVisible :: UndefinedOr Boolean} -> htmlElement -> Effect Unit
 
 offsetWidth :: forall htmlElement. HtmlElement htmlElement => htmlElement -> Effect Int
@@ -46,6 +47,9 @@ setStyle = _setStyle
 
 click :: forall htmlElement. HtmlElement htmlElement => htmlElement -> Effect Unit
 click = _click
+
+blur :: forall htmlElement. HtmlElement htmlElement => htmlElement -> Effect Unit
+blur = _blur
 
 focus :: forall htmlElement options.
     HtmlElement htmlElement => Castable options (UndefinedOr {focusVisible :: UndefinedOr Boolean, preventScroll :: UndefinedOr Boolean}) =>

@@ -30,7 +30,6 @@ export function _click(element) {
     }
 }
 
-export const _focus = (options) => (element) => () => {
-    console.log("focus", options, element)
-    element.focus(options)
-}
+export const _blur = (element) => () => element.blur()
+
+export const _focus = (options) => (element) => () => element.focus(options)
