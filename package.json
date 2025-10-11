@@ -1,12 +1,12 @@
 {
     "volta": {
-        "node": "20.10.0",
-        "npm": "10.8.1"
+        "node": "22.20.0",
+        "npm": "11.6.2"
     },
     "devDependencies": {
-        "alwan": "^2.1.1",
+        "alwan": "^2.2.0",
         "purescript": "^0.15.15",
-        "spago": "^0.93.34",
-        "ua-parser-js": "^2.0.0"
+        "spago": "^0.93.44",
+        "ua-parser-js": "^2.0.6"
     }
 }
