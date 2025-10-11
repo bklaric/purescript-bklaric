@@ -13,3 +13,5 @@ export function _addListener(listener) {
 export const onBeforeSendHeaders = chrome.webRequest.onBeforeSendHeaders
 
 export const onBeforeRequest = chrome.webRequest.onBeforeRequest
+
+export const onCompleted = chrome.webRequest.onCompleted

@@ -1,4 +1,4 @@
-module JavaScript.Chrome.WebRequest (addListener, addListener', OnBeforeSendHeadersDetails, onBeforeSendHeaders) where
+module JavaScript.Chrome.WebRequest (ExtraInfoSpec, addListener, addListener', OnBeforeSendHeadersDetails, onBeforeSendHeaders, OnBeforeRequestDetails, onBeforeRequest, OnCompletedDetails, onCompleted) where
 
 import Prelude
 
@@ -19,16 +19,14 @@ type ExtraInfoSpec = Array (StringLit "blocking" |+| StringLit "requestHeaders" 
 
 foreign import _addListener :: forall source listener. EventListener source listener -> RequestFilter -> ExtraInfoSpec -> Event source listener -> Effect Unit
 
-addListener :: forall source listener filter extraInfo
+addListener :: forall source listener filter
     .  Castable filter RequestFilter
-    => Castable extraInfo ExtraInfoSpec
-    => EventListener source listener -> filter -> extraInfo -> Event source listener -> Effect Unit
-addListener listener filter extraInfo event = _addListener listener (cast filter) (cast extraInfo) event
+    => EventListener source listener -> filter -> ExtraInfoSpec -> Event source listener -> Effect Unit
+addListener listener filter extraInfo event = _addListener listener (cast filter) (extraInfo) event
 
-addListener' :: forall source listener filter extraInfo
+addListener' :: forall source listener filter
     .  Castable filter RequestFilter
-    => Castable extraInfo ExtraInfoSpec
-    => listener -> filter -> extraInfo -> Event source listener -> Effect Unit
+    => listener -> filter -> ExtraInfoSpec -> Event source listener -> Effect Unit
 addListener' listener filter extraInfo event = addListener (toEventListener listener) filter extraInfo event
 
 type OnBeforeSendHeadersDetails =
@@ -52,3 +50,12 @@ type OnBeforeRequestDetails =
     }
 
 foreign import onBeforeRequest :: Event "webRequest.onBeforeRequest" (OnBeforeRequestDetails -> Effect Unit)
+
+type OnCompletedDetails =
+    { url :: String
+    , method :: String
+    , frameId :: Int
+    , tabId :: Int
+    }
+
+foreign import onCompleted :: Event "webRequest.onCompleted" (OnCompletedDetails -> Effect Unit)
