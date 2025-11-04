@@ -1,4 +1,4 @@
-module JavaScript.Chrome.WebRequest (ExtraInfoSpec, addListener, addListener', OnBeforeSendHeadersDetails, onBeforeSendHeaders, OnBeforeRequestDetails, onBeforeRequest, OnCompletedDetails, onCompleted) where
+module JavaScript.Chrome.WebRequest (ExtraInfoSpec, addListener, addListener', OnBeforeSendHeadersDetails, onBeforeSendHeaders, OnBeforeRequestDetails, onBeforeRequest, OnHeadersReceivedDetails, onHeadersReceived, OnCompletedDetails, onCompleted) where
 
 import Prelude
 
@@ -15,7 +15,7 @@ import Untagged.Union (type (|+|))
 
 -- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest
 
-type ExtraInfoSpec = Array (StringLit "blocking" |+| StringLit "requestHeaders" |+| StringLit "requestBody")
+type ExtraInfoSpec = Array (StringLit "blocking" |+| StringLit "requestHeaders" |+| StringLit "responseHeaders" |+| StringLit "requestBody")
 
 foreign import _addListener :: forall source listener. EventListener source listener -> RequestFilter -> ExtraInfoSpec -> Event source listener -> Effect Unit
 
@@ -50,6 +50,14 @@ type OnBeforeRequestDetails =
     }
 
 foreign import onBeforeRequest :: Event "webRequest.onBeforeRequest" (OnBeforeRequestDetails -> Effect Unit)
+
+type OnHeadersReceivedDetails =
+    { url :: String
+    , tabId :: Int
+    , responseHeaders :: Nullable HttpHeaders
+    }
+
+foreign import onHeadersReceived :: Event "webRequest.onHeadersReceived" (OnHeadersReceivedDetails -> Effect Unit)
 
 type OnCompletedDetails =
     { url :: String

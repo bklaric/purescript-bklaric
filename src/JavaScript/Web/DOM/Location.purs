@@ -4,6 +4,8 @@ import Prelude
 
 import Effect (Effect)
 
+-- https://developer.mozilla.org/en-US/docs/Web/API/Location/replace
+
 foreign import data Location :: Type
 
 foreign import protocol :: Location -> Effect String
@@ -25,3 +27,5 @@ foreign import hash :: Location -> Effect String
 foreign import href :: Location -> Effect String
 
 foreign import setHref :: String -> Location -> Effect Unit
+
+foreign import replace :: String -> Location -> Effect Unit

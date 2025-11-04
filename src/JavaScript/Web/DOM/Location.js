@@ -59,3 +59,5 @@ export function setHref(href) {
         }
     }
 }
+
+export const replace = (href) => (location) => () => location.replace(href)
