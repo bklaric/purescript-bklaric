@@ -8,6 +8,8 @@ import JavaScript.Promise (Promise)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr)
 
+-- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/menus
+
 type ContextType
     =   StringLit "all"
     |+| StringLit "action"
