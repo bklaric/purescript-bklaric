@@ -13,6 +13,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlButtonElement (HtmlButtonElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlCanvasElement (HtmlCanvasElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlDivElement (HtmlDivElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlElement (HtmlElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlHeadElement (HtmlHeadElement, readHtmlHeadElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
@@ -109,3 +110,6 @@ createElementSpan document = document # createElementImpl "span" <#> unsafeCoerc
 
 createElementParagraph :: Document -> Effect HtmlParagraphElement
 createElementParagraph document = document # createElementImpl "p" <#> unsafeCoerce
+
+createElementB :: Document -> Effect HtmlElement
+createElementB document = document # createElementImpl "b" <#> unsafeCoerce
