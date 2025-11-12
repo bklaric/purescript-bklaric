@@ -17,6 +17,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlElement (HtmlElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlHeadElement (HtmlHeadElement, readHtmlHeadElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlImageElement (HtmlImageElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlInputElement (HtmlInputElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlLinkElement (HtmlLinkElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlParagraphElement (HtmlParagraphElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
 import JavaScript.Web.DOM.NodeList (NodeList)
@@ -113,3 +114,6 @@ createElementParagraph document = document # createElementImpl "p" <#> unsafeCoe
 
 createElementB :: Document -> Effect HtmlElement
 createElementB document = document # createElementImpl "b" <#> unsafeCoerce
+
+createElementLink :: Document -> Effect HtmlLinkElement
+createElementLink document = document # createElementImpl "link" <#> unsafeCoerce
