@@ -1,12 +1,12 @@
-module JavaScript.Chrome.Scripting (ExecutionWorld, InjectionTarget, ScriptInjection, executeScript) where
+module JavaScript.Chrome.Scripting (ExecutionWorld, InjectionTarget, ScriptInjection, executeScript, insertCSS) where
 
 import Prelude
 
 import Data.Nullable (Nullable)
 import Foreign (Foreign)
 import JavaScript.Error (Error)
-import Literals (StringLit)
 import JavaScript.Promise (Promise)
+import Literals (StringLit)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr)
 
@@ -26,6 +26,18 @@ type InjectionResult = {frameId :: Int, result :: Nullable Foreign, error :: Nul
 
 foreign import _executeScript :: ScriptInjection -> Promise Error (Array InjectionResult)
 
-executeScript :: forall injection. Castable injection ScriptInjection
-    => injection -> Promise Error (Array InjectionResult)
+executeScript :: forall injection. Castable injection ScriptInjection =>
+    injection -> Promise Error (Array InjectionResult)
 executeScript = _executeScript <<< cast
+
+foreign import _insertCSS :: {css :: UndefinedOr String, files :: UndefinedOr (Array String), origin :: UndefinedOr String, target :: InjectionTarget} -> Promise Error Unit
+
+insertCSS :: forall details.
+    Castable details
+    { css :: UndefinedOr String
+    , files :: UndefinedOr (Array String)
+    , origin :: UndefinedOr String
+    , target :: InjectionTarget
+    } =>
+    details -> Promise Error Unit
+insertCSS = _insertCSS <<< cast
