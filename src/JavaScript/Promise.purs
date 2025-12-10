@@ -109,10 +109,10 @@ foreign import bimapImpl :: forall left right leftNext rightNext
     -> Promise left right
     -> Promise leftNext rightNext
 
-foreign import finally :: forall left leftNext right
-    .  Promise leftNext Unit
+foreign import finally :: forall left right
+    .  Promise left Unit
     -> Promise left right
-    -> Promise leftNext right
+    -> Promise left right
 
 foreign import resolve :: forall left right. right -> Promise left right
 
