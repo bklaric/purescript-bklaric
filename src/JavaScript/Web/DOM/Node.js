@@ -49,3 +49,5 @@ export function _cloneNode(deep) {
         }
     }
 }
+
+export const _hasChildNodes = (node) => () => node.hasChildNodes()
