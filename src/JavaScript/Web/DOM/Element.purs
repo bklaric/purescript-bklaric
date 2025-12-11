@@ -56,6 +56,7 @@ foreign import _classList :: forall element. element -> Effect DomTokenList
 foreign import _remove :: forall element. element -> Effect Unit
 foreign import _children :: forall element. element -> Effect HtmlCollection
 foreign import _replaceChildren :: forall node element. (Error -> Either Error Unit) -> (Unit -> Either Error Unit) -> Array node -> element -> Effect (Either Error Unit)
+foreign import _nextElementSibling :: forall element. element -> Effect (Nullable Element)
 foreign import _previousElementSibling :: forall element. element -> Effect (Nullable Element)
 foreign import _tagName :: forall element. element -> Effect String
 foreign import _shadowRoot :: forall element. element -> Effect (Nullable ShadowRoot)
@@ -163,6 +164,9 @@ children' element = element # children >>= toArray
 
 replaceChildren :: forall node element. Node node => Element element => Array node -> element -> Effect (Either Error Unit)
 replaceChildren nodes element = _replaceChildren Left Right nodes element
+
+nextElementSibling :: forall element. Element element => element -> Effect (Maybe Element)
+nextElementSibling element = _nextElementSibling element <#> toMaybe
 
 previousElementSibling :: forall element. Element element => element -> Effect (Maybe Element)
 previousElementSibling element = _previousElementSibling element <#> toMaybe

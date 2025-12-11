@@ -224,6 +224,12 @@ export function _replaceChildren(left) {
     }
 }
 
+export function _nextElementSibling(element) {
+    return function () {
+        return element.nextElementSibling
+    }
+}
+
 export function _previousElementSibling(element) {
     return function () {
         return element.previousElementSibling
