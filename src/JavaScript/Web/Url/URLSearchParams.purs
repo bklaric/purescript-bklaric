@@ -1,4 +1,4 @@
-module JavaScript.Web.URL.URLSearchParams (URLSearchParams, new, new_, get, toString) where
+module JavaScript.Web.URL.URLSearchParams (URLSearchParams, new, new_, get, set, toString) where
 
 import Prelude
 
@@ -27,5 +27,7 @@ foreign import _get :: String -> URLSearchParams -> Effect (Nullable String)
 
 get :: String -> URLSearchParams -> Effect (Maybe String)
 get key params = _get key params <#> Nullable.toMaybe
+
+foreign import set :: String -> String -> URLSearchParams -> Effect Unit
 
 foreign import toString :: URLSearchParams -> Effect String

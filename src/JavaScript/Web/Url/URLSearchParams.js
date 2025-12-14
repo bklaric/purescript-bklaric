@@ -12,6 +12,8 @@ export function _get(key) {
     }
 }
 
+export const set = (key) => (value) => (params) => () => params.set(key, value)
+
 export function toString(params) {
     return function () {
         return params.toString()
