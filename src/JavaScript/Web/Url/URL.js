@@ -88,3 +88,5 @@ export function createObjectURL(obj) {
         return URL.createObjectURL(obj)
     }
 }
+
+export const toString = (url) => () => url.toString()

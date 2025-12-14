@@ -1,4 +1,4 @@
-module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref, createObjectURL) where
+module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref, createObjectURL, toString) where
 
 import Prelude
 
@@ -57,3 +57,5 @@ foreign import href :: URL -> Effect String
 foreign import setHref :: String -> URL -> Effect Unit
 
 foreign import createObjectURL :: Blob -> Effect String
+
+foreign import toString :: URL -> Effect String
