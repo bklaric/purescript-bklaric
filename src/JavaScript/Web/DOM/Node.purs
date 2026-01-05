@@ -11,6 +11,8 @@ import Literals.Undefined (undefined)
 import Untagged.Castable (cast)
 import Untagged.Union (UndefinedOr)
 
+-- https://developer.mozilla.org/en-US/docs/Web/API/Node
+
 foreign import data Node :: Type
 
 instance EventTarget Node
@@ -44,6 +46,7 @@ setTextContent = _setTextContent
 insertBefore :: forall node new reference. Node new => Node reference => Node node => new -> reference -> node -> Effect Unit
 insertBefore = _insertBefore
 
+-- First param is deep or not.
 cloneNode :: forall node. Node node => Boolean -> node -> Effect node
 cloneNode = _cloneNode <<< cast
 
