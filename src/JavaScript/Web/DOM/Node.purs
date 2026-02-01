@@ -27,6 +27,8 @@ foreign import _setTextContent :: forall node. String -> node -> Effect Unit
 foreign import _insertBefore :: forall node new reference. new -> reference -> node -> Effect Unit
 foreign import _cloneNode :: forall node. UndefinedOr Boolean -> node -> Effect node
 foreign import _hasChildNodes :: forall node. node -> Effect Boolean
+foreign import _firstChild :: forall node. node -> Effect (Nullable Node)
+foreign import _lastChild :: forall node. node -> Effect (Nullable Node)
 
 isConnected :: forall node. Node node => node -> Effect Boolean
 isConnected = _isConnected
@@ -55,3 +57,9 @@ cloneNode_ = _cloneNode $ cast undefined
 
 hasChildNodes :: forall node. Node node => node -> Effect Boolean
 hasChildNodes = _hasChildNodes
+
+firstChild :: forall node. Node node => node -> Effect (Maybe Node)
+firstChild node = _firstChild node <#> toMaybe
+
+lastChild :: forall node. Node node => node -> Effect (Maybe Node)
+lastChild node = _lastChild node <#> toMaybe

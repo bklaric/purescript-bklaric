@@ -51,3 +51,7 @@ export function _cloneNode(deep) {
 }
 
 export const _hasChildNodes = (node) => () => node.hasChildNodes()
+
+export const _firstChild = (node) => () => node.firstChild;
+
+export const _lastChild = (node) => () => node.lastChild;
