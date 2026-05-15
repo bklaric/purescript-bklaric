@@ -12,11 +12,11 @@ import Untagged.Union (type (|+|), UndefinedOr)
 
 -- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/windows
 
-foreign import _create :: UndefinedOr {incognito :: UndefinedOr Boolean, url :: Undefined |+| String |+| Array String} -> Promise Error Window
+foreign import _create :: UndefinedOr {focused :: UndefinedOr Boolean, incognito :: UndefinedOr Boolean, url :: Undefined |+| String |+| Array String} -> Promise Error Window
 
-create :: forall a24.
-  Castable a24 (UndefinedOr {incognito :: UndefinedOr Boolean, url :: Undefined |+| String |+| Array String})
-   => a24 -> Promise Error Window
+create :: forall options.
+    Castable options (UndefinedOr {focused :: UndefinedOr Boolean, incognito :: UndefinedOr Boolean, url :: Undefined |+| String |+| Array String})
+    => options -> Promise Error Window
 create createInfo = _create $ cast createInfo
 
 foreign import _get :: Int -> UndefinedOr {populate :: UndefinedOr Boolean, windowTypes :: UndefinedOr (Array WindowType)} -> Promise Error Window
