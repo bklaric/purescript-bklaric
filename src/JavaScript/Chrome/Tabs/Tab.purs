@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Tabs.Tab (Tab, id, url, incognito, index, sessionId, windowId) where
+module JavaScript.Chrome.Tabs.Tab (Tab, id, url, title, incognito, index, sessionId, windowId) where
 
 import Prelude
 
@@ -19,6 +19,11 @@ foreign import _url :: Tab -> Nullable String
 
 url :: Tab -> Maybe String
 url tab = _url tab # toMaybe
+
+foreign import _title :: Tab -> Nullable String
+
+title :: Tab -> Maybe String
+title tab = _title tab # toMaybe
 
 foreign import incognito :: Tab -> Boolean
 

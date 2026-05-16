@@ -6,6 +6,10 @@ export function _url(tab) {
     return tab.url
 }
 
+export function _title(tab) {
+    return tab.title
+}
+
 export function incognito(tab) {
     return tab.incognito
 }
