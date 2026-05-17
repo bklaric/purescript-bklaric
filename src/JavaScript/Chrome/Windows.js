@@ -17,3 +17,7 @@ export function _getAll(getInfo) {
         return chrome.windows.getAll(getInfo)
     }
 }
+
+export function getLastFocused_() {
+    return chrome.windows.getLastFocused()
+}

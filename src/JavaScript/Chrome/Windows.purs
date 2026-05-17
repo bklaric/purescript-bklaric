@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Windows (create, get, get_, getAll) where
+module JavaScript.Chrome.Windows (create, get, get_, getAll, getLastFocused_) where
 
 import Prelude
 
@@ -33,3 +33,5 @@ foreign import _getAll :: {populate :: UndefinedOr Boolean, windowTypes :: Undef
 getAll :: forall getInfo. Castable getInfo {populate :: UndefinedOr Boolean, windowTypes :: UndefinedOr (Array WindowType)} =>
     getInfo -> Promise Error (Array Window)
 getAll getInfo = _getAll $ cast getInfo
+
+foreign import getLastFocused_ :: Promise Error Window
