@@ -10,6 +10,10 @@ export function _title(tab) {
     return tab.title
 }
 
+export function _favIconUrl(tab) {
+    return tab.favIconUrl
+}
+
 export function incognito(tab) {
     return tab.incognito
 }
