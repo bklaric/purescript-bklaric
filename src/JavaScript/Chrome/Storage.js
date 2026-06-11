@@ -5,3 +5,5 @@ export const managed = chrome.storage.managed
 export const session = chrome.storage.session
 
 export const sync = chrome.storage.sync
+
+export const syncOnChanged = chrome.storage.sync.onChanged
