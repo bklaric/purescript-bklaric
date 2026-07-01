@@ -8,6 +8,7 @@ module JavaScript.Node.Buffer
     , allocString_
     , fromString
     , fromString_
+    , fromArrayBuffer
     , concat
     , concat_
     , toString
@@ -18,6 +19,7 @@ module JavaScript.Node.Buffer
 
 import Effect (Effect)
 import Foreign (Foreign, unsafeToForeign)
+import JavaScript.ArrayBuffer (ArrayBuffer)
 import Literals (StringLit)
 import Undefined (undefined)
 import Untagged.Union (type (|+|))
@@ -62,6 +64,9 @@ fromString string encoding = fromStringImpl string encoding
 
 fromString_ :: String -> Effect Buffer
 fromString_ string = fromStringImpl string undefined
+
+-- Wrap an ArrayBuffer in a Buffer sharing the same memory (no copy).
+foreign import fromArrayBuffer :: ArrayBuffer -> Effect Buffer
 
 foreign import concat :: Array Buffer -> Int -> Effect Buffer
 

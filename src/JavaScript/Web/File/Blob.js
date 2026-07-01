@@ -9,3 +9,7 @@ export function _new(blobParts) {
 export function type_(blob) {
     return blob.type
 }
+
+export function size(blob) {
+    return blob.size
+}

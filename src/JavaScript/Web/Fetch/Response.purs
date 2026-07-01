@@ -1,6 +1,7 @@
 module JavaScript.Web.Fetch.Response where
 
 import Foreign (Foreign)
+import JavaScript.ArrayBuffer (ArrayBuffer)
 import JavaScript.Error (Error)
 import JavaScript.Web.File.Blob (Blob)
 import JavaScript.Promise (Promise)
@@ -16,3 +17,5 @@ foreign import text :: Response -> Promise Error String
 foreign import json :: Response -> Promise Error Foreign
 
 foreign import blob :: Response -> Promise Error Blob
+
+foreign import arrayBuffer :: Response -> Promise Error ArrayBuffer

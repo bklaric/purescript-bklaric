@@ -18,6 +18,12 @@ export const fromStringImpl = function (string) {
     }
 }
 
+export const fromArrayBuffer = function (arrayBuffer) {
+    return function () {
+        return Buffer.Buffer.from(arrayBuffer)
+    }
+}
+
 export const concat = function (buffers) {
     return function (totalLength) {
         return function () {

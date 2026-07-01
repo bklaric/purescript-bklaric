@@ -1,4 +1,12 @@
-module JavaScript.Node.Fs (readFileSync, readFileSyncString, readFileSyncBuffer, readFileSyncBuffer_) where
+module JavaScript.Node.Fs
+    ( readFileSync
+    , readFileSyncString
+    , readFileSyncBuffer
+    , readFileSyncBuffer_
+    , writeFileSync
+    , mkdirSync
+    , rmSync
+    ) where
 
 import Prelude
 
@@ -60,3 +68,16 @@ readFileSyncBuffer path options = readFileSyncBuffer' (cast path) (cast options)
 
 readFileSyncBuffer_ :: forall path. InOneOf path String (Buffer |+| Int) => path -> Effect (Either Error Buffer)
 readFileSyncBuffer_ path = readFileSyncBuffer path undefined
+
+foreign import writeFileSyncImpl :: String -> (String |+| Buffer) -> Effect Unit
+
+-- Write a string or a Buffer to a file, replacing it if it exists. Throws on failure.
+writeFileSync :: forall data_. InOneOf data_ String Buffer => String -> data_ -> Effect Unit
+writeFileSync path data_ = writeFileSyncImpl path (cast data_)
+
+-- Create a directory. `recursive: true` creates missing parents and is a no-op if it already exists.
+foreign import mkdirSync :: String -> { recursive :: Boolean } -> Effect Unit
+
+-- Remove a file or directory. `recursive: true` removes a non-empty directory; `force: true`
+-- ignores a missing path instead of throwing.
+foreign import rmSync :: String -> { recursive :: Boolean, force :: Boolean } -> Effect Unit

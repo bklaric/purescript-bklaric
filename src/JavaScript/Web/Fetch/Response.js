@@ -19,3 +19,9 @@ export function blob(response) {
         return response.blob()
     }
 }
+
+export function arrayBuffer(response) {
+    return function () {
+        return response.arrayBuffer()
+    }
+}

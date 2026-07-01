@@ -1,4 +1,4 @@
-module JavaScript.Web.File.Blob (Blob, new, new_, type_) where
+module JavaScript.Web.File.Blob (Blob, new, new_, type_, size) where
 
 import Effect (Effect)
 import Literals.Undefined (undefined)
@@ -23,3 +23,5 @@ new_ :: forall blobParts.
 new_ blobParts = new blobParts undefined
 
 foreign import type_ :: Blob -> String
+
+foreign import size :: Blob -> Int
