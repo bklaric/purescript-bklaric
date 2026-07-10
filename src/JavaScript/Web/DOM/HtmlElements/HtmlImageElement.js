@@ -40,6 +40,12 @@ export function setSrc(src) {
     }
 }
 
+export function currentSrc(image) {
+    return function () {
+        return image.currentSrc
+    }
+}
+
 export function srcset(image) {
     return function () {
         return image.srcset

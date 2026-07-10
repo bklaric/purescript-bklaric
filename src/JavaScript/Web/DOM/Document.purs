@@ -46,6 +46,13 @@ foreign import querySelectorAll :: String -> Document -> Effect NodeList
 querySelectorAll' :: String -> Document -> Effect (Array Element)
 querySelectorAll' selector document = querySelectorAll selector document >>= toArrayDefault
 
+foreign import elementFromPointImpl :: Int -> Int -> Document -> Effect (Nullable Element)
+
+-- | The topmost element at the given viewport (client) coordinates, or `Nothing`
+-- | if the point is outside the viewport.
+elementFromPoint :: Int -> Int -> Document -> Effect (Maybe Element)
+elementFromPoint x y document = elementFromPointImpl x y document <#> toMaybe
+
 foreign import headImpl :: Document -> Effect (Nullable HtmlHeadElement)
 
 head :: Document -> Effect (Maybe HtmlHeadElement)

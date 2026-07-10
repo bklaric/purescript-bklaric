@@ -58,6 +58,7 @@ foreign import _children :: forall element. element -> Effect HtmlCollection
 foreign import _replaceChildren :: forall node element. (Error -> Either Error Unit) -> (Unit -> Either Error Unit) -> Array node -> element -> Effect (Either Error Unit)
 foreign import _nextElementSibling :: forall element. element -> Effect (Nullable Element)
 foreign import _previousElementSibling :: forall element. element -> Effect (Nullable Element)
+foreign import _parentElement :: forall element. element -> Effect (Nullable Element)
 foreign import _tagName :: forall element. element -> Effect String
 foreign import _shadowRoot :: forall element. element -> Effect (Nullable ShadowRoot)
 
@@ -170,6 +171,9 @@ nextElementSibling element = _nextElementSibling element <#> toMaybe
 
 previousElementSibling :: forall element. Element element => element -> Effect (Maybe Element)
 previousElementSibling element = _previousElementSibling element <#> toMaybe
+
+parentElement :: forall element. Element element => element -> Effect (Maybe Element)
+parentElement element = _parentElement element <#> toMaybe
 
 tagName :: forall element. Element element => element -> Effect String
 tagName = _tagName

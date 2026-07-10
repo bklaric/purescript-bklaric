@@ -14,6 +14,16 @@ export function querySelectorAll(selector) {
     }
 }
 
+export function elementFromPointImpl(x) {
+    return function (y) {
+        return function (document) {
+            return function () {
+                return document.elementFromPoint(x, y)
+            }
+        }
+    }
+}
+
 export function headImpl(document) {
     return function () {
         return document.head

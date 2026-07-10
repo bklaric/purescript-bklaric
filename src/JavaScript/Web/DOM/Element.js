@@ -236,6 +236,12 @@ export function _previousElementSibling(element) {
     }
 }
 
+export function _parentElement(element) {
+    return function () {
+        return element.parentElement
+    }
+}
+
 export function _tagName(element) {
     return function () {
         return element.tagName
