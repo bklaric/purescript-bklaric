@@ -53,6 +53,11 @@ foreign import elementFromPointImpl :: Int -> Int -> Document -> Effect (Nullabl
 elementFromPoint :: Int -> Int -> Document -> Effect (Maybe Element)
 elementFromPoint x y document = elementFromPointImpl x y document <#> toMaybe
 
+-- | Every element at the given viewport (client) coordinates, topmost first —
+-- | including elements painted *beneath* an overlay at that pixel (the first
+-- | entry equals `elementFromPoint`). Empty when the point is outside the viewport.
+foreign import elementsFromPoint :: Int -> Int -> Document -> Effect (Array Element)
+
 foreign import headImpl :: Document -> Effect (Nullable HtmlHeadElement)
 
 head :: Document -> Effect (Maybe HtmlHeadElement)

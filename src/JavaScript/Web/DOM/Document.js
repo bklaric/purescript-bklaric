@@ -24,6 +24,16 @@ export function elementFromPointImpl(x) {
     }
 }
 
+export function elementsFromPoint(x) {
+    return function (y) {
+        return function (document) {
+            return function () {
+                return document.elementsFromPoint(x, y)
+            }
+        }
+    }
+}
+
 export function headImpl(document) {
     return function () {
         return document.head
