@@ -2,6 +2,7 @@ module JavaScript.Web.Fetch.RequestInit where
 
 import Foreign (Foreign)
 import Foreign.Object (Object)
+import JavaScript.Web.DOM.AbortSignal (AbortSignal)
 import JavaScript.Web.Fetch.Headers (Headers)
 import JavaScript.Web.File.Blob (Blob)
 import Literals (StringLit)
@@ -15,4 +16,5 @@ type RequestInit =
     , credentials :: Undefined |+| StringLit "omit" |+| StringLit "same-origin" |+| StringLit "include"
     , headers :: Undefined |+| Headers |+| Object String
     , method :: Undefined |+| String
+    , signal :: Undefined |+| AbortSignal
     }
