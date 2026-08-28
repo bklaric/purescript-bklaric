@@ -29,3 +29,9 @@ type Result =
     }
 
 foreign import new :: Effect Result
+
+-- Parse a user agent string that arrived from somewhere other than this runtime
+-- -- a stored column, a request header. Pure, unlike `new`: that one is effectful
+-- because it reads navigator.userAgent, whereas this is a function of its
+-- argument, so callers can cache results in an ordinary Map.
+foreign import parse :: String -> Result

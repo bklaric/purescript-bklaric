@@ -7,3 +7,5 @@ function _new() {
 }
 
 export { _new as new }
+
+export const parse = (userAgent) => UAParser(userAgent)

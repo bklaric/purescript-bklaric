@@ -1,8 +1,9 @@
-module JavaScript.Web.URL.URL (URL, new, new_, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref, createObjectURL, toString) where
+module JavaScript.Web.URL.URL (URL, new, new_, parse, protocol, hostname, port, host, origin, pathname, search, searchParams, hash, href, setHref, createObjectURL, toString) where
 
 import Prelude
 
-import Data.Either (Either(..))
+import Data.Either (Either(..), hush)
+import Data.Maybe (Maybe)
 import Effect (Effect)
 import JavaScript.Error (Error)
 import JavaScript.Web.File.Blob (Blob)
@@ -33,6 +34,12 @@ new url base = newImpl Left Right (cast url) (cast base)
 
 new_ :: forall url. InOneOf url String URL => url -> Effect (Either Error URL)
 new_ url = new url undefined
+
+-- The URL if it parses, Nothing if it does not. The shape of the URL.parse
+-- static, for callers to whom an unparseable string is simply not a URL rather
+-- than an error worth carrying.
+parse :: String -> Effect (Maybe URL)
+parse url = new_ url <#> hush
 
 foreign import protocol :: URL -> Effect String
 
