@@ -1,5 +1,9 @@
 export const readDateImpl = (value) => value instanceof Date ? value : null
 
+export const now = () => new Date()
+
+export const localDateImpl = (year) => (month) => (day) => new Date(year, month, day)
+
 export function toISOString(date) {
     return function () {
         return date.toISOString()

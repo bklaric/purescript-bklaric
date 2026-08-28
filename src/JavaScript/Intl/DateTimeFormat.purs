@@ -1,6 +1,6 @@
 module JavaScript.Intl.DateTimeFormat where
 
-import Data.JSDate (JSDate)
+import JavaScript.Date (Date)
 import Literals (StringLit)
 import Literals.Undefined (Undefined, undefined)
 import Untagged.Castable (class Castable, cast)
@@ -23,4 +23,4 @@ new locale options = _new locale (cast options)
 new_ :: String -> DateTimeFormat
 new_ locale = _new locale (cast undefined)
 
-foreign import format :: JSDate -> DateTimeFormat -> String
+foreign import format :: Date -> DateTimeFormat -> String

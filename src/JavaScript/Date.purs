@@ -1,4 +1,4 @@
-module JavaScript.Date (Date, toISOString, getTime, getUTCFullYear, getUTCMonth, getUTCDate) where
+module JavaScript.Date (Date, now, localDate, toISOString, getTime, getUTCFullYear, getUTCMonth, getUTCDate) where
 
 import Prelude
 
@@ -21,6 +21,16 @@ instance ReadForeign Date where
     readImpl value = case toMaybe (readDateImpl value) of
         Just date -> pure date
         Nothing -> fail (TypeMismatch "Date" (tagOf value))
+
+foreign import now :: Effect Date
+
+-- Midnight local time on the given calendar day, with the 0-based month
+-- JavaScript uses. Pure because the parts fully determine the value and a Date is
+-- only ever read from here, never mutated.
+localDate :: {year :: Int, month :: Int, day :: Int} -> Date
+localDate parts = localDateImpl parts.year parts.month parts.day
+
+foreign import localDateImpl :: Int -> Int -> Int -> Date
 
 -- Effectful because it throws on an invalid date, which is the one thing the
 -- other accessors below answer with NaN instead.
