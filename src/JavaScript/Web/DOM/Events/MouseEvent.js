@@ -1,47 +1,23 @@
-export function _button(mouseEvent) {
-    return mouseEvent.button
-}
+export const _button = (mouseEvent) => mouseEvent.button
 
-export function _buttons(mouseEvent) {
-    return mouseEvent.buttons
-}
+export const _buttons = (mouseEvent) => mouseEvent.buttons
 
-export function _pageX(mouseEvent) {
-    return mouseEvent.pageX
-}
+export const _pageX = (mouseEvent) => mouseEvent.pageX
 
-export function _pageY(mouseEvent) {
-    return mouseEvent.pageY
-}
+export const _pageY = (mouseEvent) => mouseEvent.pageY
 
-export function _offsetX(mouseEvent) {
-    return mouseEvent.offsetX
-}
+export const _offsetX = (mouseEvent) => mouseEvent.offsetX
 
-export function _offsetY(mouseEvent) {
-    return mouseEvent.offsetY
-}
+export const _offsetY = (mouseEvent) => mouseEvent.offsetY
 
-export function _clientX(mouseEvent) {
-    return mouseEvent.clientX
-}
+export const _clientX = (mouseEvent) => mouseEvent.clientX
 
-export function _clientY(mouseEvent) {
-    return mouseEvent.clientY
-}
+export const _clientY = (mouseEvent) => mouseEvent.clientY
 
-export function _altKey(mouseEvent) {
-    return mouseEvent.altKey
-}
+export const _altKey = (mouseEvent) => mouseEvent.altKey
 
-export function _ctrlKey(mouseEvent) {
-    return mouseEvent.ctrlKey
-}
+export const _ctrlKey = (mouseEvent) => mouseEvent.ctrlKey
 
-export function _shiftKey(mouseEvent) {
-    return mouseEvent.shiftKey
-}
+export const _shiftKey = (mouseEvent) => mouseEvent.shiftKey
 
-export function _metaKey(mouseEvent) {
-    return mouseEvent.metaKey
-}
+export const _metaKey = (mouseEvent) => mouseEvent.metaKey

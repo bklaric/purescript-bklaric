@@ -1,43 +1,21 @@
-export const rows = function (result) {
-    return result.rows
-}
+export const rows = (result) => result.rows
 
-export const fields = function (result) {
-    return result.fields
-}
+export const fields = (result) => result.fields
 
-export const rowCount = function (result) {
-    return result.rowCount
-}
+export const rowCount = (result) => result.rowCount
 
-export const command = function (result) {
-    return result.command
-}
+export const command = (result) => result.command
 
-export const name = function (field) {
-    return field.name
-}
+export const name = (field) => field.name
 
-export const tableID = function (field) {
-    return field.tableID
-}
+export const tableID = (field) => field.tableID
 
-export const columnID = function (field) {
-    return field.columnID
-}
+export const columnID = (field) => field.columnID
 
-export const dataTypeID = function (field) {
-    return field.dataTypeID
-}
+export const dataTypeID = (field) => field.dataTypeID
 
-export const dataTypeSize = function (field) {
-    return field.dataTypeSize
-}
+export const dataTypeSize = (field) => field.dataTypeSize
 
-export const dataTypeModifier = function (field) {
-    return field.dataTypeModifier
-}
+export const dataTypeModifier = (field) => field.dataTypeModifier
 
-export const format = function (field) {
-    return field.format
-}
+export const format = (field) => field.format

@@ -36,51 +36,51 @@ instance EventTarget Document
 
 instance Node Document
 
-foreign import querySelectorImpl :: String -> Document -> Effect (Nullable Element)
+foreign import _querySelector :: String -> Document -> Effect (Nullable Element)
 
 querySelector :: String -> Document -> Effect (Maybe Element)
-querySelector selector document = querySelectorImpl selector document <#> toMaybe
+querySelector selector document = _querySelector selector document <#> toMaybe
 
 foreign import querySelectorAll :: String -> Document -> Effect NodeList
 
 querySelectorAll' :: String -> Document -> Effect (Array Element)
 querySelectorAll' selector document = querySelectorAll selector document >>= toArrayDefault
 
-foreign import elementFromPointImpl :: Int -> Int -> Document -> Effect (Nullable Element)
+foreign import _elementFromPoint :: Int -> Int -> Document -> Effect (Nullable Element)
 
 -- | The topmost element at the given viewport (client) coordinates, or `Nothing`
 -- | if the point is outside the viewport.
 elementFromPoint :: Int -> Int -> Document -> Effect (Maybe Element)
-elementFromPoint x y document = elementFromPointImpl x y document <#> toMaybe
+elementFromPoint x y document = _elementFromPoint x y document <#> toMaybe
 
 -- | Every element at the given viewport (client) coordinates, topmost first —
 -- | including elements painted *beneath* an overlay at that pixel (the first
 -- | entry equals `elementFromPoint`). Empty when the point is outside the viewport.
 foreign import elementsFromPoint :: Int -> Int -> Document -> Effect (Array Element)
 
-foreign import headImpl :: Document -> Effect (Nullable HtmlHeadElement)
+foreign import _head :: Document -> Effect (Nullable HtmlHeadElement)
 
 head :: Document -> Effect (Maybe HtmlHeadElement)
-head document = headImpl document <#> toMaybe
+head document = _head document <#> toMaybe
 
 -- Body returns null for svg images, so it should be nullable.
 -- Also null before document fully loaded.
 foreign import body :: Document -> Effect HtmlBodyElement
 
-foreign import documentElementImpl :: Document -> Effect (Nullable Element)
+foreign import _documentElement :: Document -> Effect (Nullable Element)
 
 documentElement :: Document -> Effect (Maybe Element)
-documentElement document = documentElementImpl document <#> toMaybe
+documentElement document = _documentElement document <#> toMaybe
 
-foreign import createElementImpl :: String -> Document -> Effect (Nullable Element)
+foreign import _createElement :: String -> Document -> Effect (Nullable Element)
 
 createElement :: String -> Document -> Effect (Maybe Element)
-createElement tagName document = createElementImpl tagName document <#> toMaybe
+createElement tagName document = _createElement tagName document <#> toMaybe
 
-foreign import getElementByIdImpl :: String -> Document -> Effect (Nullable Element)
+foreign import _getElementById :: String -> Document -> Effect (Nullable Element)
 
 getElementById :: String -> Document -> Effect (Maybe Element)
-getElementById id document = getElementByIdImpl id document <#> toMaybe
+getElementById id document = _getElementById id document <#> toMaybe
 
 foreign import getElementsByClassName :: String -> Document -> Effect HtmlCollection
 
@@ -103,37 +103,37 @@ createElementHead document = do
     element >>= readHtmlHeadElement # unsafePartial fromJust # pure
 
 createElementIframe :: Document -> Effect HtmlIframeElement
-createElementIframe document = document # createElementImpl "iframe" <#> unsafeCoerce
+createElementIframe document = document # _createElement "iframe" <#> unsafeCoerce
 
 createElementImage :: Document -> Effect HtmlImageElement
-createElementImage document = document # createElementImpl "img" <#> unsafeCoerce
+createElementImage document = document # _createElement "img" <#> unsafeCoerce
 
 createElementDiv :: Document -> Effect HtmlDivElement
-createElementDiv document = document # createElementImpl "div" <#> unsafeCoerce
+createElementDiv document = document # _createElement "div" <#> unsafeCoerce
 
 createElementButton :: Document -> Effect HtmlButtonElement
-createElementButton document = document # createElementImpl "button" <#> unsafeCoerce
+createElementButton document = document # _createElement "button" <#> unsafeCoerce
 
 createElementCanvas :: Document -> Effect HtmlCanvasElement
-createElementCanvas document = document # createElementImpl "canvas" <#> unsafeCoerce
+createElementCanvas document = document # _createElement "canvas" <#> unsafeCoerce
 
 createElementInput :: Document -> Effect HtmlInputElement
-createElementInput document = document # createElementImpl "input" <#> unsafeCoerce
+createElementInput document = document # _createElement "input" <#> unsafeCoerce
 
 createElementSpan :: Document -> Effect HtmlSpanElement
-createElementSpan document = document # createElementImpl "span" <#> unsafeCoerce
+createElementSpan document = document # _createElement "span" <#> unsafeCoerce
 
 createElementSelect :: Document -> Effect HtmlSelectElement
-createElementSelect document = document # createElementImpl "select" <#> unsafeCoerce
+createElementSelect document = document # _createElement "select" <#> unsafeCoerce
 
 createElementOption :: Document -> Effect HtmlOptionElement
-createElementOption document = document # createElementImpl "option" <#> unsafeCoerce
+createElementOption document = document # _createElement "option" <#> unsafeCoerce
 
 createElementParagraph :: Document -> Effect HtmlParagraphElement
-createElementParagraph document = document # createElementImpl "p" <#> unsafeCoerce
+createElementParagraph document = document # _createElement "p" <#> unsafeCoerce
 
 createElementB :: Document -> Effect HtmlElement
-createElementB document = document # createElementImpl "b" <#> unsafeCoerce
+createElementB document = document # _createElement "b" <#> unsafeCoerce
 
 createElementLink :: Document -> Effect HtmlLinkElement
-createElementLink document = document # createElementImpl "link" <#> unsafeCoerce
+createElementLink document = document # _createElement "link" <#> unsafeCoerce

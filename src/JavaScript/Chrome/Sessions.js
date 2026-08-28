@@ -1,11 +1,3 @@
-export function _getRecentlyClosed(filters) {
-    return function () {
-        return chrome.sessions.getRecentlyClosed(filters)
-    }
-}
+export const _getRecentlyClosed = (filters) => () => chrome.sessions.getRecentlyClosed(filters)
 
-export function restore(sessionId) {
-    return function () {
-        return chrome.sessions.restore(sessionId)
-    }
-}
+export const restore = (sessionId) => () => chrome.sessions.restore(sessionId)

@@ -1,11 +1,5 @@
-export function _deltaX(mouseEvent) {
-    return mouseEvent.deltaX
-}
+export const _deltaX = (mouseEvent) => mouseEvent.deltaX
 
-export function _deltaY(mouseEvent) {
-    return mouseEvent.deltaY
-}
+export const _deltaY = (mouseEvent) => mouseEvent.deltaY
 
-export function _deltaZ(mouseEvent) {
-    return mouseEvent.deltaZ
-}
+export const _deltaZ = (mouseEvent) => mouseEvent.deltaZ

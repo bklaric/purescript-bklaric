@@ -1,61 +1,16 @@
 import * as Buffer from "buffer"
 
-export const allocImpl = function (size) {
-    return function (fill) {
-        return function (encoding) {
-            return function () {
-                return Buffer.Buffer.alloc(size, fill, encoding)
-            }
-        }
-    }
-}
+export const _alloc = (size) => (fill) => (encoding) => () => Buffer.Buffer.alloc(size, fill, encoding)
 
-export const fromStringImpl = function (string) {
-    return function (encoding) {
-        return function () {
-            return Buffer.Buffer.from(string, encoding)
-        }
-    }
-}
+export const _fromString = (string) => (encoding) => () => Buffer.Buffer.from(string, encoding)
 
-export const fromArrayBuffer = function (arrayBuffer) {
-    return function () {
-        return Buffer.Buffer.from(arrayBuffer)
-    }
-}
+export const fromArrayBuffer = (arrayBuffer) => () => Buffer.Buffer.from(arrayBuffer)
 
-export const concat = function (buffers) {
-    return function (totalLength) {
-        return function () {
-            return Buffer.Buffer.concat(buffers, totalLength)
-        }
-    }
-}
+export const concat = (buffers) => (totalLength) => () => Buffer.Buffer.concat(buffers, totalLength)
 
-export const toStringImpl = function (encoding) {
-    return function (start) {
-        return function (end) {
-            return function (buffer) {
-                return function () {
-                    return buffer.toString(encoding, start, end)
-                }
-            }
-        }
-    }
-}
+export const _toString = (encoding) => (start) => (end) => (buffer) => () =>
+    buffer.toString(encoding, start, end)
 
-export const length = function (buffer) {
-    return function () {
-        return buffer.length
-    }
-}
+export const length = (buffer) => () => buffer.length
 
-export const subarray = function (start) {
-    return function (end) {
-        return function (buffer) {
-            return function () {
-                return buffer.subarray(start, end)
-            }
-        }
-    }
-}
+export const subarray = (start) => (end) => (buffer) => () => buffer.subarray(start, end)

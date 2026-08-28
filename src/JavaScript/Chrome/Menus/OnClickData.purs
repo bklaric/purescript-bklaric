@@ -10,7 +10,7 @@ foreign import data OnClickData :: Type
 
 foreign import menuItemId :: OnClickData -> Int |+| String
 
-foreign import srcUrlImpl :: OnClickData -> Nullable String
+foreign import _srcUrl :: OnClickData -> Nullable String
 
 srcUrl :: OnClickData -> Maybe String
-srcUrl = srcUrlImpl >>> toMaybe
+srcUrl = _srcUrl >>> toMaybe

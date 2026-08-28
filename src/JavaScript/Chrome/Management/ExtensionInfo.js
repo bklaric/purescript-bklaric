@@ -1,5 +1,1 @@
-export function installTypeImpl(info) {
-    return function () {
-        return info.installType
-    }
-}
+export const _installType = (info) => () => info.installType

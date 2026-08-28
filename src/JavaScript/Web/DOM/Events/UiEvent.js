@@ -1,3 +1,1 @@
-export function _detail(mouseEvent) {
-    return mouseEvent.detail
-}
+export const _detail = (mouseEvent) => mouseEvent.detail

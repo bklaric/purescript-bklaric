@@ -20,7 +20,7 @@ import Unsafe.Coerce (unsafeCoerce)
 import Untagged.Castable (cast)
 import Untagged.Union (class InOneOf, type (|+|), UndefinedOr)
 
-foreign import readFileSyncImpl
+foreign import _readFileSync
     :: (Error -> Either Error (String |+| Buffer))
     -> (String |+| Buffer -> Either Error (String |+| Buffer))
     -> String |+| Buffer |+| Int -- |+| URL
@@ -34,7 +34,7 @@ readFileSync
     => path
     -> options
     -> Effect (Either Error (String |+| Buffer))
-readFileSync path options = readFileSyncImpl Left Right (cast path) (cast options)
+readFileSync path options = _readFileSync Left Right (cast path) (cast options)
 
 readFileSyncString
     :: forall path options
@@ -49,7 +49,7 @@ readFileSyncString path options = readFileSyncString' (cast path) (cast options)
         :: String |+| Buffer |+| Int
         -> {encoding :: Encoding, flag :: UndefinedOr String} |+| Encoding
         -> Effect (Either Error String)
-    readFileSyncString' path' options' = readFileSyncImpl Left Right path' (unsafeCoerce options') <#> unsafeCoerce
+    readFileSyncString' path' options' = _readFileSync Left Right path' (unsafeCoerce options') <#> unsafeCoerce
 
 readFileSyncBuffer
     :: forall path options
@@ -64,16 +64,16 @@ readFileSyncBuffer path options = readFileSyncBuffer' (cast path) (cast options)
         :: String |+| Buffer |+| Int
         -> UndefinedOr {encoding :: UndefinedOr Null, flag :: UndefinedOr String}
         -> Effect (Either Error Buffer)
-    readFileSyncBuffer' path' options' = readFileSyncImpl Left Right path' (unsafeCoerce options') <#> unsafeCoerce
+    readFileSyncBuffer' path' options' = _readFileSync Left Right path' (unsafeCoerce options') <#> unsafeCoerce
 
 readFileSyncBuffer_ :: forall path. InOneOf path String (Buffer |+| Int) => path -> Effect (Either Error Buffer)
 readFileSyncBuffer_ path = readFileSyncBuffer path undefined
 
-foreign import writeFileSyncImpl :: String -> (String |+| Buffer) -> Effect Unit
+foreign import _writeFileSync :: String -> (String |+| Buffer) -> Effect Unit
 
 -- Write a string or a Buffer to a file, replacing it if it exists. Throws on failure.
 writeFileSync :: forall data_. InOneOf data_ String Buffer => String -> data_ -> Effect Unit
-writeFileSync path data_ = writeFileSyncImpl path (cast data_)
+writeFileSync path data_ = _writeFileSync path (cast data_)
 
 -- Create a directory. `recursive: true` creates missing parents and is a no-op if it already exists.
 foreign import mkdirSync :: String -> { recursive :: Boolean } -> Effect Unit

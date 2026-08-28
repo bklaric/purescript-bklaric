@@ -1,5 +1,3 @@
-function new_(data) {
-    return new ClipboardItem(data)
-}
+const _new = (data) => new ClipboardItem(data)
 
-export { new_ as new }
+export { _new as new }

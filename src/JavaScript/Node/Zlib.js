@@ -1,7 +1,3 @@
 import * as zlib from "zlib"
 
-export const gzipSyncImpl = function (input) {
-    return function () {
-        return zlib.gzipSync(input)
-    }
-}
+export const _gzipSync = (input) => () => zlib.gzipSync(input)

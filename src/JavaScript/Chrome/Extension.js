@@ -1,3 +1,1 @@
-export function inIncognitoContext() {
-    return chrome.extension.inIncognitoContext;
-}
+export const inIncognitoContext = () => chrome.extension.inIncognitoContext

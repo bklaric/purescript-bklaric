@@ -1,13 +1,7 @@
 import * as net from "net"
 
-export function isIP(input) {
-    return net.isIP(input)
-}
+export const isIP = (input) => net.isIP(input)
 
-export function isIPv4(input) {
-    return net.isIPv4(input)
-}
+export const isIPv4 = (input) => net.isIPv4(input)
 
-export function isIPv6(input) {
-    return net.isIPv6(input)
-}
+export const isIPv6 = (input) => net.isIPv6(input)

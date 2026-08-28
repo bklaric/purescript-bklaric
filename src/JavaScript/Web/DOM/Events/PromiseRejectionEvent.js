@@ -1,7 +1,3 @@
-export function _promise(event) {
-    return event.promise
-}
+export const _promise = (event) => event.promise
 
-export function _reason(event) {
-    return event.reason
-}
+export const _reason = (event) => event.reason

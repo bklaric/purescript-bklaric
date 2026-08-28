@@ -1,62 +1,33 @@
 import * as bcrypt from "bcrypt"
 
-export const genSaltImpl = function (rounds) {
-    return function (minor) {
-        return function (errorCallback) {
-            return function (successCallback) {
-                return function () {
-                    bcrypt.genSalt(rounds, minor, function (error, salt) {
-                        if (error) {
-                            errorCallback(error)()
-                        }
-                        else {
-                            successCallback(salt)()
-                        }
-                    })
-                }
-            }
+export const _genSalt = (rounds) => (minor) => (errorCallback) => (successCallback) => () =>
+    bcrypt.genSalt(rounds, minor, function (error, salt) {
+        if (error) {
+            errorCallback(error)()
         }
-    }
-}
-
-export const hashImpl = function (data) {
-    return function (saltOrRounds) {
-        return function (errorCallback) {
-            return function (successCallback) {
-                return function () {
-                    bcrypt.hash(data, saltOrRounds, function (error, hash) {
-                        if (error) {
-                            errorCallback(error)()
-                        }
-                        else {
-                            successCallback(hash)()
-                        }
-                    })
-                }
-            }
+        else {
+            successCallback(salt)()
         }
-    }
-}
+    })
 
-export const compareImpl = function (data) {
-    return function (encrypted) {
-        return function (errorCallback) {
-            return function (successCallback) {
-                return function () {
-                    bcrypt.compare(data, encrypted, function (error, result) {
-                        if (error) {
-                            errorCallback(error)()
-                        }
-                        else {
-                            successCallback(result)()
-                        }
-                    })
-                }
-            }
+export const _hash = (data) => (saltOrRounds) => (errorCallback) => (successCallback) => () =>
+    bcrypt.hash(data, saltOrRounds, function (error, hash) {
+        if (error) {
+            errorCallback(error)()
         }
-    }
-}
+        else {
+            successCallback(hash)()
+        }
+    })
 
-export const getRounds = function (encrypted) {
-    return bcrypt.getRounds(encrypted)
-}
+export const _compare = (data) => (encrypted) => (errorCallback) => (successCallback) => () =>
+    bcrypt.compare(data, encrypted, function (error, result) {
+        if (error) {
+            errorCallback(error)()
+        }
+        else {
+            successCallback(result)()
+        }
+    })
+
+export const getRounds = (encrypted) => bcrypt.getRounds(encrypted)

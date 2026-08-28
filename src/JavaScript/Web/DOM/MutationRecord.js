@@ -1,53 +1,17 @@
-export function typeString(record) {
-    return function () {
-        return record.type
-    }
-}
+export const typeString = (record) => () => record.type
 
-export function target(record) {
-    return function () {
-        return record.target
-    }
-}
+export const target = (record) => () => record.target
 
-export function addedNodes(record) {
-    return function () {
-        return record.addedNodes
-    }
-}
+export const addedNodes = (record) => () => record.addedNodes
 
-export function removedNodes(record) {
-    return function () {
-        return record.removedNodes
-    }
-}
+export const removedNodes = (record) => () => record.removedNodes
 
-export function _nextSibling(record) {
-    return function () {
-        return record.nextSibling
-    }
-}
+export const _nextSibling = (record) => () => record.nextSibling
 
-export function _previousSibling(record) {
-    return function () {
-        return record.previousSibling
-    }
-}
+export const _previousSibling = (record) => () => record.previousSibling
 
-export function _attributeName(record) {
-    return function () {
-        return record.attributeName
-    }
-}
+export const _attributeName = (record) => () => record.attributeName
 
-export function _attributeNamespace(record) {
-    return function () {
-        return record.attributeNamespace
-    }
-}
+export const _attributeNamespace = (record) => () => record.attributeNamespace
 
-export function _oldValue(record) {
-    return function () {
-        return record.oldValue
-    }
-}
+export const _oldValue = (record) => () => record.oldValue

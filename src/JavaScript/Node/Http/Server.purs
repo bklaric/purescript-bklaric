@@ -33,13 +33,13 @@ type CreateServerOptions =
     -- Many more.
     }
 
-foreign import createServerImpl ::
+foreign import _createServer ::
     CreateServerOptions -> EventListener (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
 
 createServerOC :: forall options. Castable options CreateServerOptions =>
     options -> EventListener (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
 createServerOC options callback =
-    createServerImpl (cast options) callback
+    _createServer (cast options) callback
 
 createServerOC' :: forall options. Castable options CreateServerOptions =>
     options -> (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
@@ -47,16 +47,16 @@ createServerOC' options callback = createServerOC options (toEventListener callb
 
 createServerO_ :: forall options. Castable options CreateServerOptions =>
     options -> Effect Server
-createServerO_ options = createServerImpl (cast options) undefined
+createServerO_ options = _createServer (cast options) undefined
 
 createServer_C :: EventListener (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
-createServer_C callback = createServerImpl undefined callback
+createServer_C callback = _createServer undefined callback
 
 createServer_C' :: (IncomingMessage -> ServerResponse -> Effect Unit) -> Effect Server
 createServer_C' callback = createServer_C (toEventListener callback)
 
 createServer__ :: Effect Server
-createServer__ = createServerImpl undefined undefined
+createServer__ = _createServer undefined undefined
 
 instance EventEmitter Server where
     on                  = EventEmitter.defaultOn

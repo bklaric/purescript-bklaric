@@ -11,12 +11,12 @@ import JavaScript.Promise (Promise)
 import Prim.Row (class Union)
 import Yoga.JSON (class WriteForeign, write)
 
-foreign import setBadgeTextImpl :: Foreign -> Promise Error Unit
+foreign import _setBadgeText :: Foreign -> Promise Error Unit
 
 setBadgeText :: forall details details'.
     WriteForeign (Record details) => Union details details' (tabId :: Int, text :: String) =>
     Record details -> Promise Error Unit
-setBadgeText details = setBadgeTextImpl (write details)
+setBadgeText details = _setBadgeText (write details)
 
 setBadgeText_ :: String -> Promise Error Unit
 setBadgeText_ text = setBadgeText {text}

@@ -1,92 +1,34 @@
-export function newImpl(left) {
-    return function (right) {
-        return function (url) {
-            return function (base) {
-                return function () {
-                    try {
-                        return right(new URL(url, base))
-                    }
-                    catch (error) {
-                        return left(error)
-                    }
-                }
-            }
-        }
+export const _new = (left) => (right) => (url) => (base) => () => {
+    try {
+        return right(new URL(url, base))
+    }
+    catch (error) {
+        return left(error)
     }
 }
 
-export function protocol(url) {
-    return function () {
-        return url.protocol
-    }
-}
+export const protocol = (url) => () => url.protocol
 
-export function hostname(url) {
-    return function () {
-        return url.hostname
-    }
-}
+export const hostname = (url) => () => url.hostname
 
-export function port(url) {
-    return function () {
-        return url.port
-    }
-}
+export const port = (url) => () => url.port
 
-export function host(url) {
-    return function () {
-        return url.host
-    }
-}
+export const host = (url) => () => url.host
 
-export function origin(url) {
-    return function () {
-        return url.origin
-    }
-}
+export const origin = (url) => () => url.origin
 
-export function pathname(url) {
-    return function () {
-        return url.pathname
-    }
-}
+export const pathname = (url) => () => url.pathname
 
-export function search(url) {
-    return function () {
-        return url.search
-    }
-}
+export const search = (url) => () => url.search
 
-export function searchParams(url) {
-    return function () {
-        return url.searchParams
-    }
-}
+export const searchParams = (url) => () => url.searchParams
 
-export function hash(url) {
-    return function () {
-        return url.hash
-    }
-}
+export const hash = (url) => () => url.hash
 
-export function href(url) {
-    return function () {
-        return url.href
-    }
-}
+export const href = (url) => () => url.href
 
-export function setHref(href) {
-    return function (url) {
-        return function () {
-            url.href = href
-        }
-    }
-}
+export const setHref = (href) => (url) => () => url.href = href
 
-export function createObjectURL(obj) {
-    return function () {
-        return URL.createObjectURL(obj)
-    }
-}
+export const createObjectURL = (obj) => () => URL.createObjectURL(obj)
 
 export const toString = (url) => () => url.toString()

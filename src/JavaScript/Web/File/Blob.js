@@ -1,15 +1,5 @@
-export function _new(blobParts) {
-    return function (options) {
-        return function () {
-            return new Blob(blobParts, options)
-        }
-    }
-}
+export const _new = (blobParts) => (options) => () => new Blob(blobParts, options)
 
-export function type_(blob) {
-    return blob.type
-}
+export const type_ = (blob) => blob.type
 
-export function size(blob) {
-    return blob.size
-}
+export const size = (blob) => blob.size

@@ -1,15 +1,7 @@
-export function _id(window) {
-    return window.id
-}
+export const _id = (window) => window.id
 
-export function incognito(window) {
-    return window.incognito
-}
+export const incognito = (window) => window.incognito
 
-export function _sessionId(window) {
-    return window.sessionId
-}
+export const _sessionId = (window) => window.sessionId
 
-export function _tabs(window) {
-    return window.tabs
-}
+export const _tabs = (window) => window.tabs

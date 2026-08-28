@@ -18,7 +18,7 @@ import JavaScript.Node.Errors (Error)
 import Undefined (undefined)
 import Unsafe.Coerce (unsafeCoerce)
 
-foreign import genSaltImpl
+foreign import _genSalt
     :: Int
     -> Char
     -> (Error -> Effect Unit)
@@ -27,7 +27,7 @@ foreign import genSaltImpl
 
 genSalt :: Int -> Char -> (Either Error String -> Effect Unit) -> Effect Unit
 genSalt rounds minor callback =
-    genSaltImpl rounds minor (Left >>> callback) (Right >>> callback)
+    _genSalt rounds minor (Left >>> callback) (Right >>> callback)
 
 genSalt_ :: Int -> (Either Error String -> Effect Unit) -> Effect Unit
 genSalt_ rounds = genSalt rounds undefined
@@ -35,7 +35,7 @@ genSalt_ rounds = genSalt rounds undefined
 genSalt__ :: (Either Error String -> Effect Unit) -> Effect Unit
 genSalt__ = genSalt_ undefined
 
-foreign import hashImpl
+foreign import _hash
     :: String
     -> Foreign
     -> (Error -> Effect Unit)
@@ -44,11 +44,11 @@ foreign import hashImpl
 
 hash :: String -> String -> (Either Error String -> Effect Unit) -> Effect Unit
 hash data' salt callback =
-    hashImpl data' (unsafeCoerce salt) (Left >>> callback) (Right >>> callback)
+    _hash data' (unsafeCoerce salt) (Left >>> callback) (Right >>> callback)
 
 hash' :: String -> Int -> (Either Error String -> Effect Unit) -> Effect Unit
 hash' data' rounds callback =
-    hashImpl
+    _hash
         data' (unsafeCoerce rounds) (Left >>> callback) (Right >>> callback)
 
 hash_ :: String -> (Either Error String -> Effect Unit) -> Effect Unit
@@ -56,7 +56,7 @@ hash_ data' callback = genSalt__ case _ of
     Left error -> callback $ Left error
     Right salt -> hash data' salt callback
 
-foreign import compareImpl
+foreign import _compare
     :: String
     -> String
     -> (Error -> Effect Unit)
@@ -66,6 +66,6 @@ foreign import compareImpl
 compare
     :: String -> String -> (Either Error Boolean -> Effect Unit) -> Effect Unit
 compare data' encrypted callback =
-    compareImpl data' encrypted (Left >>> callback) (Right >>> callback)
+    _compare data' encrypted (Left >>> callback) (Right >>> callback)
 
 foreign import getRounds :: String -> Int

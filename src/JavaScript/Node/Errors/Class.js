@@ -1,3 +1,1 @@
-export const defaultCode = function (error) {
-    return error.code
-}
+export const defaultCode = (error) => error.code

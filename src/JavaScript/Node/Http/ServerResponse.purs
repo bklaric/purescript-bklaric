@@ -97,14 +97,14 @@ foreign import getSendDate ::
 foreign import setSendDate ::
     Boolean -> ServerResponse -> Effect Unit
 
-foreign import setHeaderImpl ::
+foreign import _setHeader ::
     String -> Foreign -> ServerResponse -> Effect Unit
 
 setHeader :: String -> String -> ServerResponse -> Effect Unit
-setHeader name value response = setHeaderImpl name (unsafeToForeign value) response
+setHeader name value response = _setHeader name (unsafeToForeign value) response
 
 setHeader' :: String -> Array String -> ServerResponse -> Effect Unit
-setHeader' name values response = setHeaderImpl name (unsafeToForeign values) response
+setHeader' name values response = _setHeader name (unsafeToForeign values) response
 
 foreign import defaultSetTimeout ::
     Int -> Effect Unit -> ServerResponse -> Effect ServerResponse

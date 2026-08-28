@@ -1,45 +1,18 @@
-export const httpVersion = function (message) {
-    return message.httpVersion
-}
+export const httpVersion = (message) => message.httpVersion
 
-export const rawHeaders = function (message) {
-    return message.rawHeaders
-}
+export const rawHeaders = (message) => message.rawHeaders
 
-export const headers = function (message) {
-    return message.headers
-}
+export const headers = (message) => message.headers
 
-export const headersDistinct = function (message) {
-    return message.headersDistinct
-}
+export const headersDistinct = (message) => message.headersDistinct
 
-export const trailers = function (message) {
-    return message.trailers
-}
+export const trailers = (message) => () => message.trailers
 
-export const setTimeout = function (milliseconds) {
-    return function (callback) {
-        return function (message) {
-            return function () {
-                return message.setTimeout(milliseconds, callback)
-            }
-        }
-    }
-}
+export const setTimeout = (milliseconds) => (callback) => (message) => () =>
+    message.setTimeout(milliseconds, callback)
 
-export const destroy = function (error) {
-    return function (message) {
-        return function () {
-            message.destroy(error)
-        }
-    }
-}
+export const destroy = (error) => (message) => () => message.destroy(error)
 
-export const methodImpl = function (request) {
-    return request.method
-}
+export const _method = (request) => request.method
 
-export const urlImpl = function (request) {
-    return request.url
-}
+export const _url = (request) => request.url

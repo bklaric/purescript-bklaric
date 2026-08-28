@@ -1,113 +1,38 @@
-export function querySelectorImpl(selector) {
-    return function (document) {
-        return function () {
-            return document.querySelector(selector)
-        }
+export const _querySelector = (selector) => (document) => () => document.querySelector(selector)
+
+export const querySelectorAll = (selector) => (document) => () => document.querySelectorAll(selector)
+
+export const _elementFromPoint = (x) => (y) => (document) => () => document.elementFromPoint(x, y)
+
+export const elementsFromPoint = (x) => (y) => (document) => () => document.elementsFromPoint(x, y)
+
+export const _head = (document) => () => document.head
+
+export const body = (document) => () => document.body
+
+export const _documentElement = (document) => () => document.documentElement
+
+export const _createElement = (tagName) => (document) => () => {
+    // Try-catch because createElement throws on empty string.
+    try {
+        return document.createElement(tagName)
+    }
+    catch {
+        return null
     }
 }
 
-export function querySelectorAll(selector) {
-    return function (document) {
-        return function () {
-            return document.querySelectorAll(selector)
-        }
-    }
-}
+export const _getElementById = (id) => (document) => () => document.getElementById(id)
 
-export function elementFromPointImpl(x) {
-    return function (y) {
-        return function (document) {
-            return function () {
-                return document.elementFromPoint(x, y)
-            }
-        }
-    }
-}
+export const getElementsByClassName = (className) => (document) => () =>
+    document.getElementsByClassName(className)
 
-export function elementsFromPoint(x) {
-    return function (y) {
-        return function (document) {
-            return function () {
-                return document.elementsFromPoint(x, y)
-            }
-        }
-    }
-}
+export const contentType = (document) => () => document.contentType
 
-export function headImpl(document) {
-    return function () {
-        return document.head
-    }
-}
+export const referrer = (document) => () => document.referrer
 
-export function body(document) {
-    return function () {
-        return document.body
-    }
-}
+export const hasFocus = (document) => () => document.hasFocus()
 
-export function documentElementImpl(document) {
-    return function () {
-        return document.documentElement
-    }
-}
+export const readyState = (document) => () => document.readyState
 
-export function createElementImpl(tagName) {
-    return function (document) {
-        return function () {
-            // Try-catch because createElement throws on empty string.
-            try {
-                return document.createElement(tagName)
-            }
-            catch {
-                return null
-            }
-        }
-    }
-}
-
-export function getElementByIdImpl(id) {
-    return function (document) {
-        return function () {
-            return document.getElementById(id)
-        }
-    }
-}
-
-export function getElementsByClassName(className) {
-    return function (document) {
-        return function () {
-            return document.getElementsByClassName(className)
-        }
-    }
-}
-
-export function contentType(document) {
-    return function () {
-        return document.contentType
-    }
-}
-
-export function referrer(document) {
-    return function () {
-        return document.referrer
-    }
-}
-
-export function hasFocus(document) {
-    return function () {
-        return document.hasFocus()
-    }
-}
-
-export function readyState(document) {
-    return function () {
-        return document.readyState
-    }
-}
-
-export function timeline(document) {
-    return function () {
-        return document.timeline
-    }
-}
+export const timeline = (document) => () => document.timeline

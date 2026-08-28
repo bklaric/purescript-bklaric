@@ -16,7 +16,7 @@ import Untagged.Union (class InOneOf, type (|+|), OneOf)
 
 foreign import data URL :: Type
 
-foreign import newImpl
+foreign import _new
     :: (Error -> Either Error URL)
     -> (URL -> Either Error URL)
     -> (String |+| URL)
@@ -30,7 +30,7 @@ new
     => url
     -> base
     -> Effect (Either Error URL)
-new url base = newImpl Left Right (cast url) (cast base)
+new url base = _new Left Right (cast url) (cast base)
 
 new_ :: forall url. InOneOf url String URL => url -> Effect (Either Error URL)
 new_ url = new url undefined

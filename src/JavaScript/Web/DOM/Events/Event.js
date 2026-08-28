@@ -1,25 +1,9 @@
-export function _preventDefault(event) {
-    return function () {
-        event.preventDefault()
-    }
-}
+export const _preventDefault = (event) => () => event.preventDefault()
 
-export function _stopPropagation(event) {
-    return function () {
-        event.stopPropagation()
-    }
-}
+export const _stopPropagation = (event) => () => event.stopPropagation()
 
-export function _stopImmediatePropagation(event) {
-    return function () {
-        event.stopImmediatePropagation()
-    }
-}
+export const _stopImmediatePropagation = (event) => () => event.stopImmediatePropagation()
 
-export function _target(event) {
-    return event.target
-}
+export const _target = (event) => event.target
 
-export function _isTrusted(event) {
-    return event.isTrusted
-}
+export const _isTrusted = (event) => event.isTrusted

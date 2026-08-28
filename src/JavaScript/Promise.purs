@@ -38,7 +38,7 @@ instance MonadEffect (Promise left) where
     liftEffect = fromEffect
 
 instance Bifunctor Promise where
-    bimap = bimapImpl
+    bimap = _bimap
 
 instance Semigroup right => Semigroup (Promise left right) where
     append = lift2 append
@@ -103,7 +103,7 @@ foreign import thenOrCatch :: forall left right leftNext rightNext
     -> Promise left right
     -> Promise leftNext rightNext
 
-foreign import bimapImpl :: forall left right leftNext rightNext
+foreign import _bimap :: forall left right leftNext rightNext
     .  (left -> leftNext)
     -> (right -> rightNext)
     -> Promise left right

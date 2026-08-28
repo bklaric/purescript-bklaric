@@ -1,7 +1,1 @@
-export function write(data) {
-    return function (clipboard) {
-        return function () {
-            return clipboard.write(data)
-        }
-    }
-}
+export const write = (data) => (clipboard) => () => clipboard.write(data)

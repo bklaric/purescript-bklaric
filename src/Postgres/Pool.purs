@@ -42,11 +42,11 @@ instance Querier Pool where
     query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 
-foreign import createImpl :: Foreign -> Effect Pool
+foreign import _create :: Foreign -> Effect Pool
 
 create :: Options PoolConfig -> Options ClientConfig -> Effect Pool
 create poolConfig clientConfig =
-    poolConfig <> unsafeCoerce clientConfig # options # createImpl
+    poolConfig <> unsafeCoerce clientConfig # options # _create
 
 foreign import totalCount :: Pool -> Effect Int
 
@@ -54,7 +54,7 @@ foreign import idleCount :: Pool -> Effect Int
 
 foreign import waitingCount :: Pool -> Effect Int
 
-foreign import connectImpl
+foreign import _connect
     :: (Error -> Effect Unit)
     -> (Client -> Effect Unit -> Effect Unit -> Effect Unit)
     -> Pool
@@ -73,7 +73,7 @@ type ClientWithRelease =
 connect ::
     (Either Error ClientWithRelease -> Effect Unit) -> Pool -> Effect Unit
 connect callback pool =
-    connectImpl
+    _connect
         (Left >>> callback)
         (\client releaseClient destroyClient ->
             { client, releaseClient, destroyClient } # Right # callback)

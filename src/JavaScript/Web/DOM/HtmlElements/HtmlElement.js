@@ -1,34 +1,12 @@
-export function _offsetWidth(element) {
-    return function () {
-        return element.offsetWidth
-    }
-}
+export const _offsetWidth = (element) => () => element.offsetWidth
 
-export function _offsetHeight(element) {
-    return function () {
-        return element.offsetHeight
-    }
-}
+export const _offsetHeight = (element) => () => element.offsetHeight
 
-export function _style(element) {
-    return function () {
-        return element.style
-    }
-}
+export const _style = (element) => () => element.style
 
-export function _setStyle(inlineStyle) {
-    return function (element) {
-        return function () {
-            element.style = inlineStyle
-        }
-    }
-}
+export const _setStyle = (inlineStyle) => (element) => () => element.style = inlineStyle
 
-export function _click(element) {
-    return function () {
-        element.click()
-    }
-}
+export const _click = (element) => () => element.click()
 
 export const _blur = (element) => () => element.blur()
 

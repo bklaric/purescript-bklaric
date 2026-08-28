@@ -9,7 +9,7 @@ import Partial.Unsafe (unsafePartial)
 
 foreign import data ExtensionInfo :: Type
 
-foreign import installTypeImpl :: ExtensionInfo -> Effect String
+foreign import _installType :: ExtensionInfo -> Effect String
 
 installType :: ExtensionInfo -> Effect ExtensionInstallType
-installType info = installTypeImpl info <#> (fromString >>> unsafePartial fromJust)
+installType info = _installType info <#> (fromString >>> unsafePartial fromJust)

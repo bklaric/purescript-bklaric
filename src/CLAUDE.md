@@ -22,19 +22,11 @@ prefer copying the nearest existing module over inventing a shape.
 
 ## The calling convention
 
-Every export is manually curried, one argument per nested function, with the **subject last** so
+Every export is manually curried, one argument per arrow, with the **subject last** so
 the binding reads well under `#` / `>>=`:
 
 ```javascript
-export function _setAttribute(name) {
-    return function (value) {
-        return function (element) {
-            return function () {
-                element.setAttribute(name, value)
-            }
-        }
-    }
-}
+export const _setAttribute = (name) => (value) => (element) => () => element.setAttribute(name, value)
 ```
 
 `setAttribute name value element` — the object the method belongs to is the final argument before
@@ -43,7 +35,7 @@ listener options target`, `putObject params client`.
 
 ## Effect, pure, and Promise
 
-The innermost `function () { … }` is the `Effect` thunk. Three cases:
+The innermost `() => …` is the `Effect` thunk. Three cases:
 
 - **Effectful** — thunk it. Anything that mutates, reads live DOM/browser state, or can throw:
   [Element.js](JavaScript/Web/DOM/Element.js), [HtmlImageElement.js](JavaScript/Web/DOM/HtmlElements/HtmlImageElement.js).
@@ -54,13 +46,7 @@ The innermost `function () { … }` is the `Effect` thunk. Three cases:
 - **Promise** — thunk it exactly like an `Effect` and return the native promise from inside:
 
 ```javascript
-export function _fetch(resource) {
-    return function (options) {
-        return function () {
-            return fetch(resource, options)
-        }
-    }
-}
+export const _fetch = (resource) => (options) => () => fetch(resource, options)
 ```
 
 `Promise left right` ([Promise.purs](JavaScript/Promise.purs)) is represented at runtime as
@@ -75,11 +61,14 @@ This library binds `Promise` directly and does **not** use `Aff`.
 
 | Form | Meaning | Example |
 |---|---|---|
-| `_foo` (165 uses) | Raw, unconstrained import; a public `foo` next to it adds the class constraint and/or converts `Nullable` → `Maybe` | `_getAttribute` / `getAttribute` |
-| `fooImpl` (54 uses) | Raw import needing arguments injected from PureScript (`Left`/`Right`, record fields) or an `unsafeCoerce` at the wrapper | `readFileSyncImpl`, `localDateImpl`, `newImpl` |
-| `defaultFoo` | Default method body for a type class the FFI cannot implement per-instance | [EventEmitter.js](JavaScript/Node/Events/EventEmitter.js) |
+| `_foo` (219 uses) | Raw import, and the only marker for one. A public `foo` next to it adds the class constraint, `cast`s unions and optionals, converts `Nullable` → `Maybe`, or injects `Left`/`Right` | `_getAttribute` / `getAttribute`, `_readFileSync`, `_localDate` |
+| `defaultFoo` | Default method body for a type class the FFI cannot implement per-instance. Public — other modules import it to write their `instance` — so it takes no `_`, unless it also needs a wrapper, and then it splits like any other raw import (`_defaultRead` / `defaultRead`) | [EventEmitter.js](JavaScript/Node/Events/EventEmitter.js), [Readable.purs](JavaScript/Node/Stream/Readable.purs) |
 | `foo_`, `foo__` | Public wrapper with progressively more arguments defaulted | `fetch_`, `sendMessage_`, `sendMessage__` |
 | `foo'` | Public wrapper that takes the raw PureScript function and does the `toEventListener` bridging for you | `addListener'`, `addEventListener_'`, `on'` |
+
+One prefix, no second convention: a raw import is `_foo`, never `fooImpl`. `Impl` survives only on
+PureScript type names that cannot take a `_` (`QueryConfigImpl`) and on type-class methods that are
+not FFI at all (`keysImpl`, `readImpl`).
 
 The `_`-prefix split is load-bearing, not decoration. The raw import is deliberately typed
 `forall element. element -> …` — fully unconstrained, so it compiles against anything — and the
@@ -96,12 +85,13 @@ getAttribute attribute element = _getAttribute attribute element <#> toMaybe
 JS declaration names in every position, so declare under a safe name and re-export:
 
 ```javascript
-function _new(message) { return new Error(message) }
+const _new = (message) => new Error(message)
 export { _new as new }
 ```
 
-See [Error.js](JavaScript/Error.js), [Promise.js](JavaScript/Promise.js) (`catchImpl`,
-`finallyImpl`) and [Undefined.js](Undefined.js) — the last documents a real TDZ trap where
+The safe name is the `_`-prefixed one, so the alias is the only place the reserved word appears.
+See [Error.js](JavaScript/Error.js), [Promise.js](JavaScript/Promise.js) (`_catch`,
+`_finally`) and [Undefined.js](Undefined.js) — the last documents a real TDZ trap where
 `export const undefined = undefined` throws under Node's ESM loader.
 
 ## Typing the JS side
@@ -135,22 +125,18 @@ Two shapes, matching how JS itself fails:
   rather than reconstructed in JS:
 
 ```javascript
-export function newImpl(left) {
-    return function (right) {
-        return function (url) {
-            return function (base) {
-                return function () {
-                    try { return right(new URL(url, base)) }
-                    catch (error) { return left(error) }
-                }
-            }
-        }
+export const _new = (left) => (right) => (url) => (base) => () => {
+    try {
+        return right(new URL(url, base))
+    }
+    catch (error) {
+        return left(error)
     }
 }
 ```
 
   ([URL.js](JavaScript/Web/URL/URL.js), [Fs.js](JavaScript/Node/Fs.js)); the wrapper calls
-  `readFileSyncImpl Left Right …`.
+  `_readFileSync Left Right …`.
 
 - **Rejects** → leave it alone and type the left side: `Promise Error a`. `JavaScript.Error` is the
   error type; `readError` recovers a real `Error` from an arbitrary rejection value.
@@ -176,16 +162,22 @@ Two bridges, both named `toEventListener`:
   do not copy it.) Globals available in the runtime (`chrome`, `fetch`, `window`, `Promise`) are
   referenced directly, no import.
 - **Global gotcha**: a bare `export const window = window` self-shadows and breaks the global.
-  Export a thunked `windowImpl` and alias it in PureScript — see the comment in
+  Export a thunked `_window` and alias it in PureScript — see the comment in
   [Globals.js](JavaScript/Web/DOM/Globals.js).
 
 ## Style
 
 - 4-space indent, no semicolons.
-- `export function` for curried bindings (370 uses); `export const` with arrows for one- or
-  two-argument bindings that stay on one line (173 uses, e.g.
-  [Scripting.js](JavaScript/Chrome/Scripting.js), [Date.js](JavaScript/Date.js)). Either is fine —
-  match the file you are in.
+- `export const` with arrow lambdas, always — never `export function` and never
+  `export const f = function (x) {…}`. One curried binding is one chain of arrows on one line where
+  it fits ([Scripting.js](JavaScript/Chrome/Scripting.js), [Date.js](JavaScript/Date.js)); when it
+  does not, break after the last `=>` and indent the body four spaces
+  ([Bcrypt.js](Bcrypt.js), [Runtime.js](JavaScript/Chrome/Runtime.js)). A body that is a single
+  expression needs no braces even when it returns nothing — `() => params.set(key, value)`. Braces
+  are for bodies that are genuinely more than one statement, or a `try`/`catch`.
+- The one exception: a function whose body reads `arguments` or `this` stays a classic `function`,
+  because an arrow binds neither. Only the variadic listener bridges need this —
+  [Event.js](JavaScript/Chrome/Shared/Event.js), [EventListener.js](JavaScript/Node/Events/EventListener.js).
 - Comment the *why*, in the `.purs` where possible: why a binding is pure rather than `Effect`, why
   a field is `Number` not `Int`, why a response is dropped. [Date.purs](JavaScript/Date.purs),
   [Error.purs](JavaScript/Error.purs) and [Promise.purs](JavaScript/Promise.purs) are the models.
@@ -194,9 +186,9 @@ Two bridges, both named `toEventListener`:
 ## Checklist for a new binding
 
 1. Find the module the API belongs to, or create `JavaScript/<Area>/<Api>.{purs,js}`.
-2. Write the JS curried, subject-last, thunked if effectful or promise-returning.
-3. Declare the raw `foreign import` unconstrained and `_`-prefixed (or `Impl`-suffixed if it needs
-   `Left` / `Right` / `cast` injected).
+2. Write the JS as an arrow chain, curried, subject-last, thunked if effectful or promise-returning.
+3. Declare the raw `foreign import` unconstrained and `_`-prefixed — including when it needs
+   `Left` / `Right` / `cast` injected from PureScript.
 4. Export a wrapper that adds the class constraint, `cast`s unions and optionals, and converts
    `Nullable` → `Maybe`.
 5. Keep the raw name out of the module's export list.

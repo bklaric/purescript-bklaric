@@ -1,3 +1,1 @@
-export function _state(popStateEvent) {
-    return popStateEvent.state
-}
+export const _state = (popStateEvent) => popStateEvent.state

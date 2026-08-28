@@ -1,9 +1,3 @@
-export const stackTraceLimit = function () {
-    return Error.stackTraceLimit
-}
+export const stackTraceLimit = () => Error.stackTraceLimit
 
-export const setStackTraceLimit = function (limit) {
-    return function () {
-        Error.stackTraceLimit = limit
-    }
-}
+export const setStackTraceLimit = (limit) => () => Error.stackTraceLimit = limit

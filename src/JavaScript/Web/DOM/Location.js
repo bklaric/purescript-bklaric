@@ -1,63 +1,21 @@
-export function protocol(location) {
-    return function () {
-        return location.protocol
-    }
-}
+export const protocol = (location) => () => location.protocol
 
-export function hostname(location) {
-    return function () {
-        return location.hostname
-    }
-}
+export const hostname = (location) => () => location.hostname
 
-export function port(location) {
-    return function () {
-        return location.port
-    }
-}
+export const port = (location) => () => location.port
 
-export function host(location) {
-    return function () {
-        return location.host
-    }
-}
+export const host = (location) => () => location.host
 
-export function origin(location) {
-    return function () {
-        return location.origin
-    }
-}
+export const origin = (location) => () => location.origin
 
-export function pathname(location) {
-    return function () {
-        return location.pathname
-    }
-}
+export const pathname = (location) => () => location.pathname
 
-export function search(location) {
-    return function () {
-        return location.search
-    }
-}
+export const search = (location) => () => location.search
 
-export function hash(location) {
-    return function () {
-        return location.hash
-    }
-}
+export const hash = (location) => () => location.hash
 
-export function href(location) {
-    return function () {
-        return location.href
-    }
-}
+export const href = (location) => () => location.href
 
-export function setHref(href) {
-    return function (location) {
-        return function () {
-            location.href = href
-        }
-    }
-}
+export const setHref = (href) => (location) => () => location.href = href
 
 export const replace = (href) => (location) => () => location.replace(href)

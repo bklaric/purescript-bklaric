@@ -1,23 +1,11 @@
-export const length = function (error) {
-    return error.length
-}
+export const length = (error) => error.length
 
-export const severity = function (error) {
-    return error.severity
-}
+export const severity = (error) => error.severity
 
-export const detail = function (error) {
-    return error.detail
-}
+export const detail = (error) => error.detail
 
-export const schemaImpl = function (error) {
-    return error.schema
-}
+export const _schema = (error) => error.schema
 
-export const tableImpl = function (error) {
-    return error.table
-}
+export const _table = (error) => error.table
 
-export const constraintImpl = function (error) {
-    return error.constraint
-}
+export const _constraint = (error) => error.constraint

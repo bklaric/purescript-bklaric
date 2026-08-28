@@ -1,95 +1,27 @@
-export function parent(window) {
-    return function () {
-        return window.parent
-    }
-}
+export const parent = (window) => () => window.parent
 
-export function top(window) {
-    return function () {
-        return window.top
-    }
-}
+export const top = (window) => () => window.top
 
-export function document(window) {
-    return function () {
-        return window.document
-    }
-}
+export const document = (window) => () => window.document
 
-export function location(window) {
-    return function () {
-        return window.location
-    }
-}
+export const location = (window) => () => window.location
 
-export function navigator(window) {
-    return function () {
-        return window.navigator
-    }
-}
+export const navigator = (window) => () => window.navigator
 
-export function localStorage(window) {
-    return function () {
-        return window.localStorage
-    }
-}
+export const localStorage = (window) => () => window.localStorage
 
-export function innerWidth(window) {
-    return function () {
-        return window.innerWidth
-    }
-}
+export const innerWidth = (window) => () => window.innerWidth
 
-export function innerHeight(window) {
-    return function () {
-        return window.innerHeight
-    }
-}
+export const innerHeight = (window) => () => window.innerHeight
 
-export function scrollBy(x) {
-    return function (y) {
-        return function (window) {
-            return function () {
-                return window.scrollBy(x, y)
-            }
-        }
-    }
-}
+export const scrollBy = (x) => (y) => (window) => () => window.scrollBy(x, y)
 
-export function open(url) {
-    return function (target) {
-        return function (features) {
-            return function (window) {
-                return function () {
-                    return window.open(url, target, features)
-                }
-            }
-        }
-    }
-}
+export const open = (url) => (target) => (features) => (window) => () => window.open(url, target, features)
 
-export function close(window) {
-    return function () {
-        window.close()
-    }
-}
+export const close = (window) => () => window.close()
 
-export function _getComputedStyle(element) {
-    return function (pseudoElement) {
-        return function (window) {
-            return function () {
-                return window.getComputedStyle(element, pseudoElement)
-            }
-        }
-    }
-}
+export const _getComputedStyle = (element) => (pseudoElement) => (window) => () =>
+    window.getComputedStyle(element, pseudoElement)
 
-export function requestAnimationFrame(callback) {
-    return function (window) {
-        return function () {
-            window.requestAnimationFrame(function (timestamp) {
-                callback(timestamp)()
-            })
-        }
-    }
-}
+export const requestAnimationFrame = (callback) => (window) => () =>
+    window.requestAnimationFrame((timestamp) => { callback(timestamp)() })

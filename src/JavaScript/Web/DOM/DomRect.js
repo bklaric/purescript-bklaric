@@ -1,47 +1,15 @@
-export function x(rect) {
-    return function () {
-        return rect.x
-    }
-}
+export const x = (rect) => () => rect.x
 
-export function y(rect) {
-    return function () {
-        return rect.y
-    }
-}
+export const y = (rect) => () => rect.y
 
-export function width(rect) {
-    return function () {
-        return rect.width
-    }
-}
+export const width = (rect) => () => rect.width
 
-export function height(rect) {
-    return function () {
-        return rect.height
-    }
-}
+export const height = (rect) => () => rect.height
 
-export function top(rect) {
-    return function () {
-        return rect.top
-    }
-}
+export const top = (rect) => () => rect.top
 
-export function right(rect) {
-    return function () {
-        return rect.right
-    }
-}
+export const right = (rect) => () => rect.right
 
-export function bottom(rect) {
-    return function () {
-        return rect.bottom
-    }
-}
+export const bottom = (rect) => () => rect.bottom
 
-export function left(rect) {
-    return function () {
-        return rect.left
-    }
-}
+export const left = (rect) => () => rect.left

@@ -1,7 +1,3 @@
-export function menuItemId(onClickData) {
-    return onClickData.menuItemId
-}
+export const menuItemId = (onClickData) => onClickData.menuItemId
 
-export function srcUrlImpl(onClickData) {
-    return onClickData.srcUrl
-}
+export const _srcUrl = (onClickData) => onClickData.srcUrl

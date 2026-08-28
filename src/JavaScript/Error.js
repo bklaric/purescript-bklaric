@@ -1,21 +1,11 @@
-function _new(message) {
-    return new Error(message);
-}
+const _new = (message) => new Error(message)
 
 export { _new as new }
 
-export function _name(error) {
-    return error.name
-}
+export const _name = (error) => error.name
 
-export function _message(error) {
-    return error.message
-}
+export const _message = (error) => error.message
 
-export function _stack(error) {
-    return error.stack
-}
+export const _stack = (error) => error.stack
 
-export function _cause(error) {
-    return error.cause === undefined ? null : error.cause
-}
+export const _cause = (error) => error.cause === undefined ? null : error.cause

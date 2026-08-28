@@ -1,35 +1,8 @@
-export const listenImpl = function (listenOptions) {
-    return function (listeningListener) {
-        return function (server) {
-            return function () {
-                server.listen(listenOptions, listeningListener)
-            }
-        }
-    }
-}
+export const _listen = (listenOptions) => (listeningListener) => (server) => () =>
+    server.listen(listenOptions, listeningListener)
 
-export function listenTcpImpl(port) {
-    return function (host) {
-        return function (backlog) {
-            return function (listeningListener) {
-                return function (server) {
-                    return function () {
-                        server.listen(port, host, backlog, listeningListener)
-                    }
-                }
-            }
-        }
-    }
-}
+export const _listenTcp = (port) => (host) => (backlog) => (listeningListener) => (server) => () =>
+    server.listen(port, host, backlog, listeningListener)
 
-export function listenIpcImpl(path) {
-    return function (backlog) {
-        return function (listeningListener) {
-            return function (server) {
-                return function () {
-                    server.listen(path, backlog, listeningListener)
-                }
-            }
-        }
-    }
-}
+export const _listenIpc = (path) => (backlog) => (listeningListener) => (server) => () =>
+    server.listen(path, backlog, listeningListener)

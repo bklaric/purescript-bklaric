@@ -1,113 +1,37 @@
-export function id(downloadItem) {
-    return function () {
-        return downloadItem.id
-    }
-}
+export const id = (downloadItem) => () => downloadItem.id
 
-export function url(downloadItem) {
-    return function () {
-        return downloadItem.url
-    }
-}
+export const url = (downloadItem) => () => downloadItem.url
 
-export function finalUrl(downloadItem) {
-    return function () {
-        return downloadItem.finalUrl
-    }
-}
+export const finalUrl = (downloadItem) => () => downloadItem.finalUrl
 
-export function referrer(downloadItem) {
-    return function () {
-        return downloadItem.referrer
-    }
-}
+export const referrer = (downloadItem) => () => downloadItem.referrer
 
-export function filename(downloadItem) {
-    return function () {
-        return downloadItem.filename
-    }
-}
+export const filename = (downloadItem) => () => downloadItem.filename
 
-export function incognito(downloadItem) {
-    return function () {
-        return downloadItem.incognito
-    }
-}
+export const incognito = (downloadItem) => () => downloadItem.incognito
 
-export function danger(downloadItem) {
-    return function () {
-        return downloadItem.danger
-    }
-}
+export const danger = (downloadItem) => () => downloadItem.danger
 
-export function mime(downloadItem) {
-    return function () {
-        return downloadItem.mime
-    }
-}
+export const mime = (downloadItem) => () => downloadItem.mime
 
-export function startTime(downloadItem) {
-    return function () {
-        return downloadItem.startTime
-    }
-}
+export const startTime = (downloadItem) => () => downloadItem.startTime
 
-export function _endTime(downloadItem) {
-    return function () {
-        return downloadItem.endTime
-    }
-}
+export const _endTime = (downloadItem) => () => downloadItem.endTime
 
-export function _estimatedEndTime(downloadItem) {
-    return function () {
-        return downloadItem.estimatedEndTime
-    }
-}
+export const _estimatedEndTime = (downloadItem) => () => downloadItem.estimatedEndTime
 
-export function state(downloadItem) {
-    return function () {
-        return downloadItem.state
-    }
-}
+export const state = (downloadItem) => () => downloadItem.state
 
-export function paused(downloadItem) {
-    return function () {
-        return downloadItem.paused
-    }
-}
+export const paused = (downloadItem) => () => downloadItem.paused
 
-export function canResume(downloadItem) {
-    return function () {
-        return downloadItem.canResume
-    }
-}
+export const canResume = (downloadItem) => () => downloadItem.canResume
 
-export function _error(downloadItem) {
-    return function () {
-        return downloadItem.error
-    }
-}
+export const _error = (downloadItem) => () => downloadItem.error
 
-export function bytesReceived(downloadItem) {
-    return function () {
-        return downloadItem.bytesReceived
-    }
-}
+export const bytesReceived = (downloadItem) => () => downloadItem.bytesReceived
 
-export function totalBytes(downloadItem) {
-    return function () {
-        return downloadItem.totalBytes
-    }
-}
+export const totalBytes = (downloadItem) => () => downloadItem.totalBytes
 
-export function fileSize(downloadItem) {
-    return function () {
-        return downloadItem.fileSize
-    }
-}
+export const fileSize = (downloadItem) => () => downloadItem.fileSize
 
-export function exists(downloadItem) {
-    return function () {
-        return downloadItem.exists
-    }
-}
+export const exists = (downloadItem) => () => downloadItem.exists

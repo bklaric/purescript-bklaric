@@ -12,13 +12,13 @@ import Yoga.JSON (class ReadForeign)
 
 foreign import data Date :: Type
 
-foreign import readDateImpl :: Foreign -> Nullable Date
+foreign import _readDate :: Foreign -> Nullable Date
 
 -- A driver that hands back a real Date -- node-postgres does this for timestamptz
 -- columns -- can be decoded straight into a record field alongside its string
 -- columns, rather than pulled out of the row separately.
 instance ReadForeign Date where
-    readImpl value = case toMaybe (readDateImpl value) of
+    readImpl value = case toMaybe (_readDate value) of
         Just date -> pure date
         Nothing -> fail (TypeMismatch "Date" (tagOf value))
 
@@ -28,9 +28,9 @@ foreign import now :: Effect Date
 -- JavaScript uses. Pure because the parts fully determine the value and a Date is
 -- only ever read from here, never mutated.
 localDate :: {year :: Int, month :: Int, day :: Int} -> Date
-localDate parts = localDateImpl parts.year parts.month parts.day
+localDate parts = _localDate parts.year parts.month parts.day
 
-foreign import localDateImpl :: Int -> Int -> Int -> Date
+foreign import _localDate :: Int -> Int -> Int -> Date
 
 -- Effectful because it throws on an invalid date, which is the one thing the
 -- other accessors below answer with NaN instead.

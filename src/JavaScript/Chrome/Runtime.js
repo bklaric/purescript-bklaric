@@ -1,40 +1,17 @@
-export function _sendMessage(extensionId) {
-    return function (message) {
-        return function (options) {
-            return function () {
-                return chrome.runtime.sendMessage(extensionId, message, options)
-            }
-        }
-    }
-}
+export const _sendMessage = (extensionId) => (message) => (options) => () =>
+    chrome.runtime.sendMessage(extensionId, message, options)
 
-export function openOptionsPage() {
-    return chrome.runtime.openOptionsPage()
-}
+export const openOptionsPage = () => chrome.runtime.openOptionsPage()
 
-export function getManifest() {
-    return chrome.runtime.getManifest()
-}
+export const getManifest = () => chrome.runtime.getManifest()
 
-export function id() {
-    return chrome.runtime.id
-}
+export const id = () => chrome.runtime.id
 
-export function getURL(path) {
-    return function () {
-        return chrome.runtime.getURL(path)
-    }
-}
+export const getURL = (path) => () => chrome.runtime.getURL(path)
 
-export function setUninstallURL(url) {
-    return function () {
-        return chrome.runtime.setUninstallURL(url)
-    }
-}
+export const setUninstallURL = (url) => () => chrome.runtime.setUninstallURL(url)
 
-export function reload() {
-    return chrome.runtime.reload()
-}
+export const reload = () => chrome.runtime.reload()
 
 export const onMessage = chrome.runtime.onMessage
 

@@ -1,57 +1,19 @@
-export function _isConnected(node) {
-    return function () {
-        return node.isConnected
-    }
-}
+export const _isConnected = (node) => () => node.isConnected
 
-export function _parentElement(node) {
-    return function () {
-        return node.parentElement
-    }
-}
+export const _parentElement = (node) => () => node.parentElement
 
-export function _appendChild(child) {
-    return function (node) {
-        return function () {
-            node.appendChild(child)
-        }
-    }
-}
+export const _appendChild = (child) => (node) => () => node.appendChild(child)
 
-export function _textContent(node) {
-    return function () {
-        return node.textContent
-    }
-}
+export const _textContent = (node) => () => node.textContent
 
-export function _setTextContent(string) {
-    return function (node) {
-        return function () {
-            node.textContent = string
-        }
-    }
-}
+export const _setTextContent = (string) => (node) => () => node.textContent = string
 
-export function _insertBefore(new_ ) {
-    return function (reference) {
-        return function (node) {
-            return function () {
-                node.insertBefore(new_, reference)
-            }
-        }
-    }
-}
+export const _insertBefore = (new_) => (reference) => (node) => () => node.insertBefore(new_, reference)
 
-export function _cloneNode(deep) {
-    return function (node) {
-        return function () {
-            return node.cloneNode(deep)
-        }
-    }
-}
+export const _cloneNode = (deep) => (node) => () => node.cloneNode(deep)
 
 export const _hasChildNodes = (node) => () => node.hasChildNodes()
 
-export const _firstChild = (node) => () => node.firstChild;
+export const _firstChild = (node) => () => node.firstChild
 
-export const _lastChild = (node) => () => node.lastChild;
+export const _lastChild = (node) => () => node.lastChild

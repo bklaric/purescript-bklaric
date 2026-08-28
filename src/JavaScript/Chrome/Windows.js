@@ -1,23 +1,7 @@
-export function _create(createData) {
-    return function () {
-        return chrome.windows.create(createData)
-    }
-}
+export const _create = (createData) => () => chrome.windows.create(createData)
 
-export function _get(windowId) {
-    return function (getInfo) {
-        return function () {
-            return chrome.windows.get(windowId, getInfo)
-        }
-    }
-}
+export const _get = (windowId) => (getInfo) => () => chrome.windows.get(windowId, getInfo)
 
-export function _getAll(getInfo) {
-    return function () {
-        return chrome.windows.getAll(getInfo)
-    }
-}
+export const _getAll = (getInfo) => () => chrome.windows.getAll(getInfo)
 
-export function getLastFocused_() {
-    return chrome.windows.getLastFocused()
-}
+export const getLastFocused_ = () => chrome.windows.getLastFocused()

@@ -86,7 +86,7 @@ class Querier querier where
         -> querier
         -> Effect Unit
 
-foreign import queryImpl
+foreign import _query
     :: forall querier
     .  Query
     -> Array QueryParameter
@@ -103,7 +103,7 @@ defaultQuery
     -> querier
     -> Effect Unit
 defaultQuery queryString queryParameters callback client =
-    queryImpl
+    _query
         queryString
         queryParameters
         (Left >>> callback)
@@ -114,7 +114,7 @@ query_ :: forall querier. Querier querier =>
     Query -> (Either Error Result -> Effect Unit) -> querier -> Effect Unit
 query_ queryString callback client = query queryString [] callback client
 
-foreign import queryWithConfigImpl
+foreign import _queryWithConfig
     :: forall querier
     .  QueryConfigImpl
     -> (Error -> Effect Unit)
@@ -129,7 +129,7 @@ defaultQueryWithConfig
     -> querier
     -> Effect Unit
 defaultQueryWithConfig queryConfig callback client =
-    queryWithConfigImpl
+    _queryWithConfig
         (fromQueryConfig queryConfig)
         (Left >>> callback)
         (Right >>> callback)

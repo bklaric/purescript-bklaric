@@ -1,14 +1,5 @@
-export function _addListener(listener) {
-    return function (filter) {
-        return function (extraInfo) {
-            return function (event) {
-                return function () {
-                    event.addListener(listener, filter, extraInfo)
-                }
-            }
-        }
-    }
-}
+export const _addListener = (listener) => (filter) => (extraInfo) => (event) => () =>
+    event.addListener(listener, filter, extraInfo)
 
 export const onBeforeSendHeaders = chrome.webRequest.onBeforeSendHeaders
 

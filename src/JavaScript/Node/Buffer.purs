@@ -42,30 +42,30 @@ type Encoding
     |+| StringLit "binary"
     |+| StringLit "hex"
 
-foreign import allocImpl :: Int -> Foreign -> Encoding -> Effect Buffer
+foreign import _alloc :: Int -> Foreign -> Encoding -> Effect Buffer
 
 alloc :: Int -> Effect Buffer
-alloc size = allocImpl size undefined undefined
+alloc size = _alloc size undefined undefined
 
 allocBuffer :: Int -> Buffer -> Effect Buffer
-allocBuffer size fill = allocImpl size (unsafeToForeign fill) undefined
+allocBuffer size fill = _alloc size (unsafeToForeign fill) undefined
 
 allocInteger :: Int -> Int -> Effect Buffer
-allocInteger size fill = allocImpl size (unsafeToForeign fill) undefined
+allocInteger size fill = _alloc size (unsafeToForeign fill) undefined
 
 allocString :: Int -> String -> Encoding -> Effect Buffer
-allocString size fill encoding = allocImpl size (unsafeToForeign fill) encoding
+allocString size fill encoding = _alloc size (unsafeToForeign fill) encoding
 
 allocString_ :: Int -> String -> Effect Buffer
-allocString_ size fill = allocImpl size (unsafeToForeign fill) undefined
+allocString_ size fill = _alloc size (unsafeToForeign fill) undefined
 
-foreign import fromStringImpl :: String -> Encoding -> Effect Buffer
+foreign import _fromString :: String -> Encoding -> Effect Buffer
 
 fromString :: String -> Encoding -> Effect Buffer
-fromString string encoding = fromStringImpl string encoding
+fromString string encoding = _fromString string encoding
 
 fromString_ :: String -> Effect Buffer
-fromString_ string = fromStringImpl string undefined
+fromString_ string = _fromString string undefined
 
 -- Wrap an ArrayBuffer in a Buffer sharing the same memory (no copy).
 foreign import fromArrayBuffer :: ArrayBuffer -> Effect Buffer
@@ -75,19 +75,19 @@ foreign import concat :: Array Buffer -> Int -> Effect Buffer
 concat_ :: Array Buffer -> Effect Buffer
 concat_ buffers = concat buffers undefined
 
-foreign import toStringImpl :: Encoding -> Int -> Int -> Buffer -> Effect String
+foreign import _toString :: Encoding -> Int -> Int -> Buffer -> Effect String
 
 toString :: Encoding -> Int -> Int -> Buffer -> Effect String
-toString encoding start end buffer = toStringImpl encoding start end buffer
+toString encoding start end buffer = _toString encoding start end buffer
 
 toString_ :: Encoding -> Int -> Buffer -> Effect String
-toString_ encoding start buffer = toStringImpl encoding start undefined buffer
+toString_ encoding start buffer = _toString encoding start undefined buffer
 
 toString__ :: Encoding -> Buffer -> Effect String
-toString__ encoding buffer = toStringImpl encoding undefined undefined buffer
+toString__ encoding buffer = _toString encoding undefined undefined buffer
 
 toString___ :: Buffer -> Effect String
-toString___ buffer = toStringImpl undefined undefined undefined buffer
+toString___ buffer = _toString undefined undefined undefined buffer
 
 -- | How many bytes the buffer holds.
 foreign import length :: Buffer -> Effect Int

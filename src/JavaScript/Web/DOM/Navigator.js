@@ -1,23 +1,7 @@
-export function userAgent(navigator) {
-    return function () {
-        return navigator.userAgent
-    }
-}
+export const userAgent = (navigator) => () => navigator.userAgent
 
-export function language(navigator) {
-    return function () {
-        return navigator.language
-    }
-}
+export const language = (navigator) => () => navigator.language
 
-export function languages(navigator) {
-    return function () {
-        return navigator.languages
-    }
-}
+export const languages = (navigator) => () => navigator.languages
 
-export function clipboard(navigator) {
-    return function () {
-        return navigator.clipboard
-    }
-}
+export const clipboard = (navigator) => () => navigator.clipboard

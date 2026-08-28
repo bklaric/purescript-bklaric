@@ -9,10 +9,10 @@ import JavaScript.Web.DOM.Window (Window)
 import JavaScript.Web.DOM.Window as Window
 import JavaScript.Web.WebStorage.Storage (Storage)
 
-foreign import windowImpl :: Effect Window
+foreign import _window :: Effect Window
 
 window ∷ Effect Window
-window = windowImpl
+window = _window
 
 document :: Effect Document
 document = window >>= Window.document

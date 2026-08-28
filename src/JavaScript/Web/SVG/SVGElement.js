@@ -1,13 +1,3 @@
-export function _style(element) {
-    return function () {
-        return element.style
-    }
-}
+export const _style = (element) => () => element.style
 
-export function _setStyle(inlineStyle) {
-    return function (element) {
-        return function () {
-            element.style = inlineStyle
-        }
-    }
-}
+export const _setStyle = (inlineStyle) => (element) => () => element.style = inlineStyle

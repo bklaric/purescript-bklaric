@@ -3,7 +3,7 @@ module Postgres.Error
     , length
     , severity
     , detail
-    , schemaImpl
+    , _schema
     , schema
     , table
     , constraint
@@ -29,17 +29,17 @@ foreign import severity :: Error -> String
 
 foreign import detail :: Error -> String
 
-foreign import schemaImpl :: Error -> Nullable String
+foreign import _schema :: Error -> Nullable String
 
 schema :: Error -> Maybe String
-schema = schemaImpl >>> toMaybe
+schema = _schema >>> toMaybe
 
-foreign import tableImpl :: Error -> Nullable String
+foreign import _table :: Error -> Nullable String
 
 table :: Error -> Maybe String
-table = tableImpl >>> toMaybe
+table = _table >>> toMaybe
 
-foreign import constraintImpl :: Error -> Nullable String
+foreign import _constraint :: Error -> Nullable String
 
 constraint :: Error -> Maybe String
-constraint = constraintImpl >>> toMaybe
+constraint = _constraint >>> toMaybe

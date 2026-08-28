@@ -1,7 +1,1 @@
-export function getSelf(callback) {
-    return function () {
-        chrome.management.getSelf(function (info) {
-            callback(info)()
-        })
-    }
-}
+export const getSelf = (callback) => () => chrome.management.getSelf(function (info) { callback(info)() })

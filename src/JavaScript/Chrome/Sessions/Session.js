@@ -1,11 +1,5 @@
-export function lastModified(session) {
-    return session.lastModified
-}
+export const lastModified = (session) => session.lastModified
 
-export function _tab(session) {
-    return session.tab
-}
+export const _tab = (session) => session.tab
 
-export function _window(session) {
-    return session.window
-}
+export const _window = (session) => session.window

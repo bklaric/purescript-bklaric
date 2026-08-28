@@ -1,19 +1,9 @@
-export function _message(event) {
-    return event.message
-}
+export const _message = (event) => event.message
 
-export function _filename(event) {
-    return event.filename
-}
+export const _filename = (event) => event.filename
 
-export function _lineno(event) {
-    return event.lineno
-}
+export const _lineno = (event) => event.lineno
 
-export function _colno(event) {
-    return event.colno
-}
+export const _colno = (event) => event.colno
 
-export function _error(event) {
-    return event.error
-}
+export const _error = (event) => event.error

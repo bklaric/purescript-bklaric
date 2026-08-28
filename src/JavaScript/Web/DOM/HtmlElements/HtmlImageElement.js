@@ -1,93 +1,27 @@
-export function width(image) {
-    return function () {
-        return image.width
-    }
-}
+export const width = (image) => () => image.width
 
-export function setWidth(width) {
-    return function (image) {
-        return function () {
-            image.width = width
-        }
-    }
-}
+export const setWidth = (width) => (image) => () => image.width = width
 
-export function height(image) {
-    return function () {
-        return image.height
-    }
-}
+export const height = (image) => () => image.height
 
-export function setHeight(height) {
-    return function (image) {
-        return function () {
-            image.height = height
-        }
-    }
-}
+export const setHeight = (height) => (image) => () => image.height = height
 
-export function src(image) {
-    return function () {
-        return image.src
-    }
-}
+export const src = (image) => () => image.src
 
-export function setSrc(src) {
-    return function (image) {
-        return function () {
-            image.src = src
-        }
-    }
-}
+export const setSrc = (src) => (image) => () => image.src = src
 
-export function currentSrc(image) {
-    return function () {
-        return image.currentSrc
-    }
-}
+export const currentSrc = (image) => () => image.currentSrc
 
-export function srcset(image) {
-    return function () {
-        return image.srcset
-    }
-}
+export const srcset = (image) => () => image.srcset
 
-export function setSrcset(srcset) {
-    return function (image) {
-        return function () {
-            image.srcset = srcset
-        }
-    }
-}
+export const setSrcset = (srcset) => (image) => () => image.srcset = srcset
 
-export function crossOrigin(image) {
-    return function () {
-        return image.crossOrigin
-    }
-}
+export const crossOrigin = (image) => () => image.crossOrigin
 
-export function setCrossOrigin(crossOrigin) {
-    return function (image) {
-        return function () {
-            image.crossOrigin = crossOrigin
-        }
-    }
-}
+export const setCrossOrigin = (crossOrigin) => (image) => () => image.crossOrigin = crossOrigin
 
-export function naturalWidth(image) {
-    return function () {
-        return image.naturalWidth
-    }
-}
+export const naturalWidth = (image) => () => image.naturalWidth
 
-export function naturalHeight(image) {
-    return function () {
-        return image.naturalHeight
-    }
-}
+export const naturalHeight = (image) => () => image.naturalHeight
 
-export function complete(image) {
-    return function () {
-        return image.complete
-    }
-}
+export const complete = (image) => () => image.complete

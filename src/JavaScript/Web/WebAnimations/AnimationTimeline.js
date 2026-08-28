@@ -1,5 +1,1 @@
-export function _currentTime(timeline) {
-    return function () {
-        return timeline.currentTime
-    }
-}
+export const _currentTime = (timeline) => () => timeline.currentTime

@@ -1,30 +1,12 @@
-export function _new(left) {
-    return function (right) {
-        return function (url) {
-            return function (options) {
-                return function () {
-                    try {
-                        return right(new Worker(url, options))
-                    }
-                    catch (error) {
-                        return left(error)
-                    }
-                }
-            }
-        }
+export const _new = (left) => (right) => (url) => (options) => () => {
+    try {
+        return right(new Worker(url, options))
+    }
+    catch (error) {
+        return left(error)
     }
 }
 
-export function _postMessage(message) {
-    return function (worker) {
-        return function () {
-            worker.postMessage(message)
-        }
-    }
-}
+export const _postMessage = (message) => (worker) => () => worker.postMessage(message)
 
-export function terminate(worker) {
-    return function () {
-        worker.terminate()
-    }
-}
+export const terminate = (worker) => () => worker.terminate()

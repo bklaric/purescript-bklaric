@@ -1,55 +1,26 @@
 var Pool = require('pg').Pool
 
-export const createImpl = function (poolConfig) {
-    return function () {
-        return new Pool(poolConfig)
-    }
-}
+export const _create = (poolConfig) => () => new Pool(poolConfig)
 
-export const totalCount = function (pool) {
-    return function () {
-        return pool.totalCount
-    }
-}
+export const totalCount = (pool) => () => pool.totalCount
 
-export const idleCount = function (pool) {
-    return function () {
-        return pool.idleCount
-    }
-}
+export const idleCount = (pool) => () => pool.idleCount
 
-export const waitingCount = function (pool) {
-    return function () {
-        return pool.waitingCount
-    }
-}
+export const waitingCount = (pool) => () => pool.waitingCount
 
-export const connectImpl = function (errorCallback) {
-    return function (successCallback) {
-        return function (pool) {
-            return function () {
-                pool.connect(function (error, client, releaseClient) {
-                    if (error) {
-                        errorCallback(error)()
-                    }
-                    else {
-                        // The same release function twice: called with no
-                        // argument it recycles the client, called with true it
-                        // destroys the connection.
-                        successCallback(client)(releaseClient)(function () {
-                            releaseClient(true)
-                        })()
-                    }
-                })
-            }
+export const _connect = (errorCallback) => (successCallback) => (pool) => () =>
+    pool.connect(function (error, client, releaseClient) {
+        if (error) {
+            errorCallback(error)()
         }
-    }
-}
-
-export const end = function (callback) {
-    return function (pool) {
-        return function () {
-            pool.end(callback)
+        else {
+            // The same release function twice: called with no
+            // argument it recycles the client, called with true it
+            // destroys the connection.
+            successCallback(client)(releaseClient)(function () {
+                releaseClient(true)
+            })()
         }
-    }
-}
+    })
+
+export const end = (callback) => (pool) => () => pool.end(callback)

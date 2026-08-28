@@ -1,5 +1,1 @@
-export function timeout(milliseconds) {
-    return function () {
-        return AbortSignal.timeout(milliseconds)
-    }
-}
+export const timeout = (milliseconds) => () => AbortSignal.timeout(milliseconds)

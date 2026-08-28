@@ -1,263 +1,81 @@
-export function _getBoundingClientRect(element) {
-    return function () {
-        const rect = element.getBoundingClientRect()
-        return rect
+export const _getBoundingClientRect = (element) => () => {
+    const rect = element.getBoundingClientRect()
+    return rect
+}
+
+export const _getAttribute = (attribute) => (element) => () => element.getAttribute(attribute)
+
+export const _setAttribute = (name) => (value) => (element) => () => element.setAttribute(name, value)
+
+export const _removeAttribute = (attribute) => (element) => () => element.removeAttribute(attribute)
+
+export const _innerHtml = (element) => () => element.innerHTML
+
+export const _setInnerHtml = (html) => (element) => () => element.innerHTML = html
+
+export const _outerHtml = (element) => () => element.outerHTML
+
+export const _setOuterHtml = (html) => (element) => () => element.outerHTML = html
+
+export const _insertAdjacentHTML = (position) => (html) => (element) => () =>
+    element.insertAdjacentHTML(position, html)
+
+export const _insertAdjacentElement = (position) => (adjacentElement) => (element) => () =>
+    element.insertAdjacentElement(position, adjacentElement)
+
+export const _replaceWith = (node) => (element) => () => element.replaceWith(node)
+
+export const _scrollWidth = (element) => () => element.scrollWidth
+
+export const _scrollHeight = (element) => () => element.scrollHeight
+
+export const _scrollTop = (element) => () => element.scrollTop
+
+export const _scrollLeft = (element) => () => element.scrollLeft
+
+export const _setScrollTop = (scroll) => (element) => () => element.scrollTop = scroll
+
+export const _setScrollLeft = (scroll) => (element) => () => element.scrollLeft = scroll
+
+export const _scrollBy = (scrollX) => (scrollY) => (element) => () => element.scrollBy(scrollX, scrollY)
+
+export const _querySelector = (selector) => (element) => () => element.querySelector(selector)
+
+export const _querySelectorAll = (selector) => (element) => () => element.querySelectorAll(selector)
+
+export const _closest = (selector) => (element) => () => element.closest(selector)
+
+export const _id = (element) => () => element.id
+
+export const _setId = (id) => (element) => () => element.id = id
+
+export const _setClassName = (className) => (element) => () => element.className = className
+
+export const _className = (element) => () => element.className
+
+export const _classList = (element) => () => element.classList
+
+export const _remove = (element) => () => element.remove()
+
+export const _children = (element) => () => element.children
+
+export const _replaceChildren = (left) => (right) => (nodes) => (element) => () => {
+    try {
+        return right(element.replaceChildren(...nodes))
+    }
+    catch (ex) {
+        return left(ex)
     }
 }
 
-export function _getAttribute(attribute) {
-    return function (element) {
-        return function () {
-            return element.getAttribute(attribute)
-        }
-    }
-}
+export const _nextElementSibling = (element) => () => element.nextElementSibling
 
-export function _setAttribute(name) {
-    return function (value) {
-        return function (element) {
-            return function () {
-                element.setAttribute(name, value)
-            }
-        }
-    }
-}
+export const _previousElementSibling = (element) => () => element.previousElementSibling
 
-export function _removeAttribute(attribute) {
-    return function (element) {
-        return function () {
-            element.removeAttribute(attribute)
-        }
-    }
-}
+export const _parentElement = (element) => () => element.parentElement
 
-export function _innerHtml(element) {
-    return function () {
-        return element.innerHTML
-    }
-}
+export const _tagName = (element) => () => element.tagName
 
-export function _setInnerHtml(html) {
-    return function (element) {
-        return function () {
-            element.innerHTML = html
-        }
-    }
-}
+export const _getElementsByClassName = (class_) => (element) => () => element.getElementsByClassName(class_)
 
-export function _outerHtml(element) {
-    return function () {
-        return element.outerHTML
-    }
-}
-
-export function _setOuterHtml(html) {
-    return function (element) {
-        return function () {
-            element.outerHTML = html
-        }
-    }
-}
-
-export function _insertAdjacentHTML(position) {
-    return function (html) {
-        return function (element) {
-            return function () {
-                element.insertAdjacentHTML(position, html)
-            }
-        }
-    }
-}
-
-export function _insertAdjacentElement(position) {
-    return function (adjacentElement) {
-        return function (element) {
-            return function () {
-                element.insertAdjacentElement(position, adjacentElement)
-            }
-        }
-    }
-}
-
-export function _replaceWith(node) {
-    return function (element) {
-        return function () {
-            element.replaceWith(node)
-        }
-    }
-}
-
-export function _scrollWidth(element) {
-    return function () {
-        return element.scrollWidth
-    }
-}
-
-export function _scrollHeight(element) {
-    return function () {
-        return element.scrollHeight
-    }
-}
-
-export function _scrollTop(element) {
-    return function () {
-        return element.scrollTop
-    }
-}
-
-export function _scrollLeft(element) {
-    return function () {
-        return element.scrollLeft
-    }
-}
-
-export function _setScrollTop(scroll) {
-    return function (element) {
-        return function () {
-            element.scrollTop = scroll
-        }
-    }
-}
-
-export function _setScrollLeft(scroll) {
-    return function (element) {
-        return function () {
-            element.scrollLeft = scroll
-        }
-    }
-}
-
-export function _scrollBy(scrollX) {
-    return function (scrollY) {
-        return function (element) {
-            return function () {
-                element.scrollBy(scrollX, scrollY)
-            }
-        }
-    }
-}
-
-export function _querySelector(selector) {
-    return function (element) {
-        return function () {
-            return element.querySelector(selector)
-        }
-    }
-}
-
-export function _querySelectorAll(selector) {
-    return function (element) {
-        return function () {
-            return element.querySelectorAll(selector)
-        }
-    }
-}
-
-export function _closest(selector) {
-    return function (element) {
-        return function () {
-            return element.closest(selector)
-        }
-    }
-}
-
-export function _id(element) {
-    return function () {
-        return element.id
-    }
-}
-
-export function _setId(id) {
-    return function (element) {
-        return function () {
-            element.id = id
-        }
-    }
-}
-
-export function _setClassName(className) {
-    return function (element) {
-        return function () {
-            return element.className = className
-        }
-    }
-}
-
-export function _className(element) {
-    return function () {
-        return element.className
-    }
-}
-
-export function _classList(element) {
-    return function () {
-        return element.classList
-    }
-}
-
-export function _remove(element) {
-    return function () {
-        return element.remove()
-    }
-}
-
-export function _children(element) {
-    return function () {
-        return element.children
-    }
-}
-
-export function _replaceChildren(left) {
-    return function (right) {
-        return function (nodes) {
-            return function (element) {
-                return function () {
-                    try {
-                        return right(element.replaceChildren(...nodes))
-                    }
-                    catch (ex) {
-                        return left(ex)
-                    }
-                }
-            }
-        }
-    }
-}
-
-export function _nextElementSibling(element) {
-    return function () {
-        return element.nextElementSibling
-    }
-}
-
-export function _previousElementSibling(element) {
-    return function () {
-        return element.previousElementSibling
-    }
-}
-
-export function _parentElement(element) {
-    return function () {
-        return element.parentElement
-    }
-}
-
-export function _tagName(element) {
-    return function () {
-        return element.tagName
-    }
-}
-
-export function _getElementsByClassName(class_) {
-    return function (element) {
-        return function () {
-            return element.getElementsByClassName(class_)
-        }
-    }
-}
-
-export function _shadowRoot(element) {
-    return function () {
-        return element.shadowRoot
-    }
-}
+export const _shadowRoot = (element) => () => element.shadowRoot

@@ -1,15 +1,3 @@
-export function add(token) {
-    return function (tokenList) {
-        return function () {
-            tokenList.add(token)
-        }
-    }
-}
+export const add = (token) => (tokenList) => () => tokenList.add(token)
 
-export function remove(token) {
-    return function (tokenList) {
-        return function () {
-            tokenList.remove(token)
-        }
-    }
-}
+export const remove = (token) => (tokenList) => () => tokenList.remove(token)

@@ -1,45 +1,11 @@
-export function length(storage) {
-    return function () {
-        return storage.length;
-    };
-}
+export const length = (storage) => () => storage.length
 
-export function _key(index) {
-    return function (storage) {
-        return function () {
-            return storage.key(index);
-        };
-    };
-}
+export const _key = (index) => (storage) => () => storage.key(index)
 
-export function _getItem(key) {
-    return function (storage) {
-        return function () {
-            return storage.getItem(key);
-        };
-    };
-}
+export const _getItem = (key) => (storage) => () => storage.getItem(key)
 
-export function setItem(key) {
-    return function (value) {
-        return function (storage) {
-            return function () {
-                storage.setItem(key, value);
-            };
-        };
-    };
-}
+export const setItem = (key) => (value) => (storage) => () => storage.setItem(key, value)
 
-export function removeItem(key) {
-    return function (storage) {
-        return function () {
-            storage.removeItem(key);
-        };
-    };
-}
+export const removeItem = (key) => (storage) => () => storage.removeItem(key)
 
-export function clear(storage) {
-    return function () {
-        storage.clear();
-    };
-}
+export const clear = (storage) => () => storage.clear()

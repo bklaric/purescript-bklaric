@@ -1,22 +1,9 @@
-export function _create(notificationId) {
-    return function (options) {
-        return function () {
-            return chrome.notifications.create(notificationId, options)
-        }
-    }
-}
+export const _create = (notificationId) => (options) => () =>
+    chrome.notifications.create(notificationId, options)
 
-export function clear(notificationId) {
-    return function () {
-        return chrome.notifications.clear(notificationId)
-    }
-}
+export const clear = (notificationId) => () => chrome.notifications.clear(notificationId)
 
-export function getAll() {
-    return function () {
-        return chrome.notifications.getAll()
-    }
-}
+export const getAll = () => () => chrome.notifications.getAll()
 
 export const onClicked = chrome.notifications.onClicked
 

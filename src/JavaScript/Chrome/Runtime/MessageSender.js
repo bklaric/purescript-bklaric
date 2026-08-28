@@ -1,3 +1,1 @@
-export function _tab(messageSender) {
-    return messageSender.tab
-}
+export const _tab = (messageSender) => messageSender.tab

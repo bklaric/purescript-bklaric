@@ -32,19 +32,19 @@ instance Querier Client where
     query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 
-foreign import createImpl :: Foreign -> Effect Client
+foreign import _create :: Foreign -> Effect Client
 
 create :: Options ClientConfig -> Effect Client
-create clientConfig = clientConfig # options # createImpl
+create clientConfig = clientConfig # options # _create
 
-foreign import connectImpl ::
+foreign import _connect ::
     (Nullable Error -> Effect Unit) -> Client -> Effect Unit
 
 connect :: (Maybe Error -> Effect Unit) -> Client -> Effect Unit
-connect callback client = connectImpl (toMaybe >>> callback) client
+connect callback client = _connect (toMaybe >>> callback) client
 
-foreign import endImpl ::
+foreign import _end ::
     (Nullable Error -> Effect Unit) -> Client -> Effect Unit
 
 end :: (Maybe Error -> Effect Unit) -> Client -> Effect Unit
-end callback client = endImpl (toMaybe >>> callback) client
+end callback client = _end (toMaybe >>> callback) client

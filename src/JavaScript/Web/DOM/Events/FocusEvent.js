@@ -1,3 +1,1 @@
-export function _relatedTarget(focusEvent) {
-    return focusEvent.relatedTarget
-}
+export const _relatedTarget = (focusEvent) => focusEvent.relatedTarget

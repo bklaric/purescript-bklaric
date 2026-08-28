@@ -1,29 +1,13 @@
-export function _key(keyboardEvent) {
-    return keyboardEvent.key
-}
+export const _key = (keyboardEvent) => keyboardEvent.key
 
-export function _code(keyboardEvent) {
-    return keyboardEvent.code
-}
+export const _code = (keyboardEvent) => keyboardEvent.code
 
-export function _altKey(keyboardEvent) {
-    return keyboardEvent.altKey
-}
+export const _altKey = (keyboardEvent) => keyboardEvent.altKey
 
-export function _ctrlKey(keyboardEvent) {
-    return keyboardEvent.ctrlKey
-}
+export const _ctrlKey = (keyboardEvent) => keyboardEvent.ctrlKey
 
-export function _shiftKey(keyboardEvent) {
-    return keyboardEvent.shiftKey
-}
+export const _shiftKey = (keyboardEvent) => keyboardEvent.shiftKey
 
-export function _metaKey(keyboardEvent) {
-    return keyboardEvent.metaKey
-}
+export const _metaKey = (keyboardEvent) => keyboardEvent.metaKey
 
-export function _getModifierState(key) {
-    return function (keyboardEvent) {
-        return keyboardEvent.getModifierState(key)
-    }
-}
+export const _getModifierState = (key) => (keyboardEvent) => keyboardEvent.getModifierState(key)

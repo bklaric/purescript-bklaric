@@ -1,38 +1,9 @@
-export function toEventListener(listener) {
-    return function () {
-        return function (event) {
-            return listener(event)()
-        }
-    }
-}
+export const toEventListener = (listener) => () => (event) => listener(event)()
 
-export function _addEventListener(eventType) {
-    return function (listener) {
-        return function (options) {
-            return function (target) {
-                return function () {
-                    target.addEventListener(eventType, listener, options)
-                }
-            }
-        }
-    }
-}
+export const _addEventListener = (eventType) => (listener) => (options) => (target) => () =>
+    target.addEventListener(eventType, listener, options)
 
+export const _removeEventListener = (eventType) => (listener) => (target) => () =>
+    target.removeEventListener(eventType, listener)
 
-export function _removeEventListener(eventType) {
-    return function (listener) {
-        return function (target) {
-            return function () {
-                target.removeEventListener(eventType, listener)
-            }
-        }
-    }
-}
-
-export function _dispatchEvent(event) {
-    return function (target) {
-        return function () {
-            return target.dispatchEvent(event)
-        }
-    }
-}
+export const _dispatchEvent = (event) => (target) => () => target.dispatchEvent(event)

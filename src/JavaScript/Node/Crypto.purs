@@ -24,7 +24,7 @@ import JavaScript.Node.Buffer (Buffer, Encoding)
 import JavaScript.Node.Errors (Error)
 import Undefined (undefined)
 
-foreign import randomBytesImpl
+foreign import _randomBytes
     :: Int
     -> (Error -> Effect Unit)
     -> (Buffer -> Effect Unit)
@@ -32,16 +32,16 @@ foreign import randomBytesImpl
 
 randomBytes :: Int -> (Either Error Buffer -> Effect Unit) -> Effect Unit
 randomBytes size callback =
-    randomBytesImpl size (Left >>> callback) (Right >>> callback)
+    _randomBytes size (Left >>> callback) (Right >>> callback)
 
-foreign import randomBytesSyncImpl
+foreign import _randomBytesSync
     :: Int
     -> (Error -> Either Error Buffer)
     -> (Buffer -> Either Error Buffer)
     -> Effect (Either Error Buffer)
 
 randomBytesSync :: Int -> Effect (Either Error Buffer)
-randomBytesSync size = randomBytesSyncImpl size Left Right
+randomBytesSync size = _randomBytesSync size Left Right
 
 foreign import data Cipher :: Type
 
@@ -63,7 +63,7 @@ type CipherOptions = { authTagLength :: Int }
 -- length, a tag that doesn't verify -- so each is wrapped into an Either the way
 -- randomBytesSync is, and a caller never has to guard a JS exception by hand.
 
-foreign import createCipherivImpl
+foreign import _createCipheriv
     :: String
     -> Buffer
     -> Buffer
@@ -75,13 +75,13 @@ foreign import createCipherivImpl
 createCipheriv ::
     String -> Buffer -> Buffer -> CipherOptions -> Effect (Either Error Cipher)
 createCipheriv algorithm key iv options =
-    createCipherivImpl algorithm key iv options Left Right
+    _createCipheriv algorithm key iv options Left Right
 
 createCipheriv_ :: String -> Buffer -> Buffer -> Effect (Either Error Cipher)
 createCipheriv_ algorithm key iv =
-    createCipherivImpl algorithm key iv undefined Left Right
+    _createCipheriv algorithm key iv undefined Left Right
 
-foreign import createDecipherivImpl
+foreign import _createDecipheriv
     :: String
     -> Buffer
     -> Buffer
@@ -93,13 +93,13 @@ foreign import createDecipherivImpl
 createDecipheriv ::
     String -> Buffer -> Buffer -> CipherOptions -> Effect (Either Error Decipher)
 createDecipheriv algorithm key iv options =
-    createDecipherivImpl algorithm key iv options Left Right
+    _createDecipheriv algorithm key iv options Left Right
 
 createDecipheriv_ :: String -> Buffer -> Buffer -> Effect (Either Error Decipher)
 createDecipheriv_ algorithm key iv =
-    createDecipherivImpl algorithm key iv undefined Left Right
+    _createDecipheriv algorithm key iv undefined Left Right
 
-foreign import updateImpl
+foreign import _update
     :: forall data_ cipher
     .  data_
     -> Encoding
@@ -110,13 +110,13 @@ foreign import updateImpl
 
 updateBuffer :: forall cipher. Ciphering cipher =>
     Buffer -> cipher -> Effect (Either Error Buffer)
-updateBuffer data_ cipher = updateImpl data_ undefined cipher Left Right
+updateBuffer data_ cipher = _update data_ undefined cipher Left Right
 
 updateString :: forall cipher. Ciphering cipher =>
     String -> Encoding -> cipher -> Effect (Either Error Buffer)
-updateString data_ encoding cipher = updateImpl data_ encoding cipher Left Right
+updateString data_ encoding cipher = _update data_ encoding cipher Left Right
 
-foreign import finalImpl
+foreign import _final
     :: forall cipher
     .  cipher
     -> (Error -> Either Error Buffer)
@@ -124,9 +124,9 @@ foreign import finalImpl
     -> Effect (Either Error Buffer)
 
 final :: forall cipher. Ciphering cipher => cipher -> Effect (Either Error Buffer)
-final cipher = finalImpl cipher Left Right
+final cipher = _final cipher Left Right
 
-foreign import getAuthTagImpl
+foreign import _getAuthTag
     :: Cipher
     -> (Error -> Either Error Buffer)
     -> (Buffer -> Either Error Buffer)
@@ -134,9 +134,9 @@ foreign import getAuthTagImpl
 
 -- | Only valid once `final` has run: the tag authenticates the whole ciphertext.
 getAuthTag :: Cipher -> Effect (Either Error Buffer)
-getAuthTag cipher = getAuthTagImpl cipher Left Right
+getAuthTag cipher = _getAuthTag cipher Left Right
 
-foreign import setAuthTagImpl
+foreign import _setAuthTag
     :: Buffer
     -> Decipher
     -> (Error -> Either Error Unit)
@@ -145,4 +145,4 @@ foreign import setAuthTagImpl
 
 -- | Must be set before `final`, which is where a tag that doesn't verify throws.
 setAuthTag :: Buffer -> Decipher -> Effect (Either Error Unit)
-setAuthTag authTag decipher = setAuthTagImpl authTag decipher Left Right
+setAuthTag authTag decipher = _setAuthTag authTag decipher Left Right

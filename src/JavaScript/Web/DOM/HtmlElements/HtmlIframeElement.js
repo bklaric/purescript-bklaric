@@ -1,13 +1,3 @@
-export function src(iframe) {
-    return function () {
-        return iframe.src
-    }
-}
+export const src = (iframe) => () => iframe.src
 
-export function setSrc(src) {
-    return function (iframe) {
-        return function () {
-            iframe.src = src
-        }
-    }
-}
+export const setSrc = (src) => (iframe) => () => iframe.src = src

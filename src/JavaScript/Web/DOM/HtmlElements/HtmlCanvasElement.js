@@ -1,75 +1,25 @@
-export function width(canvas) {
-    return function () {
-        return canvas.width
+export const width = (canvas) => () => canvas.width
+
+export const height = (canvas) => () => canvas.height
+
+export const setWidth = (width) => (canvas) => () => canvas.width = width
+
+export const setHeight = (height) => (canvas) => () => canvas.height = height
+
+export const _toBlob = (left) => (right) => (callback) => (canvas) => () => {
+    try {
+        canvas.toBlob(blob => {
+            callback(right(blob))()
+        })
+    } catch (error) {
+        callback(left(error))()
     }
 }
 
-export function height(canvas) {
-    return function () {
-        return canvas.height
-    }
-}
+export const _getContext2D = (canvas) => () => canvas.getContext('2d')
 
-export function setWidth(width) {
-    return function (canvas) {
-        return function () {
-            canvas.width = width
-        }
-    }
-}
+export const getContextBitmapRendering = (canvas) => () => canvas.getContext('bitmaprenderer')
 
-export function setHeight(height) {
-    return function (canvas) {
-        return function () {
-            canvas.height = height
-        }
-    }
-}
+export const drawImage = (image) => (dx) => (dy) => (context) => () => context.drawImage(image, dx, dy)
 
-export function _toBlob(left) {
-    return function (right) {
-        return function (callback) {
-            return function (canvas) {
-                return function () {
-                    try {
-                        canvas.toBlob(blob => {
-                            callback(right(blob))()
-                        })
-                    } catch (error) {
-                        callback(left(error))()
-                    }
-                }
-            }
-        }
-    }
-}
-
-export function _getContext2D(canvas) {
-    return function () {
-        return canvas.getContext('2d')
-    }
-}
-
-export function getContextBitmapRendering(canvas) {
-    return function () {
-        return canvas.getContext('bitmaprenderer')
-    }
-}
-
-export function drawImage(image) {
-    return function (dx) {
-        return function (dy) {
-            return function (context) {
-                return function () {
-                    context.drawImage(image, dx, dy)
-                }
-            }
-        }
-    }
-}
-
-export function _createImageBitmap(image) {
-    return function () {
-        return createImageBitmap(image)
-    }
-}
+export const _createImageBitmap = (image) => () => createImageBitmap(image)

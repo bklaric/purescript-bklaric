@@ -13,10 +13,10 @@ import Foreign as Foreign
 unsafeReadTagged :: forall object tagged. String -> object -> Maybe tagged
 unsafeReadTagged name object = object # unsafeToForeign # Foreign.unsafeReadTagged name # runExcept # hush
 
-foreign import unsafeReadProtoTaggedImpl :: forall node. String -> Foreign -> Nullable node
+foreign import _unsafeReadProtoTagged :: forall node. String -> Foreign -> Nullable node
 
 unsafeReadProtoTagged :: forall anything object. String -> anything -> Maybe object
-unsafeReadProtoTagged name object = object # unsafeToForeign # unsafeReadProtoTaggedImpl name # toMaybe
+unsafeReadProtoTagged name object = object # unsafeToForeign # _unsafeReadProtoTagged name # toMaybe
 
 class ToArray a b | a -> b where
     toArray :: a -> Effect (Array b)

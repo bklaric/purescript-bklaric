@@ -50,48 +50,48 @@ type IpcListenOptions =
 
 type ListenOptions = TcpListenOptions |+| IpcListenOptions
 
-foreign import listenImpl :: forall server.
+foreign import _listen :: forall server.
     ListenOptions -> Effect Unit -> server -> Effect server
 
 listen :: forall options server. Server server => InOneOf options TcpListenOptions IpcListenOptions =>
     options -> Effect Unit -> server -> Effect server
 listen listenOptions listeningListener server =
-    listenImpl (cast listenOptions) listeningListener server
+    _listen (cast listenOptions) listeningListener server
 
 listen_ :: forall server options. Server server => InOneOf options TcpListenOptions IpcListenOptions =>
     options -> server -> Effect server
 listen_ listenOptions server = listen listenOptions (pure unit) server
 
-foreign import listenTcpImpl :: forall server.
+foreign import _listenTcp :: forall server.
     UndefinedOr Int -> UndefinedOr String -> UndefinedOr Int -> UndefinedOr (Effect Unit) -> server -> Effect server
 
 listenTcpPHBL :: forall server. Server server =>
     Int -> String -> Int -> Effect Unit -> server -> Effect server
 listenTcpPHBL port host backlog listeningListener server =
-    listenTcpImpl (cast port) (cast host) (cast backlog) (cast listeningListener) server
+    _listenTcp (cast port) (cast host) (cast backlog) (cast listeningListener) server
 
 listenTcpP__L :: forall server. Server server =>
     Int -> Effect Unit -> server -> Effect server
 listenTcpP__L port listeningListener server =
-    listenTcpImpl (cast port) (cast undefined) (cast undefined) (cast listeningListener) server
+    _listenTcp (cast port) (cast undefined) (cast undefined) (cast listeningListener) server
 
 listenTcpP___ :: forall server. Server server =>
     Int -> server -> Effect server
 listenTcpP___ port server =
-    listenTcpImpl (cast port) (cast undefined) (cast undefined) (cast undefined) server
+    _listenTcp (cast port) (cast undefined) (cast undefined) (cast undefined) server
 
 listenTcp____ :: forall server. Server server =>
     server -> Effect server
 listenTcp____ server =
-    listenTcpImpl (cast undefined) (cast undefined) (cast undefined) (cast undefined) server
+    _listenTcp (cast undefined) (cast undefined) (cast undefined) (cast undefined) server
 
-foreign import listenIpcImpl :: forall server.
+foreign import _listenIpc :: forall server.
     UndefinedOr String -> UndefinedOr Int -> UndefinedOr (Effect Unit) -> server -> Effect server
 
 listenIpcPBL :: forall server. Server server =>
     String -> Int -> Effect Unit -> server -> Effect server
 listenIpcPBL path backlog listeningListener server =
-    listenIpcImpl (cast path) (cast backlog) (cast listeningListener) server
+    _listenIpc (cast path) (cast backlog) (cast listeningListener) server
 
 -- events
 

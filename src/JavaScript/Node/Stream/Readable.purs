@@ -63,10 +63,10 @@ foreign import defaultIsPaused :: forall readable. readable -> Effect Boolean
 
 foreign import defaultPause :: forall readable. readable -> Effect readable
 
-foreign import defaultReadImpl :: forall readable. Int -> readable -> Effect (Nullable Foreign)
+foreign import _defaultRead :: forall readable. Int -> readable -> Effect (Nullable Foreign)
 
 defaultRead :: forall readable. Int -> readable -> Effect (Maybe Foreign)
-defaultRead size readable = defaultReadImpl size readable <#> toMaybe
+defaultRead size readable = _defaultRead size readable <#> toMaybe
 
 foreign import defaultResume :: forall readable. readable -> Effect readable
 
@@ -74,11 +74,11 @@ foreign import defaultPipe :: forall readable writable. writable -> Boolean -> r
 
 foreign import defaultUnpipe :: forall readable writable. writable -> readable -> Effect Unit
 
-foreign import defaultSetEncodingImpl :: forall readable.
+foreign import _defaultSetEncoding :: forall readable.
     Encoding -> readable -> Effect readable
 
 defaultSetEncoding :: forall readable. Encoding -> readable -> Effect readable
-defaultSetEncoding encoding readable = defaultSetEncodingImpl encoding readable
+defaultSetEncoding encoding readable = _defaultSetEncoding encoding readable
 
 foreign import defaultUnshift :: forall readable. Foreign -> readable -> Effect Unit
 
