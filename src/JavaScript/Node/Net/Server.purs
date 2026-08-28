@@ -8,6 +8,7 @@ module JavaScript.Node.Net.Server
     , listen
     , listen_
     , listenTcpPHBL
+    , listenTcpP__L
     , listenTcpP___
     , listenTcp____
     , listenIpcPBL
@@ -68,6 +69,11 @@ listenTcpPHBL :: forall server. Server server =>
     Int -> String -> Int -> Effect Unit -> server -> Effect server
 listenTcpPHBL port host backlog listeningListener server =
     listenTcpImpl (cast port) (cast host) (cast backlog) (cast listeningListener) server
+
+listenTcpP__L :: forall server. Server server =>
+    Int -> Effect Unit -> server -> Effect server
+listenTcpP__L port listeningListener server =
+    listenTcpImpl (cast port) (cast undefined) (cast undefined) (cast listeningListener) server
 
 listenTcpP___ :: forall server. Server server =>
     Int -> server -> Effect server

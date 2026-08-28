@@ -4,9 +4,11 @@ import Prelude
 
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
+import Data.String as String
 import Effect (Effect)
 import Foreign (Foreign)
 import Foreign.Object (Object)
+import Foreign.Object as Object
 import JavaScript.Node.Errors (Error)
 import JavaScript.Node.Events.Event (Event(..))
 import JavaScript.Node.Events.EventEmitter (class EventEmitter)
@@ -14,6 +16,7 @@ import JavaScript.Node.Events.EventEmitter as EventEmitter
 import JavaScript.Node.Stream.Readable (class Readable)
 import JavaScript.Node.Stream.Readable as Readable
 import Undefined (undefined)
+import Yoga.JSON as Json
 
 foreign import data IncomingMessage :: Type
 
@@ -49,6 +52,13 @@ foreign import httpVersion :: IncomingMessage -> String
 foreign import rawHeaders :: IncomingMessage -> Array String
 
 foreign import headers :: IncomingMessage -> Object Foreign
+
+-- One header's value, looked up by name. Node lowercases every key in `headers`,
+-- so the name is lowercased too rather than leaving each caller to remember that.
+-- Nothing for a header that was not sent, and for the array-valued ones (set-cookie)
+-- that are not a single string.
+header :: String -> IncomingMessage -> Maybe String
+header name message = headers message # Object.lookup (String.toLower name) >>= Json.read_
 
 foreign import headersDistinct :: IncomingMessage -> Object (Array String)
 
