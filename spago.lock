@@ -39,7 +39,6 @@
             "nonempty",
             "now",
             "nullable",
-            "options",
             "ordered-collections",
             "parallel",
             "parsing",
@@ -1539,20 +1538,6 @@
         "functions",
         "maybe",
         "prelude"
-      ]
-    },
-    "options": {
-      "type": "registry",
-      "version": "7.0.0",
-      "integrity": "sha256-q/E8Hvdn1crgoyBQeZ/b83vVprlFBSIwtb6twt3KQJU=",
-      "dependencies": [
-        "contravariant",
-        "foreign",
-        "foreign-object",
-        "maybe",
-        "newtype",
-        "prelude",
-        "tuples"
       ]
     },
     "ordered-collections": {

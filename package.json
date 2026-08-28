@@ -5,6 +5,7 @@
     },
     "devDependencies": {
         "alwan": "^2.3.1",
+        "pg": "^8.23.0",
         "purescript": "^0.15.16",
         "spago": "^1.0.4",
         "ua-parser-js": "^2.0.10"

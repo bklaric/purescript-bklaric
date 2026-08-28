@@ -1,12 +1,14 @@
-module Postgres.Pool.Events where
+module JavaScript.Npm.Pg.Pool.Events where
 
 import Prelude
 
 import Effect (Effect)
 import JavaScript.Node.Events.Event (Event(..))
-import Postgres.Client (Client)
-import Postgres.Error (Error)
-import Postgres.Pool (Pool)
+import JavaScript.Npm.Pg.Client (Client)
+import JavaScript.Npm.Pg.Error (Error)
+import JavaScript.Npm.Pg.Pool (Pool)
+
+-- https://node-postgres.com/apis/pool#events
 
 connect :: Event Pool (Client -> Effect Unit)
 connect = Event "connect"

@@ -34,7 +34,6 @@ package:
     - nonempty
     - now
     - nullable
-    - options
     - ordered-collections
     - parallel
     - parsing

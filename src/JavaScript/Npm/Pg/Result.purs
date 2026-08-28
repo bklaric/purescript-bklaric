@@ -1,4 +1,22 @@
-module Postgres.Result where
+module JavaScript.Npm.Pg.Result
+    ( Result
+    , Field
+    , rows
+    , fields
+    , rowCount
+    , command
+    , name
+    , tableID
+    , columnID
+    , dataTypeID
+    , dataTypeSize
+    , dataTypeModifier
+    , format
+    , readProp'
+    , readScalarArray
+    , readScalarObject
+    , readScalar
+    ) where
 
 import Prelude
 
@@ -7,9 +25,12 @@ import Control.Monad.Except (runExcept)
 import Data.Array (head)
 import Data.Either (hush)
 import Data.Maybe (Maybe)
+import Data.Nullable (Nullable, toMaybe)
 import Foreign (Foreign)
 import Foreign.Index (readProp)
 import Yoga.JSON (class ReadForeign, read_)
+
+-- https://node-postgres.com/apis/result
 
 foreign import data Result :: Type
 
@@ -19,7 +40,12 @@ foreign import rows :: Result -> Array Foreign
 
 foreign import fields :: Result -> Array Field
 
-foreign import rowCount :: Result -> Int
+foreign import _rowCount :: Result -> Nullable Int
+
+-- Null upstream when the command reports no count (e.g. after CREATE), so
+-- a plain Int would misread those as 0.
+rowCount :: Result -> Maybe Int
+rowCount = _rowCount >>> toMaybe
 
 foreign import command :: Result -> String
 

@@ -2,7 +2,7 @@ export const rows = (result) => result.rows
 
 export const fields = (result) => result.fields
 
-export const rowCount = (result) => result.rowCount
+export const _rowCount = (result) => result.rowCount
 
 export const command = (result) => result.command
 

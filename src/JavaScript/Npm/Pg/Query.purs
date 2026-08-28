@@ -1,6 +1,6 @@
-module Postgres.Query
+module JavaScript.Npm.Pg.Query
     ( Query(..)
-    , QueryParameter(..)
+    , QueryParameter
     , cons
     , (:)
     , finalCons
@@ -20,13 +20,14 @@ module Postgres.Query
 import Prelude
 
 import Data.Array as Array
-import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
-import Effect (Effect)
-import Postgres.Error (Error)
-import Postgres.Result (Result)
+import JavaScript.Npm.Pg.Error (Error)
+import JavaScript.Npm.Pg.Result (Result)
+import JavaScript.Promise (Promise)
 import Unsafe.Coerce (unsafeCoerce)
+
+-- https://node-postgres.com/apis/client#clientquery
 
 newtype Query = Query String
 
@@ -73,85 +74,41 @@ fromQueryConfig (QueryConfig queryConfig) = QueryConfigImpl
     , name: toNullable queryConfig.name
     , rowMode: rowModeToNullableString queryConfig.rowMode }
 
+-- A Pool checks a client out per query; a Client runs it on its one
+-- connection, which is what transactions need.
 class Querier querier where
-    query
-        :: Query
-        -> Array QueryParameter
-        -> (Either Error Result -> Effect Unit)
-        -> querier
-        -> Effect Unit
-    queryWithConfig
-        :: QueryConfig
-        -> (Either Error Result -> Effect Unit)
-        -> querier
-        -> Effect Unit
+    query :: Query -> Array QueryParameter -> querier -> Promise Error Result
+    queryWithConfig :: QueryConfig -> querier -> Promise Error Result
 
-foreign import _query
+foreign import defaultQuery
     :: forall querier
     .  Query
     -> Array QueryParameter
-    -> (Error -> Effect Unit)
-    -> (Result -> Effect Unit)
     -> querier
-    -> Effect Unit
-
-defaultQuery
-    :: forall querier
-    .  Query
-    -> Array QueryParameter
-    -> (Either Error Result -> Effect Unit)
-    -> querier
-    -> Effect Unit
-defaultQuery queryString queryParameters callback client =
-    _query
-        queryString
-        queryParameters
-        (Left >>> callback)
-        (Right >>> callback)
-        client
-
-query_ :: forall querier. Querier querier =>
-    Query -> (Either Error Result -> Effect Unit) -> querier -> Effect Unit
-query_ queryString callback client = query queryString [] callback client
+    -> Promise Error Result
 
 foreign import _queryWithConfig
     :: forall querier
     .  QueryConfigImpl
-    -> (Error -> Effect Unit)
-    -> (Result -> Effect Unit)
     -> querier
-    -> Effect Unit
+    -> Promise Error Result
 
 defaultQueryWithConfig
     :: forall querier
     .  QueryConfig
-    -> (Either Error Result -> Effect Unit)
     -> querier
-    -> Effect Unit
-defaultQueryWithConfig queryConfig callback client =
-    _queryWithConfig
-        (fromQueryConfig queryConfig)
-        (Left >>> callback)
-        (Right >>> callback)
-        client
+    -> Promise Error Result
+defaultQueryWithConfig queryConfig querier =
+    _queryWithConfig (fromQueryConfig queryConfig) querier
 
-execute
-    :: forall querier
-    .  Querier querier
-    => Query
-    -> Array QueryParameter
-    -> (Either Error Unit -> Effect Unit)
-    -> querier
-    -> Effect Unit
-execute query' parameters callback querier =
-    query query' parameters (void >>> callback) querier
+query_ :: forall querier. Querier querier =>
+    Query -> querier -> Promise Error Result
+query_ queryString querier = query queryString [] querier
 
-execute_
-    :: forall querier
-    .  Querier querier
-    => Query
-    -> (Either Error Unit -> Effect Unit)
-    -> querier
-    -> Effect Unit
-execute_ query' callback querier =
-    query_ query' (void >>> callback) querier
+execute :: forall querier. Querier querier =>
+    Query -> Array QueryParameter -> querier -> Promise Error Unit
+execute query' parameters querier = query query' parameters querier # void
+
+execute_ :: forall querier. Querier querier =>
+    Query -> querier -> Promise Error Unit
+execute_ query' querier = query_ query' querier # void

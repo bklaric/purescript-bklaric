@@ -1,9 +1,8 @@
-module Postgres.Error
+module JavaScript.Npm.Pg.Error
     ( Error
     , length
     , severity
     , detail
-    , _schema
     , schema
     , table
     , constraint
@@ -15,6 +14,9 @@ import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import JavaScript.Class (class Error)
 import JavaScript.Node.Errors.Class (class NodeError, defaultCode)
+
+-- https://www.postgresql.org/docs/current/protocol-error-fields.html
+-- The DatabaseError pg rejects with; `code` (via NodeError) carries the SQLSTATE.
 
 foreign import data Error :: Type
 

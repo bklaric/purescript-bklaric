@@ -1,4 +1,4 @@
-module Postgres.Error.Codes where
+module JavaScript.Npm.Pg.Error.Codes where
 
 -- Class 00 — Successful Completion
 successful_completion :: String

@@ -141,8 +141,9 @@ export const _new = (left) => (right) => (url) => (base) => () => {
 - **Rejects** → leave it alone and type the left side: `Promise Error a`. `JavaScript.Error` is the
   error type; `readError` recovers a real `Error` from an arbitrary rejection value.
 
-- **Node callbacks** `(error, …)` are normalised to `null` before crossing:
-  `callback(error ? error : null)()` in [Client.js](Postgres/Client.js).
+- **Node callbacks** `(error, …)` branch into separate error and success callbacks passed in
+  from PureScript, with the wrapper injecting `Left`/`Right`: [Bcrypt.js](Bcrypt.js),
+  [Crypto.js](JavaScript/Node/Crypto.js).
 
 ## Listeners
 
@@ -158,9 +159,8 @@ Two bridges, both named `toEventListener`:
 ## Imports and globals
 
 - Import npm/Node modules with ESM at the top of the `.js`: `import * as fs from 'fs'`,
-  `import { UAParser } from 'ua-parser-js'`. (`Postgres/Pool.js` still uses `require` — an outlier,
-  do not copy it.) Globals available in the runtime (`chrome`, `fetch`, `window`, `Promise`) are
-  referenced directly, no import.
+  `import { UAParser } from 'ua-parser-js'`. Globals available in the runtime (`chrome`, `fetch`,
+  `window`, `Promise`) are referenced directly, no import.
 - **Global gotcha**: a bare `export const window = window` self-shadows and breaks the global.
   Export a thunked `_window` and alias it in PureScript — see the comment in
   [Globals.js](JavaScript/Web/DOM/Globals.js).

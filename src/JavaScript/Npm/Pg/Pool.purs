@@ -1,30 +1,32 @@
-module Postgres.Pool
+module JavaScript.Npm.Pg.Pool
     ( Pool
+    , PoolConfig
     , create
     , totalCount
     , idleCount
     , waitingCount
     , ClientWithRelease
     , connect
-    , end) where
+    , end
+    ) where
 
 import Prelude
 
-import Data.Either (Either(..))
-import Foreign (Foreign)
-import Data.Options (Options, options)
 import Effect (Effect)
+import JavaScript.Node.Events.EventEmitter (class EventEmitter)
 import JavaScript.Node.Events.EventEmitter as EventEmitter
-import Postgres.Client (Client)
-import Postgres.Client.Config (ClientConfig)
-import Postgres.Error (Error)
-import Postgres.Pool.Config (PoolConfig)
-import Postgres.Query (class Querier, defaultQuery, defaultQueryWithConfig)
-import Unsafe.Coerce (unsafeCoerce)
+import JavaScript.Npm.Pg.Client (Client, ClientConfigRow)
+import JavaScript.Npm.Pg.Error (Error)
+import JavaScript.Npm.Pg.Query (class Querier, defaultQuery, defaultQueryWithConfig)
+import JavaScript.Promise (Promise)
+import Untagged.Castable (class Castable, cast)
+import Untagged.Union (UndefinedOr)
+
+-- https://node-postgres.com/apis/pool
 
 foreign import data Pool :: Type
 
-instance EventEmitter.EventEmitter Pool where
+instance EventEmitter Pool where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
     prependListener     = EventEmitter.defaultPrependListener
@@ -42,23 +44,28 @@ instance Querier Pool where
     query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 
-foreign import _create :: Foreign -> Effect Pool
+-- The pool hands its config on to every client it creates, so the client
+-- fields live in the same record, mirroring pg's PoolConfig.
+type PoolConfig = Record (ClientConfigRow
+    ( max :: UndefinedOr Int
+    , min :: UndefinedOr Int
+    , idleTimeoutMillis :: UndefinedOr Int
+    , maxUses :: UndefinedOr Int
+    , maxLifetimeSeconds :: UndefinedOr Int
+    , allowExitOnIdle :: UndefinedOr Boolean
+    -- More fields exist.
+    ))
 
-create :: Options PoolConfig -> Options ClientConfig -> Effect Pool
-create poolConfig clientConfig =
-    poolConfig <> unsafeCoerce clientConfig # options # _create
+foreign import _create :: PoolConfig -> Effect Pool
+
+create :: forall config. Castable config PoolConfig => config -> Effect Pool
+create config = _create (cast config)
 
 foreign import totalCount :: Pool -> Effect Int
 
 foreign import idleCount :: Pool -> Effect Int
 
 foreign import waitingCount :: Pool -> Effect Int
-
-foreign import _connect
-    :: (Error -> Effect Unit)
-    -> (Client -> Effect Unit -> Effect Unit -> Effect Unit)
-    -> Pool
-    -> Effect Unit
 
 type ClientWithRelease =
     { client :: Client
@@ -70,13 +77,6 @@ type ClientWithRelease =
     , destroyClient :: Effect Unit
     }
 
-connect ::
-    (Either Error ClientWithRelease -> Effect Unit) -> Pool -> Effect Unit
-connect callback pool =
-    _connect
-        (Left >>> callback)
-        (\client releaseClient destroyClient ->
-            { client, releaseClient, destroyClient } # Right # callback)
-        pool
+foreign import connect :: Pool -> Promise Error ClientWithRelease
 
-foreign import end :: Effect Unit -> Pool -> Effect Unit
+foreign import end :: Pool -> Promise Error Unit
