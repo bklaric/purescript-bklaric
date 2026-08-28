@@ -11,6 +11,8 @@ module JavaScript.Node.Buffer
     , fromArrayBuffer
     , concat
     , concat_
+    , length
+    , subarray
     , toString
     , toString_
     , toString__
@@ -86,3 +88,9 @@ toString__ encoding buffer = toStringImpl encoding undefined undefined buffer
 
 toString___ :: Buffer -> Effect String
 toString___ buffer = toStringImpl undefined undefined undefined buffer
+
+-- | How many bytes the buffer holds.
+foreign import length :: Buffer -> Effect Int
+
+-- | A view over part of the buffer, sharing its memory rather than copying.
+foreign import subarray :: Int -> Int -> Buffer -> Effect Buffer

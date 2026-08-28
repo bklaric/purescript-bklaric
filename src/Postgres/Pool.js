@@ -33,7 +33,12 @@ export const connectImpl = function (errorCallback) {
                         errorCallback(error)()
                     }
                     else {
-                        successCallback(client)(releaseClient)()
+                        // The same release function twice: called with no
+                        // argument it recycles the client, called with true it
+                        // destroys the connection.
+                        successCallback(client)(releaseClient)(function () {
+                            releaseClient(true)
+                        })()
                     }
                 })
             }

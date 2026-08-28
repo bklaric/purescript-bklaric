@@ -122,6 +122,13 @@ foreign import all :: forall left right. Array (Promise left right) -> Promise l
 
 foreign import race :: forall left right. Array (Promise left right) -> Promise left right
 
+-- | Start the promise now and hand every caller the same in-flight one. A Promise
+-- | is a cold thunk -- every bind re-invokes it and starts the work again -- so
+-- | this is what lets a promise be stored and shared: as an in-flight mutex that
+-- | coalesces concurrent callers onto one request, or as a handle something else
+-- | can await without restarting it.
+foreign import share :: forall left right. Promise left right -> Effect (Promise left right)
+
 thenIgnore :: forall left right. (right -> Effect Unit) -> Promise left right -> Effect Unit
 thenIgnore handler promise = promise # runPromise mempty (\value -> handler value)
 

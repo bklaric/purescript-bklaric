@@ -13,3 +13,29 @@ export function exit(code) {
         process.exit(code)
     }
 }
+
+export const onSignalImpl = function (signal) {
+    return function (handler) {
+        return function () {
+            process.on(signal, function () {
+                handler()
+            })
+        }
+    }
+}
+
+export const onUncaughtException = function (handler) {
+    return function () {
+        process.on('uncaughtException', function (error) {
+            handler(error)()
+        })
+    }
+}
+
+export const onUnhandledRejection = function (handler) {
+    return function () {
+        process.on('unhandledRejection', function (reason) {
+            handler(reason)()
+        })
+    }
+}

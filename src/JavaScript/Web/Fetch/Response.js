@@ -25,3 +25,11 @@ export function arrayBuffer(response) {
         return response.arrayBuffer()
     }
 }
+
+export function ok(response) {
+    return response.ok
+}
+
+export function statusText(response) {
+    return response.statusText
+}

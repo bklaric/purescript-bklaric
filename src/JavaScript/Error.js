@@ -15,3 +15,7 @@ export function _message(error) {
 export function _stack(error) {
     return error.stack
 }
+
+export function _cause(error) {
+    return error.cause === undefined ? null : error.cause
+}

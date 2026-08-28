@@ -4,6 +4,7 @@ module Postgres.Pool
     , totalCount
     , idleCount
     , waitingCount
+    , ClientWithRelease
     , connect
     , end) where
 
@@ -55,18 +56,27 @@ foreign import waitingCount :: Pool -> Effect Int
 
 foreign import connectImpl
     :: (Error -> Effect Unit)
-    -> (Client -> Effect Unit -> Effect Unit)
+    -> (Client -> Effect Unit -> Effect Unit -> Effect Unit)
     -> Pool
     -> Effect Unit
 
-type ClientWithRelease = { client :: Client, releaseClient :: Effect Unit}
+type ClientWithRelease =
+    { client :: Client
+    , releaseClient :: Effect Unit
+    -- Drop the connection instead of recycling it. Used when a client cannot be
+    -- handed back clean -- a failed ROLLBACK leaves an open transaction, and
+    -- returning that client to the pool would strand its locks and give the next
+    -- checkout a dirty transaction. Destroying the socket makes Postgres abort it.
+    , destroyClient :: Effect Unit
+    }
 
 connect ::
     (Either Error ClientWithRelease -> Effect Unit) -> Pool -> Effect Unit
 connect callback pool =
     connectImpl
         (Left >>> callback)
-        (\client releaseClient -> { client, releaseClient } # Right # callback)
+        (\client releaseClient destroyClient ->
+            { client, releaseClient, destroyClient } # Right # callback)
         pool
 
 foreign import end :: Effect Unit -> Pool -> Effect Unit

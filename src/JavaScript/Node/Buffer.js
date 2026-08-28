@@ -43,3 +43,19 @@ export const toStringImpl = function (encoding) {
         }
     }
 }
+
+export const length = function (buffer) {
+    return function () {
+        return buffer.length
+    }
+}
+
+export const subarray = function (start) {
+    return function (end) {
+        return function (buffer) {
+            return function () {
+                return buffer.subarray(start, end)
+            }
+        }
+    }
+}

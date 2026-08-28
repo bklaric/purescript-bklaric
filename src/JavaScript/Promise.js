@@ -113,3 +113,16 @@ export function race(promises) {
         return Promise.race(promises.map(promise => promise()))
     }
 }
+
+// Start the promise now and hand every caller the same in-flight one. A Promise
+// here is a cold thunk -- every then_/runPromise re-invokes it and starts the
+// work again -- so this is what makes a stored promise usable as a shared handle:
+// as an in-flight mutex, or as something to await without restarting it.
+export function share(promise) {
+    return function () {
+        const started = promise()
+        return function () {
+            return started
+        }
+    }
+}
