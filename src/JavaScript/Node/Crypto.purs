@@ -1,5 +1,6 @@
 module JavaScript.Node.Crypto
-    ( randomBytes
+    ( hashHex
+    , randomBytes
     , randomBytesSync
     , Cipher
     , Decipher
@@ -23,6 +24,19 @@ import Effect (Effect)
 import JavaScript.Node.Buffer (Buffer, Encoding)
 import JavaScript.Node.Errors (Error)
 import Undefined (undefined)
+
+foreign import _hashHex
+    :: String
+    -> String
+    -> (Error -> Either Error String)
+    -> (String -> Either Error String)
+    -> Effect (Either Error String)
+
+-- | One-shot digest of a utf8 string to a lowercase hex string, e.g.
+-- | `hashHex "sha256" data_`. Throws (an unknown algorithm) are wrapped into
+-- | the Either the way randomBytesSync's are.
+hashHex :: String -> String -> Effect (Either Error String)
+hashHex algorithm data_ = _hashHex algorithm data_ Left Right
 
 foreign import _randomBytes
     :: Int

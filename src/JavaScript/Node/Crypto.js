@@ -1,5 +1,14 @@
 import * as crypto from "crypto"
 
+export const _hashHex = (algorithm) => (data) => (errorWrapper) => (successWrapper) => () => {
+    try {
+        return successWrapper(crypto.createHash(algorithm).update(data, "utf8").digest("hex"))
+    }
+    catch (error) {
+        return errorWrapper(error)
+    }
+}
+
 export const _randomBytes = (size) => (errorCallback) => (successCallback) => () =>
     crypto.randomBytes(size, function (error, buffer) {
         if (error) {

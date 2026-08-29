@@ -23,6 +23,10 @@ foreign import sync :: StorageArea
 -- | `undefined`, so the absent cases need no further wrapping.
 type StorageChange = {oldValue :: Foreign, newValue :: Foreign}
 
+-- | Fires when one or more items in the local storage area change. The listener
+-- | receives a changes object keyed by the changed storage keys.
+foreign import localOnChanged :: Event "storage.local.onChanged" (Object StorageChange -> Effect Unit)
+
 -- | Fires when one or more items in the sync storage area change. The listener
 -- | receives a changes object keyed by the changed storage keys.
 foreign import syncOnChanged :: Event "storage.sync.onChanged" (Object StorageChange -> Effect Unit)
