@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Windows (create, get, get_, getAll, getLastFocused_) where
+module JavaScript.Chrome.Windows (create, get, get_, getAll, getLastFocused_, update) where
 
 import Prelude
 
@@ -33,5 +33,13 @@ foreign import _getAll :: {populate :: UndefinedOr Boolean, windowTypes :: Undef
 getAll :: forall getInfo. Castable getInfo {populate :: UndefinedOr Boolean, windowTypes :: UndefinedOr (Array WindowType)} =>
     getInfo -> Promise Error (Array Window)
 getAll getInfo = _getAll $ cast getInfo
+
+foreign import _update :: Int -> {drawAttention :: UndefinedOr Boolean, focused :: UndefinedOr Boolean} -> Promise Error Window
+
+-- `tabs.update {active: true}` only selects a tab within its own window; raising the
+-- window it lives in takes this.
+update :: forall updateInfo. Castable updateInfo {drawAttention :: UndefinedOr Boolean, focused :: UndefinedOr Boolean} =>
+    Int -> updateInfo -> Promise Error Window
+update windowId updateInfo = _update windowId $ cast updateInfo
 
 foreign import getLastFocused_ :: Promise Error Window

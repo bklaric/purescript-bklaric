@@ -20,3 +20,5 @@ export const onSuspend = chrome.runtime.onSuspend
 export const onUpdateAvailable = chrome.runtime.onUpdateAvailable
 
 export const onInstalled = chrome.runtime.onInstalled
+
+export const _getContexts = (filter) => () => chrome.runtime.getContexts(filter)

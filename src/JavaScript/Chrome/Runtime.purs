@@ -2,6 +2,7 @@ module JavaScript.Chrome.Runtime where
 
 import Prelude
 
+import JavaScript.Chrome.Runtime.ExtensionContext (ExtensionContext)
 import JavaScript.Chrome.Runtime.MessageSender (MessageSender)
 import JavaScript.Chrome.Runtime.OnInstalledReason (OnInstalledReason)
 import JavaScript.Chrome.Shared.Event (Event)
@@ -46,6 +47,19 @@ foreign import getManifest :: Effect Foreign
 foreign import id :: Effect String
 
 foreign import getURL :: String -> Effect String
+
+-- The extension's own contexts -- its pages, popups and offscreen documents. Unlike
+-- `tabs.query {url}` this needs no `tabs` permission and is not redacted, which is the
+-- only way to find an extension page's tab when the extension holds host permissions
+-- that do not cover the `chrome-extension:` scheme.
+foreign import _getContexts ::
+    {contextTypes :: UndefinedOr (Array String), documentUrls :: UndefinedOr (Array String)}
+    -> Promise Error (Array ExtensionContext)
+
+getContexts :: forall filter.
+    Castable filter {contextTypes :: UndefinedOr (Array String), documentUrls :: UndefinedOr (Array String)}
+    => filter -> Promise Error (Array ExtensionContext)
+getContexts filter = _getContexts $ cast filter
 
 foreign import setUninstallURL :: String -> Promise Error Unit
 

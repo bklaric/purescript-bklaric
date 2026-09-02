@@ -5,3 +5,5 @@ export const _get = (windowId) => (getInfo) => () => chrome.windows.get(windowId
 export const _getAll = (getInfo) => () => chrome.windows.getAll(getInfo)
 
 export const getLastFocused_ = () => chrome.windows.getLastFocused()
+
+export const _update = (windowId) => (updateInfo) => () => chrome.windows.update(windowId, updateInfo)
