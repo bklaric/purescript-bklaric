@@ -91,6 +91,17 @@ foreign import contentType :: Document -> Effect String
 
 foreign import referrer :: Document -> Effect String
 
+foreign import _activeElement :: Document -> Effect (Nullable Element)
+
+-- | The element focus currently sits on. `body` when nothing inside the document is
+-- | focused, and null -- so `Nothing` -- while the document is being unloaded.
+-- |
+-- | This is the document's own idea of focus and says nothing about whether the document
+-- | has it; ask `hasFocus` for that. Pass the result through `readHtmlElement` to get
+-- | something `focus` can be called on again.
+activeElement :: Document -> Effect (Maybe Element)
+activeElement document = _activeElement document <#> toMaybe
+
 foreign import hasFocus :: Document -> Effect Boolean
 
 foreign import readyState :: Document -> Effect (StringLit "loading" |+| StringLit "interactive" |+| StringLit "complete")
