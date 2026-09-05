@@ -21,6 +21,7 @@ foreign import _altKey :: forall keyboardEvent. keyboardEvent -> Boolean
 foreign import _ctrlKey :: forall keyboardEvent. keyboardEvent -> Boolean
 foreign import _shiftKey :: forall keyboardEvent. keyboardEvent -> Boolean
 foreign import _metaKey :: forall keyboardEvent. keyboardEvent -> Boolean
+foreign import _repeat :: forall keyboardEvent. keyboardEvent -> Boolean
 foreign import _getModifierState :: forall keyboardEvent. String -> keyboardEvent -> Boolean
 
 key :: forall keyboardEvent. KeyboardEvent keyboardEvent => keyboardEvent -> String
@@ -40,6 +41,11 @@ shiftKey = _shiftKey
 
 metaKey :: forall keyboardEvent. KeyboardEvent keyboardEvent => keyboardEvent -> Boolean
 metaKey = _metaKey
+
+-- | Whether this `keydown` is an auto-repeat of a key already held down. A binding
+-- | that acts once per press reads this and ignores the repeats.
+repeat :: forall keyboardEvent. KeyboardEvent keyboardEvent => keyboardEvent -> Boolean
+repeat = _repeat
 
 getModifierState :: forall keyboardEvent. KeyboardEvent keyboardEvent => String -> keyboardEvent -> Boolean
 getModifierState = _getModifierState

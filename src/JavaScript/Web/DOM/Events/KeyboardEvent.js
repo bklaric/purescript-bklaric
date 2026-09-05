@@ -10,4 +10,6 @@ export const _shiftKey = (keyboardEvent) => keyboardEvent.shiftKey
 
 export const _metaKey = (keyboardEvent) => keyboardEvent.metaKey
 
+export const _repeat = (keyboardEvent) => keyboardEvent.repeat
+
 export const _getModifierState = (key) => (keyboardEvent) => keyboardEvent.getModifierState(key)
