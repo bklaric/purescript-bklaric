@@ -31,6 +31,8 @@ export const contentType = (document) => () => document.contentType
 
 export const referrer = (document) => () => document.referrer
 
+export const cookie = (document) => () => document.cookie
+
 export const _activeElement = (document) => () => document.activeElement
 
 export const hasFocus = (document) => () => document.hasFocus()

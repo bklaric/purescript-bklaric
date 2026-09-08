@@ -91,6 +91,11 @@ foreign import contentType :: Document -> Effect String
 
 foreign import referrer :: Document -> Effect String
 
+-- | The document's cookies, as the one `name=value; name=value` string the DOM keeps
+-- | them in. Cookies marked HttpOnly are absent -- that is what the flag is for -- so a
+-- | name that is not here is one script cannot read, not necessarily one that is unset.
+foreign import cookie :: Document -> Effect String
+
 foreign import _activeElement :: Document -> Effect (Nullable Element)
 
 -- | The element focus currently sits on. `body` when nothing inside the document is
