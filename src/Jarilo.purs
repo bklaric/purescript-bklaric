@@ -1,14 +1,14 @@
 module Jarilo (module Jarilo, module TypesExport, module Jarilo.Fetch, module Jarilo.Serve) where
 
-import Jarilo.Fetch
-import Jarilo.Serve
+import Jarilo.Fetch (class Fetch, class FetchBody, class FetchMethod, class FetchPath, class FetchQuery, class FetchResponse, class FetchStatus, class FetchStatusError, class FetchStatusResult, Credentials(..), CredentialsLit, FetchOptions, createError, createResult, credentialsLit, defaultOptions, fetch, fetchMethod, fetchPath, fetchQuery, fetchQuery', fetchRequestBody, fetchResponse, fetchResponse', fetchResponseBody, fetchStatus, fetchStatus', fetchUrl)
+import Jarilo.Serve (ShowableRequest, serve)
 import Prelude (Unit, mempty, unit, ($))
 
 import Data.MultiMap (MultiMap)
 import Data.Variant (Variant, inj)
 import Jarilo.Router.Response (AppResponse(..))
 import Jarilo.Types as Types
-import Jarilo.Types hiding (Method, Options, Head, Get, Post, Put, Patch, Delete, Ok, NoContent, BadRequest, NotAuthorized, Forbidden, NotFound, Internal) as TypesExport
+import Jarilo.Types (type (!), type (&), type (/), type (:), type (<|>), type (==>), Body, Capture, FormBody, FullRequest, FullResponse, FullRoute, JsonBody, Junction, JunctionChain, Literal, Mandatory, Many, NamedRoute, NoBody, NoQuery, Optional, Path, PathChain, Query, QueryChain, Request, Response, ResponseChain, Rest, Route, Status) as TypesExport
 import Type.Proxy (Proxy(..))
 
 -------------------------------------------------
