@@ -2,7 +2,7 @@ module Jarilo (module Jarilo, module TypesExport, module Jarilo.Fetch, module Ja
 
 import Jarilo.Fetch
 import Jarilo.Serve
-import Prelude
+import Prelude (Unit, mempty, unit, ($))
 
 import Data.MultiMap (MultiMap)
 import Data.Variant (Variant, inj)
