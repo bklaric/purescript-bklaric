@@ -4,6 +4,7 @@
         "npm": "11.18.0"
     },
     "devDependencies": {
+        "@sendgrid/mail": "^8.1.6",
         "alwan": "^2.3.1",
         "pg": "^8.23.0",
         "purescript": "^0.15.16",
