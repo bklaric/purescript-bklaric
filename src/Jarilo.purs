@@ -2,7 +2,7 @@ module Jarilo (module Jarilo, module TypesExport, module Jarilo.Fetch, module Ja
 
 import Jarilo.Fetch (class Fetch, class FetchBody, class FetchMethod, class FetchPath, class FetchQuery, class FetchResponse, class FetchStatus, class FetchStatusError, class FetchStatusResult, Credentials(..), CredentialsLit, FetchOptions, createError, createResult, credentialsLit, defaultOptions, fetch, fetchMethod, fetchPath, fetchQuery, fetchQuery', fetchRequestBody, fetchResponse, fetchResponse', fetchResponseBody, fetchStatus, fetchStatus', fetchUrl)
 import Jarilo.Serve (ShowableRequest, serve)
-import Prelude (Unit, mempty, unit, ($))
+import Prelude
 
 import Data.MultiMap (MultiMap)
 import Data.Variant (Variant, inj)
