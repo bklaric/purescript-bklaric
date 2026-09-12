@@ -2,10 +2,11 @@ module Jarilo.Router.Response where
 
 import Prelude
 
-import Data.MultiMap (MultiMap)
+import Data.Maybe (Maybe(..))
+import Data.MultiMap (MultiMap, insertOrReplace')
 import Data.Symbol (class IsSymbol)
 import Data.Variant (class VariantMatchCases, Variant, match)
-import Jarilo.Router.Body (class BodyRouter, responseBodyRouter)
+import Jarilo.Router.Body (class BodyRouter, responseBodyRouter, responseContentType)
 import Jarilo.Types (BadRequest, Forbidden, FullResponse, Internal, NoContent, NotAuthorized, NotFound, Ok, Response, ResponseChain)
 import Perun.Response as PerunRes
 import Prim.Row (class Cons, class Lacks, class Union)
@@ -28,7 +29,15 @@ responseRouter''
     -> Int
     -> Builder (Record responsesStart) (Record responsesEnd)
 responseRouter'' labelProxy bodyProxy statusCode = insert labelProxy
-    \(AppResponse headers body) -> { statusCode, headers, body: responseBodyRouter bodyProxy body }
+    \(AppResponse headers body) ->
+        { statusCode
+        -- The route type is what decides how the body is serialized, so it is also what
+        -- gets to name the media type.
+        , headers: case responseContentType bodyProxy of
+            Just contentType -> insertOrReplace' "Content-Type" contentType headers
+            Nothing -> headers
+        , body: responseBodyRouter bodyProxy body
+        }
 
 class ResponseRouter (response :: Response) responsesStart responsesEnd | response -> responsesStart responsesEnd where
     responseRouter'
