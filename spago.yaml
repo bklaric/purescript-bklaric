@@ -51,6 +51,7 @@ package:
     - unicode
     - unsafe-coerce
     - unsafe-reference
+    - untagged-union
     - uri
     - variant
     - web-dom
@@ -61,6 +62,10 @@ package:
     - yoga-json
   name: bklaric
 workspace:
-  extraPackages: {}
+  extraPackages:
+    untagged-union:
+      path: ../purescript-untagged-union
+    yoga-json:
+      path: ../purescript-yoga-json
   packageSet:
     registry: 77.10.0
