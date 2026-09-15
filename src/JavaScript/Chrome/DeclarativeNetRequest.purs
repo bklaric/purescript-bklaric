@@ -6,6 +6,8 @@ module JavaScript.Chrome.DeclarativeNetRequest
     , UpdateRuleOptions
     , updateSessionRules
     , updateDynamicRules
+    , UpdateRulesetOptions
+    , updateEnabledRulesets
     ) where
 
 import Prelude
@@ -66,3 +68,17 @@ foreign import _updateDynamicRules :: UpdateRuleOptions -> Promise Error Unit
 -- | `updateSessionRules`.
 updateDynamicRules :: forall options. Castable options UpdateRuleOptions => options -> Promise Error Unit
 updateDynamicRules = _updateDynamicRules <<< cast
+
+-- | The ids of static rulesets (from the manifest's `declarative_net_request.rule_resources`)
+-- | to switch on and off.
+type UpdateRulesetOptions =
+    { enableRulesetIds :: Array String
+    , disableRulesetIds :: Array String
+    }
+
+foreign import _updateEnabledRulesets :: UpdateRulesetOptions -> Promise Error Unit
+
+-- | Enable and/or disable static rulesets. The enabled set persists across browser sessions but
+-- | not across extension updates, which reset it to the manifest's `enabled` values.
+updateEnabledRulesets :: UpdateRulesetOptions -> Promise Error Unit
+updateEnabledRulesets = _updateEnabledRulesets
