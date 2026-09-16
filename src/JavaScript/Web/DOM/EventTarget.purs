@@ -23,7 +23,7 @@ type EventOptions =
     }
 
 foreign import _addEventListener :: forall event eventTarget. EventType event -> EventListener event -> EventOptions -> eventTarget -> Effect Unit
-foreign import _removeEventListener :: forall event eventTarget. EventType event -> EventListener event -> eventTarget -> Effect Unit
+foreign import _removeEventListener :: forall event eventTarget. EventType event -> EventListener event -> EventOptions -> eventTarget -> Effect Unit
 foreign import _dispatchEvent :: forall event eventTarget. event -> eventTarget -> Effect Unit
 
 addEventListener :: forall eventTarget event options.
@@ -50,10 +50,17 @@ addEventListener' type' listener opts target = do
     eventListener <- toEventListener listener
     addEventListener type' eventListener opts target
 
-removeEventListener :: forall eventTarget event.
-    EventTarget eventTarget => Event event =>
+-- | Removal matches on `capture`: a listener added with `{capture: true}` stays bound
+-- | unless it is removed with `{capture: true}` too.
+removeEventListener :: forall eventTarget event options.
+    Event event => Castable options EventOptions => EventTarget eventTarget =>
+    EventType event -> EventListener event -> options -> eventTarget -> Effect Unit
+removeEventListener type' listener opts target = _removeEventListener type' listener (cast opts) target
+
+removeEventListener_ :: forall eventTarget event.
+    Event event => EventTarget eventTarget =>
     EventType event -> EventListener event -> eventTarget -> Effect Unit
-removeEventListener = _removeEventListener
+removeEventListener_ type' listener target = removeEventListener type' listener {} target
 
 dispatchEvent :: forall eventTarget event.
     EventTarget eventTarget => Event event =>
