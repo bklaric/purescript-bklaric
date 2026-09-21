@@ -3,6 +3,7 @@ module JavaScript.Web.Fetch.Response where
 import Foreign (Foreign)
 import JavaScript.ArrayBuffer (ArrayBuffer)
 import JavaScript.Error (Error)
+import JavaScript.Web.Fetch.Headers (Headers)
 import JavaScript.Web.File.Blob (Blob)
 import JavaScript.Promise (Promise)
 
@@ -17,6 +18,10 @@ foreign import status :: Response -> Int
 foreign import ok :: Response -> Boolean
 
 foreign import statusText :: Response -> String
+
+-- Pure: a response keeps the same headers object for its lifetime, and a
+-- response's headers are immutable.
+foreign import headers :: Response -> Headers
 
 foreign import text :: Response -> Promise Error String
 

@@ -1,7 +1,9 @@
-module JavaScript.Web.Fetch.Headers (Headers, new, set) where
+module JavaScript.Web.Fetch.Headers (Headers, get, new, set) where
 
 import Prelude
 
+import Data.Maybe (Maybe)
+import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import Foreign.Object (Object)
 import Literals.Undefined (Undefined)
@@ -24,3 +26,9 @@ new init = _new (cast init)
 -- https://developer.mozilla.org/en-US/docs/Web/API/Headers/set
 foreign import set :: String -> String -> Headers -> Effect Unit
 
+-- Effect: `set` changes what a later `get` reads.
+-- https://developer.mozilla.org/en-US/docs/Web/API/Headers/get
+foreign import _get :: String -> Headers -> Effect (Nullable String)
+
+get :: String -> Headers -> Effect (Maybe String)
+get name headers = _get name headers <#> toMaybe

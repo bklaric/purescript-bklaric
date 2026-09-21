@@ -59,6 +59,11 @@ package:
     - web-uievents
     - yoga-json
   name: bklaric
+  test:
+    main: Test.Main
+    dependencies:
+      - spec
+      - spec-node
 workspace:
   extraPackages:
     untagged-union:

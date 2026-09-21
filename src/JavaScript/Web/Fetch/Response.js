@@ -11,3 +11,5 @@ export const arrayBuffer = (response) => () => response.arrayBuffer()
 export const ok = (response) => response.ok
 
 export const statusText = (response) => response.statusText
+
+export const headers = (response) => response.headers
