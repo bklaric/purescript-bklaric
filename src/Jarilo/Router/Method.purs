@@ -1,49 +1,31 @@
-module Jarilo.Router.Method where
-
-import Prelude
+module Jarilo.Router.Method (class MethodRouter, methodRouter) where
 
 import Data.Either (Either(..))
-import Data.HTTP.Method (CustomMethod, Method(..)) as HM
+import Data.HTTP.Method (Method(..)) as HM
+import Jarilo.Server.Request (HttpMethod)
 import Jarilo.Types (Delete, Get, Head, Method, Options, Patch, Post, Put)
 import Type.Proxy (Proxy)
 
-data MethodError = WrongMethod
-    { expectedMethod :: Either HM.CustomMethod HM.Method
-    , actualMethod :: Either HM.CustomMethod HM.Method
-    }
-
-methodRouter'
-    :: Either HM.CustomMethod HM.Method
-    -> Either HM.CustomMethod HM.Method
-    -> Either MethodError Unit
-methodRouter' expectedMethod actualMethod =
-    if expectedMethod == actualMethod
-    then Right unit
-    else Left $ WrongMethod { expectedMethod, actualMethod }
-
 class MethodRouter (method :: Method) where
-    methodRouter
-        :: Proxy method
-        -> Either HM.CustomMethod HM.Method
-        -> Either MethodError Unit
+    methodRouter :: Proxy method -> HttpMethod
 
 instance MethodRouter Options where
-    methodRouter _ actual  = methodRouter' (Right HM.OPTIONS) actual
+    methodRouter _ = Left HM.OPTIONS
 
 instance MethodRouter Head where
-    methodRouter _ actual  = methodRouter' (Right HM.HEAD) actual
+    methodRouter _ = Left HM.HEAD
 
 instance MethodRouter Get where
-    methodRouter _ actual  = methodRouter' (Right HM.GET) actual
+    methodRouter _ = Left HM.GET
 
 instance MethodRouter Post where
-    methodRouter _ actual  = methodRouter' (Right HM.POST) actual
+    methodRouter _ = Left HM.POST
 
 instance MethodRouter Put where
-    methodRouter _ actual  = methodRouter' (Right HM.PUT) actual
+    methodRouter _ = Left HM.PUT
 
 instance MethodRouter Patch where
-    methodRouter _ actual  = methodRouter' (Right HM.PATCH) actual
+    methodRouter _ = Left HM.PATCH
 
 instance MethodRouter Delete where
-    methodRouter _ actual  = methodRouter' (Right HM.DELETE) actual
+    methodRouter _ = Left HM.DELETE

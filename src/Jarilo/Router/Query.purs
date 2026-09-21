@@ -28,6 +28,14 @@ data QueryError
         , actualValue :: Value
         }
 
+queryErrorMessage :: QueryError -> String
+queryErrorMessage = case _ of
+    MissingParameter { parameterName } ->
+        "The query lacks the parameter " <> parameterName <> "."
+    CantParseParameter { parameterName, errorMessage, actualValue } ->
+        "The query parameter " <> parameterName <> " can't be "
+        <> show (valueToString actualValue) <> ": " <> errorMessage
+
 parameterParseError :: ∀ parameterName. IsSymbol parameterName =>
     Proxy parameterName -> Value -> String -> QueryError
 parameterParseError nameProxy actualValue errorMessage =

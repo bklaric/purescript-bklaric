@@ -1,4 +1,4 @@
-module Perun.Response where
+module Jarilo.Server.Response (Response, respond) where
 
 import Prelude
 
@@ -9,6 +9,8 @@ import Effect (Effect, foreachE)
 import JavaScript.Node.Http.ServerResponse (ServerResponse, setHeader', setStatusCode)
 import JavaScript.Node.Stream.Writable (endString__)
 
+-- | Headers are a multimap because a response may set a header more than once,
+-- | as it does `Set-Cookie`.
 type Response =
     { statusCode :: Int
     , headers :: MultiMap String String

@@ -6,16 +6,19 @@ import Async (Async)
 import Data.Bifunctor (lmap)
 import Data.Maybe (Maybe(..))
 import Jarilo.Types (Body, JsonBody, NoBody)
-import Perun.Async.Request.Body (readBody)
-import Perun.Request.Body as PerunReq
+import JavaScript.Node.Http.IncomingMessage (IncomingMessage)
+import Jarilo.Server.Request (readBody)
 import Type.Proxy (Proxy)
 import Yoga.JSON (class ReadForeign, class WriteForeign, writeJSON)
 import Yoga.JSON.Async (readJSON)
 
 data BodyError = CantParseJson String
 
+bodyErrorMessage :: BodyError -> String
+bodyErrorMessage (CantParseJson error) = "The body isn't the JSON the route expects: " <> error
+
 class BodyRouter (body :: Body) realBody | body -> realBody where
-    bodyRouter :: Proxy body -> PerunReq.Body -> Async BodyError realBody
+    bodyRouter :: Proxy body -> IncomingMessage -> Async BodyError realBody
     responseBodyRouter :: Proxy body -> realBody -> String
     -- How the body above is serialized, so the response can say so. Nothing where there
     -- is no body to describe.

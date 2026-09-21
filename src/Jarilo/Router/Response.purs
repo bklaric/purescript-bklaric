@@ -7,8 +7,9 @@ import Data.MultiMap (MultiMap, insertOrReplace')
 import Data.Symbol (class IsSymbol)
 import Data.Variant (class VariantMatchCases, Variant, match)
 import Jarilo.Router.Body (class BodyRouter, responseBodyRouter, responseContentType)
-import Jarilo.Types (BadRequest, Forbidden, FullResponse, Internal, NoContent, NotAuthorized, NotFound, Ok, Response, ResponseChain)
-import Perun.Response as PerunRes
+import Jarilo.Server.Response as Server
+import Jarilo.Shared.Status (class StatusCode, statusCode)
+import Jarilo.Types (FullResponse, Response, ResponseChain)
 import Prim.Row (class Cons, class Lacks, class Union)
 import Prim.RowList (class RowToList)
 import Record.Builder (Builder, buildFromScratch, insert)
@@ -16,7 +17,7 @@ import Type.Proxy (Proxy(..))
 
 data AppResponse realBody = AppResponse (MultiMap String String) realBody
 
-type ResponseConverter realBody = AppResponse realBody -> PerunRes.Response
+type ResponseConverter realBody = AppResponse realBody -> Server.Response
 
 responseRouter''
     :: ∀ label responsesStart responsesEnd body realBody
@@ -44,33 +45,16 @@ class ResponseRouter (response :: Response) responsesStart responsesEnd | respon
         :: Proxy response
         -> Builder (Record responsesStart) (Record responsesEnd)
 
-instance (Lacks "ok" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse Ok body) responsesStart (ok :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "ok") (Proxy :: _ body) 200
-
-instance (Lacks "noContent" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse NoContent body) responsesStart (noContent :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "noContent") (Proxy :: _ body) 204
-
-instance (Lacks "badRequest" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse BadRequest body) responsesStart (badRequest :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "badRequest") (Proxy :: _ body) 400
-
-instance (Lacks "notAuthorized" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse NotAuthorized body) responsesStart (notAuthorized :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "notAuthorized") (Proxy :: _ body) 401
-
-instance (Lacks "forbidden" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse Forbidden body) responsesStart (forbidden :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "forbidden") (Proxy :: _ body) 403
-
-instance (Lacks "notFound" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse NotFound body) responsesStart (notFound :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "notFound") (Proxy :: _ body) 404
-
-instance (Lacks "internal" responsesStart, BodyRouter body realBody) =>
-    ResponseRouter (FullResponse Internal body) responsesStart (internal :: ResponseConverter realBody | responsesStart) where
-    responseRouter' _ = responseRouter'' (Proxy :: _ "internal") (Proxy :: _ body) 500
+instance
+    ( StatusCode status label
+    , IsSymbol label
+    , Lacks label responsesStart
+    , Cons label (ResponseConverter realBody) responsesStart responsesEnd
+    , BodyRouter body realBody
+    ) =>
+    ResponseRouter (FullResponse status body) responsesStart responsesEnd where
+    responseRouter' _ = responseRouter''
+        (Proxy :: _ label) (Proxy :: _ body) (statusCode (Proxy :: _ status))
 
 instance (ResponseRouter leftResponse responsesStart responsesMid, ResponseRouter rightResponse responsesMid responsesEnd) =>
     ResponseRouter (ResponseChain leftResponse rightResponse) responsesStart responsesEnd where
@@ -79,9 +63,9 @@ instance (ResponseRouter leftResponse responsesStart responsesMid, ResponseRoute
 responseRouter
     :: ∀ responseHandlerRowList wtf responseRow response responseHandlerRow
     .  RowToList responseHandlerRow responseHandlerRowList
-    => VariantMatchCases responseHandlerRowList wtf PerunRes.Response
+    => VariantMatchCases responseHandlerRowList wtf Server.Response
     => Union wtf () responseRow
     => ResponseRouter response () responseHandlerRow
     => Proxy response
-    -> Variant responseRow -> PerunRes.Response
+    -> Variant responseRow -> Server.Response
 responseRouter proxy response = response # match (responseRouter' proxy # buildFromScratch)
