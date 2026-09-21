@@ -16,7 +16,6 @@ package:
     - foldable-traversable
     - foreign
     - foreign-object
-    - formatters
     - functions
     - halogen
     - halogen-css
@@ -32,7 +31,6 @@ package:
     - media-types
     - newtype
     - nonempty
-    - now
     - nullable
     - ordered-collections
     - parallel
