@@ -6,3 +6,4 @@ import Untagged.Union (type (|+|))
 type TabStatus
     =   StringLit "loading"
     |+| StringLit "complete"
+    |+| StringLit "unloaded"

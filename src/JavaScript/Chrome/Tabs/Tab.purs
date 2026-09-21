@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Tabs.Tab (Tab, id, url, title, favIconUrl, incognito, index, sessionId, windowId) where
+module JavaScript.Chrome.Tabs.Tab (Tab, id, url, title, favIconUrl, incognito, index, sessionId, windowId, discarded, status) where
 
 import Prelude
 
@@ -40,3 +40,12 @@ sessionId :: Tab -> Maybe String
 sessionId = _sessionId >>> toMaybe
 
 foreign import windowId :: Tab -> Int
+
+foreign import discarded :: Tab -> Boolean
+
+foreign import _status :: Tab -> Nullable String
+
+-- "loading", "complete" or "unloaded". A plain string rather than TabStatus so it
+-- can be compared against.
+status :: Tab -> Maybe String
+status = _status >>> toMaybe

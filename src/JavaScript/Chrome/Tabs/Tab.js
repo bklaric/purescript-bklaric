@@ -13,3 +13,7 @@ export const index = (tab) => tab.index
 export const _sessionId = (tab) => tab.sessionId
 
 export const windowId = (tab) => tab.windowId
+
+export const discarded = (tab) => tab.discarded
+
+export const _status = (tab) => tab.status
