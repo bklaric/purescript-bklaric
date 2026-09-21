@@ -1,6 +1,6 @@
 module Jarilo (module Jarilo, module TypesExport, module Jarilo.Fetch, module Jarilo.Serve) where
 
-import Jarilo.Fetch (class Fetch, class FetchBody, class FetchMethod, class FetchPath, class FetchQuery, class FetchResponse, class FetchStatus, class FetchStatusError, class FetchStatusResult, Credentials(..), CredentialsLit, FetchOptions, createError, createResult, credentialsLit, defaultOptions, fetch, fetchMethod, fetchPath, fetchQuery, fetchQuery', fetchRequestBody, fetchResponse, fetchResponse', fetchResponseBody, fetchStatus, fetchStatus', fetchUrl)
+import Jarilo.Fetch (class Fetch, FetchError(..), fetch)
 import Jarilo.Serve (Rejection, ServeOptions, serve)
 import Prelude
 
