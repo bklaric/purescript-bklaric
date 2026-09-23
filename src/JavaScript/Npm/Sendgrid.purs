@@ -1,4 +1,4 @@
-module JavaScript.Npm.Sendgrid (Message, setApiKey, send) where
+module JavaScript.Npm.Sendgrid (Message, setApiKey, setBaseUrl, send) where
 
 import Prelude
 
@@ -18,6 +18,10 @@ type Message =
 
 -- | Sets the key for every later `send`; the client keeps it in module state.
 foreign import setApiKey :: String -> Effect Unit
+
+-- | Sends to another host that speaks SendGrid's API, such as a stub. Setting
+-- | the key resets the base URL, so this goes after `setApiKey`.
+foreign import setBaseUrl :: String -> Effect Unit
 
 -- | Rejects with a Node-shaped error carrying a `code`, so failures read the
 -- | same way as the rest of the Node bindings.
