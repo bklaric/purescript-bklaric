@@ -180,3 +180,11 @@ tagName = _tagName
 
 shadowRoot :: forall element. Element element => element -> Effect (Maybe ShadowRoot)
 shadowRoot element = _shadowRoot element <#> toMaybe
+
+foreign import _animate :: forall keyframe options element. Array (Record keyframe) -> Record options -> element -> Effect Unit
+
+-- | `element.animate(keyframes, options)`: runs a Web Animations effect on the element without a
+-- | stylesheet, for injected UI that must not add rules to the host page. The returned
+-- | `Animation` is dropped; the effect ends when its options say so, or with the element.
+animate :: forall element keyframe options. Element element => Array (Record keyframe) -> Record options -> element -> Effect Unit
+animate = _animate

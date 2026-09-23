@@ -79,3 +79,5 @@ export const _tagName = (element) => () => element.tagName
 export const _getElementsByClassName = (class_) => (element) => () => element.getElementsByClassName(class_)
 
 export const _shadowRoot = (element) => () => element.shadowRoot
+
+export const _animate = (keyframes) => (options) => (element) => () => { element.animate(keyframes, options) }
