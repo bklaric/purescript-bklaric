@@ -6,7 +6,7 @@ import Async (Async, fromEither)
 import Data.Bifunctor (lmap)
 import Data.Either (Either(..))
 import Data.Map (Map)
-import Jarilo.Router.Body (class BodyRouter, BodyError, bodyErrorMessage, bodyRouter)
+import Jarilo.Router.Body (class BodyRouter, BodyError, bodyErrorMessage, bodyErrorStatus, bodyRouter)
 import Jarilo.Router.Method (class MethodRouter, methodRouter)
 import Jarilo.Router.Path (class PathRouter, pathRouter)
 import Jarilo.Router.Query (class QueryRouter, QueryError, queryErrorMessage, queryRouter)
@@ -31,6 +31,11 @@ requestErrorMessage :: RequestError -> String
 requestErrorMessage = case _ of
     QueryError error -> queryErrorMessage error
     BodyError error -> bodyErrorMessage error
+
+requestErrorStatus :: RequestError -> Int
+requestErrorStatus = case _ of
+    QueryError _ -> 400
+    BodyError error -> bodyErrorStatus error
 
 type RequestResult pathParams queryParams realBody =
     { path :: Record pathParams
@@ -67,7 +72,7 @@ instance
         Right _ -> MethodMismatch routeMethod
     readRequest _ pathParams { query, headers, cookies, body } = do
         queryParams <- queryRouter (Proxy :: _ query) query # lmap QueryError # fromEither
-        realBody <- bodyRouter (Proxy :: _ body) body # lmap BodyError
+        realBody <- bodyRouter (Proxy :: _ body) headers body # lmap BodyError
         pure
             { path: pathParams
             , query: queryParams

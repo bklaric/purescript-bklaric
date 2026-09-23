@@ -20,7 +20,7 @@ import JavaScript.Node.Http.ServerResponse (ServerResponse)
 import JavaScript.Node.Http.ServerResponse as ServerResponse
 import JavaScript.Node.Net.Server (IpcListenOptions, TcpListenOptions, listen)
 import Jarilo.Router.Junction (class JunctionRouter, junctionRouter)
-import Jarilo.Router.Request (requestErrorMessage)
+import Jarilo.Router.Request (requestErrorMessage, requestErrorStatus)
 import Jarilo.Router.Route (RouteMatch(..))
 import Jarilo.Server.Request (readRequest)
 import Jarilo.Server.Response (respond)
@@ -86,6 +86,6 @@ serve proxy { listen: listenOptions, onRejected, onStreamError } handlers = do
                     reject' 405 (singleton' "Allow" allowed)
                         ("This path takes only " <> allowed <> ".")
                 Matched routed -> routed # runAsync case _ of
-                    Left error -> reject' 400 mempty $ requestErrorMessage error
+                    Left error -> reject' (requestErrorStatus error) mempty $ requestErrorMessage error
                     Right routedResponse -> respond response routedResponse
     server # listen listenOptions (pure unit) # void

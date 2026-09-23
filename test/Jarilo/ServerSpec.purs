@@ -49,6 +49,12 @@ get path = request path {}
 thing :: Answer -> Maybe ThingBody
 thing = _.body >>> readJSON_
 
+labelled :: String -> Object.Object String
+labelled = Object.singleton "Content-Type"
+
+json :: Object.Object String
+json = labelled "application/json"
+
 lastRejection :: Ref (Array Rejection) -> Aff (Maybe Rejection)
 lastRejection rejections = Ref.read rejections <#> last # liftEffect
 
@@ -97,10 +103,22 @@ spec rejections = describe "Jarilo.Serve" do
 
     describe "a malformed request to a route" do
         it "is answered 400 for a body that isn't JSON" do
-            answer <- request "/echo" { method: "POST", body: "not json" }
+            answer <- request "/echo" { method: "POST", headers: json, body: "not json" }
             answer.status `shouldEqual` 400
             rejection <- lastRejection rejections
             (rejection <#> _.statusCode) `shouldEqual` Just 400
+
+        -- What a form another site posts looks like: JSON, labelled as text.
+        it "is answered 415 for JSON labelled as anything but JSON" do
+            answer <- request "/echo" { method: "POST", headers: labelled "text/plain", body: "{}" }
+            answer.status `shouldEqual` 415
+            unlabelled <- request "/echo" { method: "POST", body: "{}" }
+            unlabelled.status `shouldEqual` 415
+
+        it "takes JSON labelled with a charset" do
+            answer <- request "/echo"
+                { method: "POST", headers: labelled "application/json; charset=utf-8", body: "{\"text\":\"a\"}" }
+            answer.status `shouldEqual` 200
 
         it "is answered 400 for a query value that doesn't parse" do
             answer <- get "/things/a?count=abc"
