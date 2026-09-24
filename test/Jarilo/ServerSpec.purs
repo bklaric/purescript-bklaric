@@ -67,6 +67,12 @@ spec rejections = describe "Jarilo.Serve" do
             answer.contentType `shouldEqual` Just "application/json"
             thing answer `shouldEqual` Just { name: "a", count: 1, tags: [], session: "" }
 
+        it "is answered with text, labelled with its route's media type" do
+            answer <- get "/document.xml"
+            answer.status `shouldEqual` 200
+            answer.contentType `shouldEqual` Just "application/xml; charset=utf-8"
+            answer.body `shouldEqual` "<document/>"
+
         it "is answered with a status its handler chose" do
             answer <- get "/things/missing?count=1"
             answer.status `shouldEqual` 404

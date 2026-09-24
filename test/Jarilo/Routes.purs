@@ -16,7 +16,7 @@ import Data.Maybe (fromMaybe)
 import Effect (Effect)
 import Effect.Ref (Ref)
 import Effect.Ref as Ref
-import Jarilo (type (!), type (&), type (/), type (:), type (<|>), type (==>), Capture, Delete_, Get, Literal, Mandatory, Many, NoContent, NotFound_, OkJson, PostJson_, noContent_, notFound__, ok_)
+import Jarilo (type (!), type (&), type (/), type (:), type (<|>), type (==>), Capture, Delete_, Get, Get_, Literal, Mandatory, Many, NoContent, NotFound_, OkJson, OkText, PostJson_, noContent_, notFound__, ok_)
 import Jarilo.Serve (Rejection, serve)
 import Type.Proxy (Proxy(..))
 
@@ -40,7 +40,9 @@ type EchoBody = { text :: String, contentType :: String, probe :: String }
 
 type Echo = PostJson_ (Literal "echo") { text :: String } ==> OkJson EchoBody
 
-type Routes = "thing" : Thing <|> "deleteThing" : DeleteThing <|> "echo" : Echo
+type Document = Get_ (Literal "document.xml") ==> OkText "application/xml; charset=utf-8"
+
+type Routes = "thing" : Thing <|> "deleteThing" : DeleteThing <|> "echo" : Echo <|> "document" : Document
 
 port :: Int
 port = 8931
@@ -71,4 +73,5 @@ serveRoutes rejections = serve (Proxy :: _ Routes)
         , contentType: Map.lookup "content-type" headers # fromMaybe ""
         , probe: Map.lookup "x-probe" headers # fromMaybe ""
         }
+    , document: const $ pure $ ok_ "<document/>"
     }

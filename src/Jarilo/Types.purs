@@ -56,6 +56,9 @@ foreign import data NoBody :: Body
 
 foreign import data JsonBody :: Type -> Body
 
+-- A string in the media type the symbol names, parameters and all.
+foreign import data TextBody :: Symbol -> Body
+
 foreign import data FormBody :: Body
 
 -- Request

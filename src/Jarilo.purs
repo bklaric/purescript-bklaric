@@ -8,7 +8,7 @@ import Data.MultiMap (MultiMap)
 import Data.Variant (Variant, inj)
 import Jarilo.Router.Response (AppResponse(..))
 import Jarilo.Types as Types
-import Jarilo.Types (type (!), type (&), type (/), type (:), type (<|>), type (==>), Body, Capture, FormBody, FullRequest, FullResponse, FullRoute, JsonBody, Junction, JunctionChain, Literal, Mandatory, Many, NamedRoute, NoBody, NoQuery, Optional, Path, PathChain, Query, QueryChain, Request, Response, ResponseChain, Rest, Route, Status) as TypesExport
+import Jarilo.Types (type (!), type (&), type (/), type (:), type (<|>), type (==>), Body, Capture, FormBody, FullRequest, FullResponse, FullRoute, JsonBody, Junction, JunctionChain, Literal, Mandatory, Many, NamedRoute, NoBody, NoQuery, Optional, Path, PathChain, Query, QueryChain, Request, Response, ResponseChain, Rest, Route, Status, TextBody) as TypesExport
 import Type.Proxy (Proxy(..))
 
 -------------------------------------------------
@@ -100,6 +100,10 @@ type NotAuthorizedJson body = Types.FullResponse Types.NotAuthorized (Types.Json
 type ForbiddenJson body = Types.FullResponse Types.Forbidden (Types.JsonBody body)
 
 type InternalJson body = Types.FullResponse Types.Internal (Types.JsonBody body)
+
+-- Text response shortcuts
+
+type OkText mediaType = Types.FullResponse Types.Ok (Types.TextBody mediaType)
 
 ------------------------------------------------------------
 -- These shortcuts are for returning responses from your app
