@@ -71,4 +71,4 @@ setTitle details = _setTitle (write details)
 setTitle_ :: String -> Promise Error Unit
 setTitle_ title = setTitle {title}
 
-foreign import onClicked :: Event "action.onClicked" ((Tab -> Effect Unit) -> Effect Unit)
+foreign import onClicked :: Event "action.onClicked" (Tab -> Effect Unit)

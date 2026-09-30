@@ -17,6 +17,13 @@ export const toEventListener = (listener) => function () { // This function rece
     const argumentsArray = Array.from(arguments)
     var listenerResult = listener
     for (var index = 0; index < argumentsArray.length; ++index) {
+        // A curried listener takes one argument per step and ends in an effect, which takes none.
+        // Stop there: browsers differ in how many arguments an event carries (Firefox's
+        // action.onClicked adds OnClickData), and feeding the extra one to the effect would run it
+        // here and leave its result to be called below.
+        if (listenerResult.length === 0) {
+            break
+        }
         if (typeof argumentsArray[index] == "function") {
             listenerResult = listenerResult(curry(argumentsArray[index]))
         }
