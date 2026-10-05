@@ -7,6 +7,7 @@ import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class (class EventTarget, class Node)
 import JavaScript.Web.DOM.ElementType (Element)
+import JavaScript.Web.DOM.ShadowRoot (ShadowRoot)
 import Literals.Undefined (undefined)
 import Untagged.Castable (cast)
 import Untagged.Union (UndefinedOr)
@@ -29,6 +30,7 @@ foreign import _cloneNode :: forall node. UndefinedOr Boolean -> node -> Effect 
 foreign import _hasChildNodes :: forall node. node -> Effect Boolean
 foreign import _firstChild :: forall node. node -> Effect (Nullable Node)
 foreign import _lastChild :: forall node. node -> Effect (Nullable Node)
+foreign import _containingShadowRoot :: forall node. node -> Effect (Nullable ShadowRoot)
 
 isConnected :: forall node. Node node => node -> Effect Boolean
 isConnected = _isConnected
@@ -63,3 +65,7 @@ firstChild node = _firstChild node <#> toMaybe
 
 lastChild :: forall node. Node node => node -> Effect (Maybe Node)
 lastChild node = _lastChild node <#> toMaybe
+
+-- The shadow root the node is in, if it is in one: its getRootNode() when that isn't a document.
+containingShadowRoot :: forall node. Node node => node -> Effect (Maybe ShadowRoot)
+containingShadowRoot node = _containingShadowRoot node <#> toMaybe

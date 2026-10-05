@@ -17,3 +17,8 @@ export const _hasChildNodes = (node) => () => node.hasChildNodes()
 export const _firstChild = (node) => () => node.firstChild
 
 export const _lastChild = (node) => () => node.lastChild
+
+export const _containingShadowRoot = (node) => () => {
+    const root = node.getRootNode()
+    return root instanceof ShadowRoot ? root : null
+}
