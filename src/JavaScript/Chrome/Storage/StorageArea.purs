@@ -1,8 +1,9 @@
-module JavaScript.Chrome.Storage.StorageArea (StorageArea, getAll, getByKey, getByKeys, getWithDefault, set, remove)  where
+module JavaScript.Chrome.Storage.StorageArea (StorageArea, getAll, getByKey, getByKeys, getWithDefault, set, setObject, remove)  where
 
 import Prelude
 
 import Foreign (Foreign)
+import Foreign.Object (Object)
 import JavaScript.Error (Error)
 import JavaScript.Promise (Promise)
 import Literals.Undefined (Undefined, undefined)
@@ -29,10 +30,14 @@ getWithDefault :: forall fields. ValidJson (Record fields) =>
     Record fields -> StorageArea -> Promise Error Foreign
 getWithDefault record area = area # _get (cast record :: Undefined |+| String |+| Array String |+| Record fields)
 
-foreign import _set :: forall fields. Record fields -> StorageArea -> Promise Error Unit
+foreign import _set :: forall items. items -> StorageArea -> Promise Error Unit
 
 set :: forall fields. ValidJson (Record fields) => Record fields -> StorageArea -> Promise Error Unit
 set = _set
+
+-- For keys only known at runtime.
+setObject :: forall value. ValidJson value => Object value -> StorageArea -> Promise Error Unit
+setObject = _set
 
 foreign import _remove :: String |+| Array String -> StorageArea -> Promise Error Unit
 
