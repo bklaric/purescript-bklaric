@@ -42,9 +42,12 @@ derive newtype instance (Ord key, Ord value) => Ord (MultiMap key value)
 instance (Ord key) => Ord1 (MultiMap key) where
     compare1 = compare
 
-derive newtype instance (Ord key) => Semigroup (MultiMap key value)
+-- | Appends the values of a key both maps hold.
+instance (Ord key) => Semigroup (MultiMap key value) where
+    append (MultiMap map) (MultiMap map') = MultiMap $ Map.unionWith append map map'
 
-derive newtype instance (Ord key) => Monoid (MultiMap key value)
+instance (Ord key) => Monoid (MultiMap key value) where
+    mempty = empty
 
 derive instance Functor (MultiMap key)
 
