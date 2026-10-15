@@ -15,7 +15,12 @@ export const _documentElement = (document) => () => document.documentElement
 export const _createElement = (tagName) => (document) => () => {
     // Try-catch because createElement throws on empty string.
     try {
-        return document.createElement(tagName)
+        // Outside an HTML document (an SVG or other XML document) createElement makes an
+        // element in no namespace, which has no style and renders as nothing, so the
+        // element is made in the XHTML namespace instead.
+        return document instanceof HTMLDocument
+            ? document.createElement(tagName)
+            : document.createElementNS("http://www.w3.org/1999/xhtml", tagName)
     }
     catch {
         return null

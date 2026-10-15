@@ -26,6 +26,7 @@ foreign import _appendChild :: forall node child. child -> node -> Effect Unit
 foreign import _textContent :: forall node. node -> Effect String
 foreign import _setTextContent :: forall node. String -> node -> Effect Unit
 foreign import _insertBefore :: forall node new reference. new -> reference -> node -> Effect Unit
+foreign import _removeChildren :: forall node. node -> Effect Unit
 foreign import _cloneNode :: forall node. UndefinedOr Boolean -> node -> Effect node
 foreign import _hasChildNodes :: forall node. node -> Effect Boolean
 foreign import _firstChild :: forall node. node -> Effect (Nullable Node)
@@ -49,6 +50,10 @@ setTextContent = _setTextContent
 
 insertBefore :: forall node new reference. Node new => Node reference => Node node => new -> reference -> node -> Effect Unit
 insertBefore = _insertBefore
+
+-- | Remove every child of the node, of any type.
+removeChildren :: forall node. Node node => node -> Effect Unit
+removeChildren = _removeChildren
 
 -- First param is deep or not.
 cloneNode :: forall node. Node node => Boolean -> node -> Effect node

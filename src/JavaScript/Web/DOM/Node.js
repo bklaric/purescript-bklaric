@@ -10,6 +10,8 @@ export const _setTextContent = (string) => (node) => () => node.textContent = st
 
 export const _insertBefore = (new_) => (reference) => (node) => () => node.insertBefore(new_, reference)
 
+export const _removeChildren = (node) => () => node.replaceChildren()
+
 export const _cloneNode = (deep) => (node) => () => node.cloneNode(deep)
 
 export const _hasChildNodes = (node) => () => node.hasChildNodes()
