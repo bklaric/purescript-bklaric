@@ -22,4 +22,6 @@ export const getContextBitmapRendering = (canvas) => () => canvas.getContext('bi
 
 export const drawImage = (image) => (dx) => (dy) => (context) => () => context.drawImage(image, dx, dy)
 
-export const _createImageBitmap = (image) => () => createImageBitmap(image)
+export const _drawImageScaled = (image) => (dx) => (dy) => (dWidth) => (dHeight) => (context) => () =>
+    context.drawImage(image, dx, dy, dWidth, dHeight)
+

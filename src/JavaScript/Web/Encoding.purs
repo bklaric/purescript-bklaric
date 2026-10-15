@@ -1,4 +1,4 @@
-module JavaScript.Web.Encoding (encodeUtf8, decodeBase64) where
+module JavaScript.Web.Encoding (encodeUtf8, encodeBase64, decodeBase64) where
 
 import Data.Either (Either(..))
 import JavaScript.ArrayBuffer (ArrayBuffer)
@@ -9,6 +9,9 @@ import JavaScript.Error (Error)
 
 -- Pure: the bytes depend only on the string, and encoding cannot fail.
 foreign import encodeUtf8 :: String -> ArrayBuffer
+
+-- | Encodes to standard (not URL-safe) base64. Pure for the same reason as `encodeUtf8`.
+foreign import encodeBase64 :: ArrayBuffer -> String
 
 foreign import _decodeBase64 :: (Error -> Either Error ArrayBuffer) -> (ArrayBuffer -> Either Error ArrayBuffer) -> String -> Either Error ArrayBuffer
 

@@ -32,6 +32,7 @@ foreign import _hasChildNodes :: forall node. node -> Effect Boolean
 foreign import _firstChild :: forall node. node -> Effect (Nullable Node)
 foreign import _lastChild :: forall node. node -> Effect (Nullable Node)
 foreign import _containingShadowRoot :: forall node. node -> Effect (Nullable ShadowRoot)
+foreign import _contains :: forall node other. other -> node -> Effect Boolean
 
 isConnected :: forall node. Node node => node -> Effect Boolean
 isConnected = _isConnected
@@ -74,3 +75,7 @@ lastChild node = _lastChild node <#> toMaybe
 -- The shadow root the node is in, if it is in one: its getRootNode() when that isn't a document.
 containingShadowRoot :: forall node. Node node => node -> Effect (Maybe ShadowRoot)
 containingShadowRoot node = _containingShadowRoot node <#> toMaybe
+
+-- | Whether the other node is this node or one of its descendants.
+contains :: forall node other. Node node => Node other => other -> node -> Effect Boolean
+contains = _contains

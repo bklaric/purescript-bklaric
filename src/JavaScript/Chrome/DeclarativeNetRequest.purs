@@ -15,6 +15,7 @@ import Prelude
 import JavaScript.Error (Error)
 import JavaScript.Promise (Promise)
 import Literals (StringLit)
+import Literals.Undefined (Undefined)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|))
 
@@ -33,9 +34,14 @@ type RuleAction =
     , requestHeaders :: Array RequestHeaderModification
     }
 
+-- | Every field is optional; a request matches when it meets all the ones given.
 type RuleCondition =
-    { regexFilter :: String
-    , resourceTypes :: Array String
+    { regexFilter :: Undefined |+| String
+    , urlFilter :: Undefined |+| String
+    , requestDomains :: Undefined |+| Array String
+    , initiatorDomains :: Undefined |+| Array String
+    , resourceTypes :: Undefined |+| Array String
+    , tabIds :: Undefined |+| Array Int
     }
 
 type Rule =

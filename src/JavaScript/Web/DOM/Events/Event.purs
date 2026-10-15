@@ -1,4 +1,4 @@
-module JavaScript.Web.DOM.Events.Event (Event, preventDefault, stopPropagation, stopImmediatePropagation, target, isTrusted, resize, scroll, load, change, domcontentloaded) where
+module JavaScript.Web.DOM.Events.Event (Event, preventDefault, stopPropagation, stopImmediatePropagation, target, isTrusted, composedPath, resize, scroll, load, change, domcontentloaded, copy) where
 
 import Prelude
 
@@ -16,6 +16,13 @@ foreign import _stopPropagation :: forall event. event -> Effect Unit
 foreign import _stopImmediatePropagation :: forall event. event -> Effect Unit
 foreign import _target :: forall event. event -> EventTarget
 foreign import _isTrusted :: forall event. event -> Boolean
+foreign import _composedPath :: forall event. event -> Effect (Array EventTarget)
+
+-- | The targets the event passes through, innermost first. Unlike `target`, the first entry is
+-- | inside any open shadow root the event came from, not the host the event is retargeted to.
+-- | Empty once the event has been dispatched.
+composedPath :: forall event. Event event => event -> Effect (Array EventTarget)
+composedPath = _composedPath
 
 preventDefault :: forall event. Event event => event -> Effect Unit
 preventDefault = _preventDefault
@@ -46,3 +53,8 @@ change = EventType "change"
 
 domcontentloaded :: EventType Event
 domcontentloaded = EventType "DOMContentLoaded"
+
+-- | Fired for the browser's Copy, however it was asked for: the shortcut on any keyboard layout,
+-- | or a menu. Typed as a plain Event, as nothing here reads its `clipboardData`.
+copy :: EventType Event
+copy = EventType "copy"

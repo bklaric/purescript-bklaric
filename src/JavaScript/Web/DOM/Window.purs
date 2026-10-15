@@ -2,8 +2,11 @@ module JavaScript.Web.DOM.Window where
 
 import Prelude
 
+import Data.Maybe (Maybe)
+import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import JavaScript.Web.DOM.Class (class Element, class EventTarget)
+import JavaScript.Web.DOM.Selection (Selection)
 import JavaScript.Web.DOM.CssStyleDeclaration (CssStyleDeclaration)
 import JavaScript.Web.DOM.Document (Document)
 import JavaScript.Web.DOM.Location (Location)
@@ -27,6 +30,12 @@ foreign import localStorage :: Window -> Effect Storage
 
 foreign import innerWidth :: Window -> Effect Int
 foreign import innerHeight :: Window -> Effect Int
+
+foreign import _getSelection :: Window -> Effect (Nullable Selection)
+
+-- | `Nothing` only for a window with no document to select in, such as a hidden iframe's in Firefox.
+getSelection :: Window -> Effect (Maybe Selection)
+getSelection window = _getSelection window <#> toMaybe
 
 foreign import scrollBy :: Int -> Int -> Window -> Effect Unit
 

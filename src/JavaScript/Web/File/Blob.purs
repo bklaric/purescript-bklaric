@@ -1,6 +1,7 @@
 module JavaScript.Web.File.Blob (Blob, new, new_, type_, size) where
 
 import Effect (Effect)
+import JavaScript.ArrayBuffer (ArrayBuffer)
 import Literals.Undefined (undefined)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr)
@@ -9,16 +10,16 @@ import Untagged.Union (type (|+|), UndefinedOr)
 
 foreign import data Blob :: Type
 
-foreign import _new :: UndefinedOr (Array (Blob |+| String)) -> UndefinedOr {type :: UndefinedOr String} -> Effect Blob
+foreign import _new :: UndefinedOr (Array (Blob |+| String |+| ArrayBuffer)) -> UndefinedOr {type :: UndefinedOr String} -> Effect Blob
 
 new :: forall blobParts options.
-    Castable blobParts (UndefinedOr (Array (Blob |+| String))) =>
+    Castable blobParts (UndefinedOr (Array (Blob |+| String |+| ArrayBuffer))) =>
     Castable options (UndefinedOr {type :: UndefinedOr String}) =>
     blobParts -> options -> Effect Blob
 new blobParts options = _new (cast blobParts) (cast options)
 
 new_ :: forall blobParts.
-    Castable blobParts (UndefinedOr (Array (Blob |+| String))) =>
+    Castable blobParts (UndefinedOr (Array (Blob |+| String |+| ArrayBuffer))) =>
     blobParts -> Effect Blob
 new_ blobParts = new blobParts undefined
 

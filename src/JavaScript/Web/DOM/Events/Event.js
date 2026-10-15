@@ -7,3 +7,5 @@ export const _stopImmediatePropagation = (event) => () => event.stopImmediatePro
 export const _target = (event) => event.target
 
 export const _isTrusted = (event) => event.isTrusted
+
+export const _composedPath = (event) => () => event.composedPath()

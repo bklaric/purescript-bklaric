@@ -25,3 +25,5 @@ export const naturalWidth = (image) => () => image.naturalWidth
 export const naturalHeight = (image) => () => image.naturalHeight
 
 export const complete = (image) => () => image.complete
+
+export const decode = (image) => () => image.decode()

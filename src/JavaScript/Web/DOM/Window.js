@@ -14,6 +14,8 @@ export const innerWidth = (window) => () => window.innerWidth
 
 export const innerHeight = (window) => () => window.innerHeight
 
+export const _getSelection = (window) => () => window.getSelection()
+
 export const scrollBy = (x) => (y) => (window) => () => window.scrollBy(x, y)
 
 export const open = (url) => (target) => (features) => (window) => () => window.open(url, target, features)

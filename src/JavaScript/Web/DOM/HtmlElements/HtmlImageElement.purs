@@ -4,6 +4,8 @@ import Prelude
 
 import Data.Maybe (Maybe)
 import Effect (Effect)
+import JavaScript.Error (Error)
+import JavaScript.Promise (Promise)
 import JavaScript.Web.DOM.Class (class Element, class EventTarget, class HtmlElement, class Node)
 import JavaScript.Web.DOM.Utils (unsafeReadProtoTagged)
 
@@ -41,3 +43,7 @@ foreign import crossOrigin :: HtmlImageElement -> Effect String
 foreign import setCrossOrigin :: String -> HtmlImageElement -> Effect Unit
 
 foreign import complete :: HtmlImageElement -> Effect Boolean
+
+-- | Resolves once the image is loaded and decoded, so drawing it paints its pixels; rejects if it
+-- | can't be loaded or decoded.
+foreign import decode :: HtmlImageElement -> Promise Error Unit

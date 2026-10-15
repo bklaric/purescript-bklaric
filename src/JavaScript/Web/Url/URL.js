@@ -31,4 +31,6 @@ export const setHref = (href) => (url) => () => url.href = href
 
 export const createObjectURL = (obj) => () => URL.createObjectURL(obj)
 
+export const revokeObjectURL = (url) => () => URL.revokeObjectURL(url)
+
 export const toString = (url) => () => url.toString()

@@ -24,3 +24,5 @@ export const _containingShadowRoot = (node) => () => {
     const root = node.getRootNode()
     return root instanceof ShadowRoot ? root : null
 }
+
+export const _contains = (other) => (node) => () => node.contains(other)
