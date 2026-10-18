@@ -31,6 +31,8 @@ foreign import localStorage :: Window -> Effect Storage
 foreign import innerWidth :: Window -> Effect Int
 foreign import innerHeight :: Window -> Effect Int
 
+foreign import devicePixelRatio :: Window -> Effect Number
+
 foreign import _getSelection :: Window -> Effect (Nullable Selection)
 
 -- | `Nothing` only for a window with no document to select in, such as a hidden iframe's in Firefox.
