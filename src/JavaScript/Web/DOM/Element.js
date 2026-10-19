@@ -80,4 +80,13 @@ export const _getElementsByClassName = (class_) => (element) => () => element.ge
 
 export const _shadowRoot = (element) => () => element.shadowRoot
 
+export const _attachShadow = (left) => (right) => (element) => () => {
+    try {
+        return right(element.attachShadow({ mode: 'open' }))
+    }
+    catch (ex) {
+        return left(ex)
+    }
+}
+
 export const _animate = (keyframes) => (options) => (element) => () => { element.animate(keyframes, options) }

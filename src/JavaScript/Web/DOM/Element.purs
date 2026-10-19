@@ -181,6 +181,14 @@ tagName = _tagName
 shadowRoot :: forall element. Element element => element -> Effect (Maybe ShadowRoot)
 shadowRoot element = _shadowRoot element <#> toMaybe
 
+foreign import _attachShadow :: forall element. (Error -> Either Error ShadowRoot) -> (ShadowRoot -> Either Error ShadowRoot) -> element -> Effect (Either Error ShadowRoot)
+
+-- | `element.attachShadow({mode: "open"})`: gives the element a shadow root, which keeps the
+-- | element's insides out of reach of the page's stylesheets and its own sheets out of the page.
+-- | Fails for an element that can't host one, or already has one.
+attachShadow :: forall element. Element element => element -> Effect (Either Error ShadowRoot)
+attachShadow element = _attachShadow Left Right element
+
 foreign import _animate :: forall keyframe options element. Array (Record keyframe) -> Record options -> element -> Effect Unit
 
 -- | `element.animate(keyframes, options)`: runs a Web Animations effect on the element without a
