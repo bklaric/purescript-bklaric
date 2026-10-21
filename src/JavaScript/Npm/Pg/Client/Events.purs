@@ -5,6 +5,7 @@ import Prelude
 import Effect (Effect)
 import JavaScript.Node.Events.Event (Event(..))
 import JavaScript.Npm.Pg.Client (Client)
+import JavaScript.Npm.Pg.Error (Error)
 import Untagged.Union (UndefinedOr)
 
 -- https://node-postgres.com/apis/client#events
@@ -25,3 +26,6 @@ end = Event "end"
 
 notice :: Event Client (String -> Effect Unit)
 notice = Event "notice"
+
+error :: Event Client (Error -> Effect Unit)
+error = Event "error"
