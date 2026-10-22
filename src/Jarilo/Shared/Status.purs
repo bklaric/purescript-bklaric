@@ -1,6 +1,6 @@
 module Jarilo.Shared.Status (class StatusCode, statusCode) where
 
-import Jarilo.Types (BadRequest, Forbidden, Internal, NoContent, NotAuthorized, NotFound, Ok, Status)
+import Jarilo.Types (BadRequest, Forbidden, Internal, NoContent, NotAuthorized, NotFound, Ok, Status, TooManyRequests)
 import Type.Proxy (Proxy)
 
 -- | A status's code, and the label its response goes under in a route's
@@ -25,6 +25,9 @@ instance StatusCode Forbidden "forbidden" where
 
 instance StatusCode NotFound "notFound" where
     statusCode _ = 404
+
+instance StatusCode TooManyRequests "tooManyRequests" where
+    statusCode _ = 429
 
 instance StatusCode Internal "internal" where
     statusCode _ = 500

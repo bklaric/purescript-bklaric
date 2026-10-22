@@ -29,6 +29,7 @@ import Yoga.JSON (readJSON_)
 type Answer =
     { status :: Int
     , allow :: Maybe String
+    , retryAfter :: Maybe String
     , contentType :: Maybe String
     , body :: String
     }
@@ -40,8 +41,9 @@ request path options = promiseToAff unsafeCoerce do
     response <- Fetch.fetch (origin <> path) options
     body <- text response
     allow <- liftEffect $ Headers.get "allow" (headers response)
+    retryAfter <- liftEffect $ Headers.get "retry-after" (headers response)
     contentType <- liftEffect $ Headers.get "content-type" (headers response)
-    pure { status: status response, allow, contentType, body }
+    pure { status: status response, allow, retryAfter, contentType, body }
 
 get :: String -> Aff Answer
 get path = request path {}
@@ -76,6 +78,12 @@ spec rejections = describe "Jarilo.Serve" do
         it "is answered with a status its handler chose" do
             answer <- get "/things/missing?count=1"
             answer.status `shouldEqual` 404
+
+        it "is answered 429 with the headers its handler chose" do
+            answer <- get "/limited"
+            answer.status `shouldEqual` 429
+            answer.retryAfter `shouldEqual` Just "30"
+            answer.body `shouldEqual` """{"seconds":30}"""
 
         it "has its path and query decoded" do
             answer <- get "/things/Valorant%54ester?count=1&tag=Europe%2FZagreb&tag=%C3%A9"

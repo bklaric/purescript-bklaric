@@ -73,6 +73,8 @@ type Forbidden body = Types.FullResponse Types.Forbidden body
 
 type NotFound body = Types.FullResponse Types.NotFound body
 
+type TooManyRequests body = Types.FullResponse Types.TooManyRequests body
+
 type Internal body = Types.FullResponse Types.Internal body
 
 -- No body response shortcuts
@@ -87,6 +89,8 @@ type Forbidden_ = Types.FullResponse Types.Forbidden Types.NoBody
 
 type NotFound_ = Types.FullResponse Types.NotFound Types.NoBody
 
+type TooManyRequests_ = Types.FullResponse Types.TooManyRequests Types.NoBody
+
 type Internal_ = Types.FullResponse Types.Internal Types.NoBody
 
 -- Json response shortcuts
@@ -98,6 +102,8 @@ type BadRequestJson body = Types.FullResponse Types.BadRequest (Types.JsonBody b
 type NotAuthorizedJson body = Types.FullResponse Types.NotAuthorized (Types.JsonBody body)
 
 type ForbiddenJson body = Types.FullResponse Types.Forbidden (Types.JsonBody body)
+
+type TooManyRequestsJson body = Types.FullResponse Types.TooManyRequests (Types.JsonBody body)
 
 type InternalJson body = Types.FullResponse Types.Internal (Types.JsonBody body)
 
@@ -123,6 +129,8 @@ type NotAuthorizedRow body responses = (notAuthorized :: AppResponse body | resp
 
 type ForbiddenRow body responses = (forbidden :: AppResponse body | responses)
 
+type TooManyRequestsRow body responses = (tooManyRequests :: AppResponse body | responses)
+
 type InternalRow body responses = (internal :: AppResponse body | responses)
 
 -- Concrete no body response rows
@@ -138,6 +146,8 @@ type NotFoundRow_ responses = NotFoundRow Unit responses
 type NotAuthorizedRow_ responses = NotAuthorizedRow Unit responses
 
 type ForbiddenRow_ responses = ForbiddenRow Unit responses
+
+type TooManyRequestsRow_ responses = TooManyRequestsRow Unit responses
 
 type InternalRow_ responses = InternalRow Unit responses
 
@@ -193,6 +203,15 @@ notFound_ body = notFound mempty body
 
 notFound__ :: ∀ responses. Variant (NotFoundRow_ responses)
 notFound__ = notFound_ unit
+
+tooManyRequests :: ∀ responses body. MultiMap String String -> body -> Variant (TooManyRequestsRow body responses)
+tooManyRequests headers body = inj (Proxy :: _ "tooManyRequests") $ AppResponse headers body
+
+tooManyRequests_ :: ∀ responses body. body -> Variant (TooManyRequestsRow body responses)
+tooManyRequests_ body = tooManyRequests mempty body
+
+tooManyRequests__ :: ∀ responses. Variant (TooManyRequestsRow_ responses)
+tooManyRequests__ = tooManyRequests_ unit
 
 internal :: ∀ responses body. MultiMap String String -> body -> Variant (InternalRow body responses)
 internal headers body = inj (Proxy :: _ "internal") $ AppResponse headers body

@@ -19,7 +19,7 @@ import JavaScript.Promise (Promise)
 import JavaScript.Promise as Promise
 import JavaScript.Promise.Aff (promiseToAff)
 import JavaScript.Web.DOM.AbortController as AbortController
-import Test.Jarilo.Routes (Echo, Thing, origin)
+import Test.Jarilo.Routes (Echo, Limited, Thing, origin)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Type.Proxy (Proxy(..))
@@ -91,6 +91,11 @@ spec = describe "Jarilo.Fetch" do
             fetch (Proxy :: _ Thing) { name: "missing" } { count: 1, tag: [] } unit origin {}
                 # outcome (match { ok: const "ok", notFound: const "notFound" })
                 >>= (_ `shouldEqual` "notFound")
+
+        it "is refused as too many, with its body" do
+            fetch (Proxy :: _ Limited) {} {} unit origin {}
+                # outcome (match { ok: const "ok", tooManyRequests: \{ seconds } -> "wait " <> show seconds })
+                >>= (_ `shouldEqual` "wait 30")
 
         it "sends a JSON body labelled as JSON" do
             result <- settle $ fetch (Proxy :: _ Echo) {} {} { text: "hi" } origin {}

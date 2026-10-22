@@ -83,6 +83,8 @@ foreign import data NotFound :: Status
 
 foreign import data Forbidden :: Status
 
+foreign import data TooManyRequests :: Status
+
 foreign import data Internal :: Status
 
 -- Response

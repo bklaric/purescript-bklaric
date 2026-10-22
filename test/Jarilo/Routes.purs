@@ -3,6 +3,7 @@ module Test.Jarilo.Routes
     ( DeleteThing
     , Echo
     , EchoBody
+    , Limited
     , Thing
     , ThingBody
     , origin
@@ -13,10 +14,11 @@ import Prelude
 
 import Data.Map as Map
 import Data.Maybe (fromMaybe)
+import Data.MultiMap as MultiMap
 import Effect (Effect)
 import Effect.Ref (Ref)
 import Effect.Ref as Ref
-import Jarilo (type (!), type (&), type (/), type (:), type (<|>), type (==>), Capture, Delete_, Get, Get_, Literal, Mandatory, Many, NoContent, NotFound_, OkJson, OkText, PostJson_, noContent_, notFound__, ok_)
+import Jarilo (type (!), type (&), type (/), type (:), type (<|>), type (==>), Capture, Delete_, Get, Get_, Literal, Mandatory, Many, NoContent, NotFound_, OkJson, OkText, Ok_, PostJson_, TooManyRequestsJson, noContent_, notFound__, ok_, tooManyRequests)
 import Jarilo.Serve (Rejection, serve)
 import Type.Proxy (Proxy(..))
 
@@ -42,7 +44,11 @@ type Echo = PostJson_ (Literal "echo") { text :: String } ==> OkJson EchoBody
 
 type Document = Get_ (Literal "document.xml") ==> OkText "application/xml; charset=utf-8"
 
+-- Always refused, with how long to wait in both the header and the body.
+type Limited = Get_ (Literal "limited") ==> Ok_ ! TooManyRequestsJson { seconds :: Int }
+
 type Routes = "thing" : Thing <|> "deleteThing" : DeleteThing <|> "echo" : Echo <|> "document" : Document
+    <|> "limited" : Limited
 
 port :: Int
 port = 8931
@@ -74,4 +80,5 @@ serveRoutes rejections = serve (Proxy :: _ Routes)
         , probe: Map.lookup "x-probe" headers # fromMaybe ""
         }
     , document: const $ pure $ ok_ "<document/>"
+    , limited: const $ pure $ tooManyRequests (MultiMap.singleton' "Retry-After" "30") { seconds: 30 }
     }
