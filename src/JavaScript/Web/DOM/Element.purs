@@ -27,6 +27,7 @@ readElement :: forall object. object -> Maybe Element
 readElement = unsafeReadProtoTagged "Element"
 
 foreign import _getBoundingClientRect :: forall element. element -> Effect DomRect
+foreign import _checkVisibility :: forall element. {opacityProperty :: Boolean, visibilityProperty :: Boolean} -> element -> Effect Boolean
 foreign import _getAttribute :: forall element. String -> element -> Effect (Nullable String)
 foreign import _setAttribute :: forall element. String -> String -> element -> Effect Unit
 foreign import _removeAttribute :: forall element. String -> element -> Effect Unit
@@ -64,6 +65,12 @@ foreign import _shadowRoot :: forall element. element -> Effect (Nullable Shadow
 
 getBoundingClientRect :: forall element. Element element => element -> Effect DomRect
 getBoundingClientRect = _getBoundingClientRect
+
+-- | Whether the element is rendered: false for one under `display: none` or `content-visibility`
+-- | that skips it, and with the options set, for one that is `visibility: hidden` or fully
+-- | transparent too. Says nothing of whether it is scrolled into view or covered by another.
+checkVisibility :: forall element. Element element => {opacityProperty :: Boolean, visibilityProperty :: Boolean} -> element -> Effect Boolean
+checkVisibility = _checkVisibility
 
 getAttribute :: forall element. Element element => String -> element -> Effect (Maybe String)
 getAttribute attribute element = _getAttribute attribute element <#> toMaybe

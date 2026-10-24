@@ -3,6 +3,8 @@ export const _getBoundingClientRect = (element) => () => {
     return rect
 }
 
+export const _checkVisibility = (options) => (element) => () => element.checkVisibility(options)
+
 export const _getAttribute = (attribute) => (element) => () => element.getAttribute(attribute)
 
 export const _setAttribute = (name) => (value) => (element) => () => element.setAttribute(name, value)
