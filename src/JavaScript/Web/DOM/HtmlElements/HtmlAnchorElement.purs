@@ -22,3 +22,7 @@ readHtmlAnchorElement = unsafeReadProtoTagged "HTMLAnchorElement"
 
 foreign import href :: HtmlAnchorElement -> Effect String
 foreign import setHref :: String -> HtmlAnchorElement -> Effect Unit
+
+-- | The file name a click on the link saves its target under, rather than navigating to it. A
+-- | browser honours it only for a same-origin, blob: or data: url.
+foreign import setDownload :: String -> HtmlAnchorElement -> Effect Unit

@@ -8,6 +8,7 @@ import Effect (Effect)
 import JavaScript.Web.DOM.Class (class EventTarget, class Node)
 import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
+import JavaScript.Web.DOM.HtmlElements.HtmlAnchorElement (HtmlAnchorElement)
 import JavaScript.Web.DOM.HtmlElements.HTMLIFrameElement (HtmlIframeElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlBodyElement (HtmlBodyElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlButtonElement (HtmlButtonElement)
@@ -150,6 +151,9 @@ createElementParagraph document = document # _createElement "p" <#> unsafeCoerce
 
 createElementB :: Document -> Effect HtmlElement
 createElementB document = document # _createElement "b" <#> unsafeCoerce
+
+createElementAnchor :: Document -> Effect HtmlAnchorElement
+createElementAnchor document = document # _createElement "a" <#> unsafeCoerce
 
 createElementLink :: Document -> Effect HtmlLinkElement
 createElementLink document = document # _createElement "link" <#> unsafeCoerce
