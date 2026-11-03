@@ -1,4 +1,4 @@
-module JavaScript.Chrome.Runtime.MessageSender (MessageSender, tab, url) where
+module JavaScript.Chrome.Runtime.MessageSender (MessageSender, frameId, tab, url) where
 
 import Prelude
 
@@ -20,3 +20,9 @@ foreign import _url :: MessageSender -> Nullable String
 -- | The url of the page or frame that sent the message: the frame's own, not its tab's.
 url :: MessageSender -> Maybe String
 url messageSender = _url messageSender # toMaybe
+
+foreign import _frameId :: MessageSender -> Nullable Int
+
+-- | The frame that sent the message, when it came from a tab: 0 for the top frame.
+frameId :: MessageSender -> Maybe Int
+frameId messageSender = _frameId messageSender # toMaybe
