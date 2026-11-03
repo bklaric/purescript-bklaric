@@ -1,3 +1,5 @@
+export const setTitle = (title) => (document) => () => document.title = title
+
 export const _querySelector = (selector) => (document) => () => document.querySelector(selector)
 
 export const querySelectorAll = (selector) => (document) => () => document.querySelectorAll(selector)

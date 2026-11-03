@@ -23,6 +23,7 @@ import JavaScript.Web.DOM.HtmlElements.HtmlOptionElement (HtmlOptionElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlParagraphElement (HtmlParagraphElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSelectElement (HtmlSelectElement)
 import JavaScript.Web.DOM.HtmlElements.HtmlSpanElement (HtmlSpanElement)
+import JavaScript.Web.DOM.HtmlElements.HtmlVideoElement (HtmlVideoElement)
 import JavaScript.Web.DOM.NodeList (NodeList)
 import JavaScript.Web.DOM.Utils (toArray, toArrayDefault)
 import JavaScript.Web.WebAnimations.DocumentTimeline (DocumentTimeline)
@@ -36,6 +37,8 @@ foreign import data Document :: Type
 instance EventTarget Document
 
 instance Node Document
+
+foreign import setTitle :: String -> Document -> Effect Unit
 
 foreign import _querySelector :: String -> Document -> Effect (Nullable Element)
 
@@ -124,6 +127,9 @@ createElementIframe document = document # _createElement "iframe" <#> unsafeCoer
 
 createElementImage :: Document -> Effect HtmlImageElement
 createElementImage document = document # _createElement "img" <#> unsafeCoerce
+
+createElementVideo :: Document -> Effect HtmlVideoElement
+createElementVideo document = document # _createElement "video" <#> unsafeCoerce
 
 createElementDiv :: Document -> Effect HtmlDivElement
 createElementDiv document = document # _createElement "div" <#> unsafeCoerce
