@@ -32,6 +32,8 @@ export const duration = (video) => () => video.duration
 
 export const paused = (video) => () => video.paused
 
+export const seeking = (video) => () => video.seeking
+
 export const play = (video) => () => video.play()
 
 export const pause = (video) => () => video.pause()

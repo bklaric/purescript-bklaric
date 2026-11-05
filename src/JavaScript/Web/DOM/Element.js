@@ -95,4 +95,6 @@ export const _attachShadow = (left) => (right) => (element) => () => {
 
 export const _animate = (keyframes) => (options) => (element) => () => { element.animate(keyframes, options) }
 
+export const _animateAnswering =(keyframes) => (options) => (element) => () => element.animate(keyframes, options)
+
 export const _requestFullscreen = (element) => () => element.requestFullscreen()

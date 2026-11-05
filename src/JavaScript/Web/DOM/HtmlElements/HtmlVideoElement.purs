@@ -54,6 +54,8 @@ foreign import duration :: HtmlVideoElement -> Effect Number
 
 foreign import paused :: HtmlVideoElement -> Effect Boolean
 
+foreign import seeking :: HtmlVideoElement -> Effect Boolean
+
 -- | Rejects when playback isn't allowed (the autoplay policy) or the source can't play.
 foreign import play :: HtmlVideoElement -> Promise Error Unit
 

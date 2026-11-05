@@ -8,6 +8,7 @@ import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import JavaScript.Error (Error)
 import JavaScript.Promise (Promise)
+import JavaScript.Web.DOM.Animation (Animation)
 import JavaScript.Web.DOM.Class (class Element, class Node)
 import JavaScript.Web.DOM.DomRect (DomRect)
 import JavaScript.Web.DOM.DomTokenList (DomTokenList)
@@ -208,6 +209,12 @@ foreign import _animate :: forall keyframe options element. Array (Record keyfra
 -- | `Animation` is dropped; the effect ends when its options say so, or with the element.
 animate :: forall element keyframe options. Element element => Array (Record keyframe) -> Record options -> element -> Effect Unit
 animate = _animate
+
+foreign import _animateAnswering :: forall keyframe options element. Array (Record keyframe) -> Record options -> element -> Effect Animation
+
+-- | `element.animate(keyframes, options)`, answering with the `Animation`, to cancel it by.
+animate' :: forall element keyframe options. Element element => Array (Record keyframe) -> Record options -> element -> Effect Animation
+animate' = _animateAnswering
 
 foreign import _requestFullscreen :: forall element. element -> Promise Error Unit
 
