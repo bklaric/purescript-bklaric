@@ -5,6 +5,8 @@ import Prelude
 import Data.Maybe (Maybe, fromJust)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
+import JavaScript.Error (Error)
+import JavaScript.Promise (Promise)
 import JavaScript.Web.DOM.Class (class EventTarget, class Node)
 import JavaScript.Web.DOM.ElementType (Element)
 import JavaScript.Web.DOM.HtmlCollection (HtmlCollection)
@@ -112,6 +114,26 @@ activeElement :: Document -> Effect (Maybe Element)
 activeElement document = _activeElement document <#> toMaybe
 
 foreign import hasFocus :: Document -> Effect Boolean
+
+foreign import _fullscreenElement :: Document -> Effect (Nullable Element)
+
+-- | The element shown full screen, if one is.
+fullscreenElement :: Document -> Effect (Maybe Element)
+fullscreenElement document = _fullscreenElement document <#> toMaybe
+
+-- | Rejects when nothing is full screen.
+foreign import exitFullscreen :: Document -> Promise Error Unit
+
+-- | Whether the page may show a video picture-in-picture: false where the browser has no such
+-- | API (Firefox) or the page's permissions policy refuses it.
+foreign import pictureInPictureEnabled :: Document -> Effect Boolean
+
+foreign import _pictureInPictureElement :: Document -> Effect (Nullable Element)
+
+pictureInPictureElement :: Document -> Effect (Maybe Element)
+pictureInPictureElement document = _pictureInPictureElement document <#> toMaybe
+
+foreign import exitPictureInPicture :: Document -> Promise Error Unit
 
 foreign import readyState :: Document -> Effect (StringLit "loading" |+| StringLit "interactive" |+| StringLit "complete")
 

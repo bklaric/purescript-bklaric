@@ -37,3 +37,22 @@ export const play = (video) => () => video.play()
 export const pause = (video) => () => video.pause()
 
 export const load = (video) => () => video.load()
+
+export const volume = (video) => () => video.volume
+
+export const setVolume = (volume) => (video) => () => video.volume = volume
+
+export const playbackRate = (video) => () => video.playbackRate
+
+export const setPlaybackRate = (rate) => (video) => () => video.playbackRate = rate
+
+export const buffered = (video) => () => {
+    const ranges = []
+    for (let index = 0; index < video.buffered.length; index++)
+        ranges.push({ start: video.buffered.start(index), end: video.buffered.end(index) })
+    return ranges
+}
+
+export const disablePictureInPicture = (video) => () => !!video.disablePictureInPicture
+
+export const requestPictureInPicture = (video) => () => video.requestPictureInPicture().then(() => {})

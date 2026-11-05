@@ -31,6 +31,8 @@ export const _scrollWidth = (element) => () => element.scrollWidth
 
 export const _scrollHeight = (element) => () => element.scrollHeight
 
+export const _clientWidth = (element) => () => element.clientWidth
+
 export const _scrollTop = (element) => () => element.scrollTop
 
 export const _scrollLeft = (element) => () => element.scrollLeft
@@ -92,3 +94,5 @@ export const _attachShadow = (left) => (right) => (element) => () => {
 }
 
 export const _animate = (keyframes) => (options) => (element) => () => { element.animate(keyframes, options) }
+
+export const _requestFullscreen = (element) => () => element.requestFullscreen()

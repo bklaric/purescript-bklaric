@@ -7,6 +7,7 @@ import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Effect (Effect)
 import JavaScript.Error (Error)
+import JavaScript.Promise (Promise)
 import JavaScript.Web.DOM.Class (class Element, class Node)
 import JavaScript.Web.DOM.DomRect (DomRect)
 import JavaScript.Web.DOM.DomTokenList (DomTokenList)
@@ -40,6 +41,7 @@ foreign import _insertAdjacentElement :: forall adjacentElement element. StringL
 foreign import _replaceWith :: forall node element. node -> element -> Effect Unit
 foreign import _scrollWidth :: forall element. element -> Effect Int
 foreign import _scrollHeight :: forall element. element -> Effect Int
+foreign import _clientWidth :: forall element. element -> Effect Int
 foreign import _scrollTop :: forall element. element -> Effect Int
 foreign import _scrollLeft :: forall element. element -> Effect Int
 foreign import _setScrollTop :: forall element. Int -> element -> Effect Unit
@@ -109,6 +111,9 @@ scrollWidth = _scrollWidth
 
 scrollHeight :: forall element. Element element => element -> Effect Int
 scrollHeight = _scrollHeight
+
+clientWidth :: forall element. Element element => element -> Effect Int
+clientWidth = _clientWidth
 
 scrollTop :: forall element. Element element => element -> Effect Int
 scrollTop = _scrollTop
@@ -203,3 +208,9 @@ foreign import _animate :: forall keyframe options element. Array (Record keyfra
 -- | `Animation` is dropped; the effect ends when its options say so, or with the element.
 animate :: forall element keyframe options. Element element => Array (Record keyframe) -> Record options -> element -> Effect Unit
 animate = _animate
+
+foreign import _requestFullscreen :: forall element. element -> Promise Error Unit
+
+-- | Rejects without the user's input, or where the page's permissions policy refuses it.
+requestFullscreen :: forall element. Element element => element -> Promise Error Unit
+requestFullscreen = _requestFullscreen

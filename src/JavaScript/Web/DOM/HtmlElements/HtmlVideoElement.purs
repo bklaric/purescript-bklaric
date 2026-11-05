@@ -60,3 +60,18 @@ foreign import play :: HtmlVideoElement -> Promise Error Unit
 foreign import pause :: HtmlVideoElement -> Effect Unit
 
 foreign import load :: HtmlVideoElement -> Effect Unit
+
+-- | 0 to 1.
+foreign import volume :: HtmlVideoElement -> Effect Number
+foreign import setVolume :: Number -> HtmlVideoElement -> Effect Unit
+
+foreign import playbackRate :: HtmlVideoElement -> Effect Number
+foreign import setPlaybackRate :: Number -> HtmlVideoElement -> Effect Unit
+
+-- | The `buffered` time ranges, in seconds.
+foreign import buffered :: HtmlVideoElement -> Effect (Array {start :: Number, end :: Number})
+
+foreign import disablePictureInPicture :: HtmlVideoElement -> Effect Boolean
+
+-- | Rejects where picture-in-picture isn't allowed or supported.
+foreign import requestPictureInPicture :: HtmlVideoElement -> Promise Error Unit

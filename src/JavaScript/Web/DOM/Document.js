@@ -44,6 +44,16 @@ export const _activeElement = (document) => () => document.activeElement
 
 export const hasFocus = (document) => () => document.hasFocus()
 
+export const _fullscreenElement = (document) => () => document.fullscreenElement ?? null
+
+export const exitFullscreen = (document) => () => document.exitFullscreen()
+
+export const pictureInPictureEnabled = (document) => () => !!document.pictureInPictureEnabled
+
+export const _pictureInPictureElement = (document) => () => document.pictureInPictureElement ?? null
+
+export const exitPictureInPicture = (document) => () => document.exitPictureInPicture()
+
 export const readyState = (document) => () => document.readyState
 
 export const timeline = (document) => () => document.timeline
