@@ -1,4 +1,4 @@
-module JavaScript.Web.DOM.ShadowRoot (ShadowRoot, elementFromPoint) where
+module JavaScript.Web.DOM.ShadowRoot (ShadowRoot, elementFromPoint, host) where
 
 import Prelude
 
@@ -25,3 +25,6 @@ foreign import _elementFromPoint :: Int -> Int -> ShadowRoot -> Effect (Nullable
 -- | `Nothing` if the point is outside the viewport.
 elementFromPoint :: Int -> Int -> ShadowRoot -> Effect (Maybe Element)
 elementFromPoint x y root = _elementFromPoint x y root <#> toMaybe
+
+-- | The element the root is attached to. Fixed for the root's life, so no `Effect`.
+foreign import host :: ShadowRoot -> Element
