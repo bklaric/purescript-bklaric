@@ -1,14 +1,13 @@
-module JavaScript.Chrome.WebNavigation where
+module JavaScript.Chrome.WebNavigation (OnBeforeNavigateDetails, onBeforeNavigate, OnCommittedDetails, onCommitted, OnCompletedDetails, onCompleted, OnHistoryStateUpdatedDetails, onHistoryStateUpdated) where
 
 import Prelude
 
 import Effect (Effect)
+import JavaScript.Chrome.Shared.Event (Event)
 
-foreign import data EventListener :: Type -> Type
+-- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webNavigation
 
-foreign import toEventListener :: forall event. (event -> Effect Unit) -> Effect (EventListener event)
-
-type OnBeforeNavigate =
+type OnBeforeNavigateDetails =
     { tabId :: Int
     , url :: String
     , frameId :: Int
@@ -16,12 +15,9 @@ type OnBeforeNavigate =
     , timeStamp :: Number
     }
 
-foreign import onBeforeNavigateAddListener :: EventListener OnBeforeNavigate -> Effect Unit
+foreign import onBeforeNavigate :: Event "webNavigation.onBeforeNavigate" (OnBeforeNavigateDetails -> Effect Unit)
 
-onBeforeNavigateAddListener' :: (OnBeforeNavigate -> Effect Unit) -> Effect Unit
-onBeforeNavigateAddListener' listener = toEventListener listener >>= onBeforeNavigateAddListener
-
-type OnCommitted =
+type OnCommittedDetails =
     { tabId :: Int
     , url :: String
     , frameId :: Int
@@ -31,31 +27,22 @@ type OnCommitted =
     , transitionQualifiers :: Array String
     }
 
-foreign import onCommittedAddListener :: EventListener OnCommitted -> Effect Unit
+foreign import onCommitted :: Event "webNavigation.onCommitted" (OnCommittedDetails -> Effect Unit)
 
-onCommittedAddListener' :: (OnCommitted -> Effect Unit) -> Effect Unit
-onCommittedAddListener' listener = toEventListener listener >>= onCommittedAddListener
-
-type OnCompleted =
+type OnCompletedDetails =
     { tabId :: Int
     , url :: String
     , frameId :: Int
     , timeStamp :: Number
     }
 
-foreign import onCompletedAddListener :: EventListener OnCompleted -> Effect Unit
+foreign import onCompleted :: Event "webNavigation.onCompleted" (OnCompletedDetails -> Effect Unit)
 
-onCompletedAddListener' :: (OnCompleted -> Effect Unit) -> Effect Unit
-onCompletedAddListener' listener = toEventListener listener >>= onCompletedAddListener
-
-type OnHistoryStateUpdated =
+type OnHistoryStateUpdatedDetails =
     { tabId :: Int
     , url :: String
     , frameId :: Int
     , timeStamp :: Number
     }
 
-foreign import onHistoryStateUpdatedAddListener :: EventListener OnHistoryStateUpdated -> Effect Unit
-
-onHistoryStateUpdatedAddListener' :: (OnHistoryStateUpdated -> Effect Unit) -> Effect Unit
-onHistoryStateUpdatedAddListener' listener = toEventListener listener >>= onHistoryStateUpdatedAddListener
+foreign import onHistoryStateUpdated :: Event "webNavigation.onHistoryStateUpdated" (OnHistoryStateUpdatedDetails -> Effect Unit)

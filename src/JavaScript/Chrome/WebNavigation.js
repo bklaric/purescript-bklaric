@@ -1,13 +1,7 @@
-export const toEventListener = (listener) => () => (event) => listener(event)()
+export const onBeforeNavigate = chrome.webNavigation.onBeforeNavigate
 
-export const onBeforeNavigateAddListener = (listener) => () =>
-    chrome.webNavigation.onBeforeNavigate.addListener(listener)
+export const onCommitted = chrome.webNavigation.onCommitted
 
-export const onCommittedAddListener = (listener) => () =>
-    chrome.webNavigation.onCommitted.addListener(listener)
+export const onCompleted = chrome.webNavigation.onCompleted
 
-export const onCompletedAddListener = (listener) => () =>
-    chrome.webNavigation.onCompleted.addListener(listener)
-
-export const onHistoryStateUpdatedAddListener = (listener) => () =>
-    chrome.webNavigation.onHistoryStateUpdated.addListener(listener)
+export const onHistoryStateUpdated = chrome.webNavigation.onHistoryStateUpdated
