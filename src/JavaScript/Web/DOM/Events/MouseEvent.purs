@@ -81,3 +81,6 @@ mouseup = EventType "mouseup"
 
 click :: EventType MouseEvent
 click = EventType "click"
+
+dblclick :: EventType MouseEvent
+dblclick = EventType "dblclick"
