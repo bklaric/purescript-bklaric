@@ -33,6 +33,10 @@ foreign import innerHeight :: Window -> Effect Int
 
 foreign import devicePixelRatio :: Window -> Effect Number
 
+-- | Whether the window's document is a secure context. Outside one, `navigator.clipboard` and
+-- | `ClipboardItem` don't exist, among other APIs.
+foreign import isSecureContext :: Window -> Effect Boolean
+
 foreign import _getSelection :: Window -> Effect (Nullable Selection)
 
 -- | `Nothing` only for a window with no document to select in, such as a hidden iframe's in Firefox.

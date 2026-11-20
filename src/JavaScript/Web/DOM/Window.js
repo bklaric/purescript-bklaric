@@ -16,6 +16,8 @@ export const innerHeight = (window) => () => window.innerHeight
 
 export const devicePixelRatio = (window) => () => window.devicePixelRatio
 
+export const isSecureContext = (window) => () => window.isSecureContext
+
 export const _getSelection = (window) => () => window.getSelection()
 
 export const scrollBy = (x) => (y) => (window) => () => window.scrollBy(x, y)
